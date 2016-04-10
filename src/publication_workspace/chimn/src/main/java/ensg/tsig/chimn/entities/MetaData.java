@@ -12,10 +12,10 @@ public class MetaData {
 	    private Long id;
 	    private String title;
 	    private String license;
-	    private String _created;
-	    private String _modified;
+	    private String created;
+	    private String modified;
 	    private boolean changed;
-	    private boolean _deleted;
+	    private boolean deleted;
 	    private boolean asked;
 	    private String idisogeo;
 	    
@@ -24,11 +24,11 @@ public class MetaData {
 			super();
 			this.title = title;
 			this.license = license;
-			this._created = _created;
-			this._modified = _modified;
+			this.created = _created;
+			this.modified = _modified;
 			this.changed = true;
 			this.asked=true;
-			this._deleted = _deleted;
+			this.deleted = _deleted;
 			this.idisogeo = idisogeo;
 		}
 
@@ -78,27 +78,27 @@ public class MetaData {
 		}
 
 		public String get_modified() {
-			return _modified;
+			return modified;
 		}
 
 		public void set_modified(String _modified) {
-			this._modified = _modified;
+			this.modified = _modified;
 		}
 
 		public String get_created() {
-			return _created;
+			return created;
 		}
 
 		public void set_created(String _created) {
-			this._created = _created;
+			this.created = _created;
 		}
 
 		public boolean is_deleted() {
-			return _deleted;
+			return deleted;
 		}
 
 		public void set_deleted(boolean _deleted) {
-			this._deleted = _deleted;
+			this.deleted = _deleted;
 		}
 
 		public boolean isAsked() {

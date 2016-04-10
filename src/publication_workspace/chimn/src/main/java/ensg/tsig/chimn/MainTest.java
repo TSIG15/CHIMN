@@ -26,9 +26,12 @@ public class MainTest {
 		publisher.initializeParameters();
 		System.out.println(publisher.getParameters().toString());
 		//test connexion to geoserver
-		if(publisher.setDataSource())
+		/*if(publisher.setDataSource())
 			System.out.println("connexion to geoserver ok ");
 		else 
-			System.out.println("connexion to geoserver KO :/ ");
+			System.out.println("connexion to geoserver KO :/ ");*/
+		//test getting appropriate layers for publisher
+		
+		publisher.publish();
 	}
 }
