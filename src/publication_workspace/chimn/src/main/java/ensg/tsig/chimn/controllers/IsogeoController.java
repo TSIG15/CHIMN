@@ -150,7 +150,7 @@ public  class IsogeoController {
 	    	
 	    }
 	    
-	public void search_metadata_from_isogeo(String query,String subResources, String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset, String wholeShare, String prot)
+	public boolean search_metadata_from_isogeo(String query,String subResources, String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset, String wholeShare, String prot)
 	    {
 	    	HttpClient client = new DefaultHttpClient();
 	    	HttpResponse response;
@@ -231,35 +231,42 @@ public  class IsogeoController {
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							return false;
 						}
 						 
 						} catch (ClientProtocolException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							return false;
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							return false;
 						}
 			    	
 					} catch (KeyManagementException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						return false;
 					} catch (UnrecoverableKeyException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						return false;
 					} catch (NoSuchAlgorithmException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						return false;
 					} catch (KeyStoreException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						return false;
 					}
 					
-			
+			return true;
 	    
 	    }
 	
-	public void setHistoricalMetaData()
+	public boolean setHistoricalMetaData()
     {
     	//0) initiate context for crud operations
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
@@ -268,7 +275,8 @@ public  class IsogeoController {
  
     	
     	//1) search metadata that verify criteria (keywords, owner)
-    			search_metadata_from_isogeo("", "conditions", "", "", "", "", "", "", 0, "", "");
+    	if(!search_metadata_from_isogeo("", "conditions", "", "", "", "", "", "3", 0, "", ""))
+    		return false;
     	
     	//2)  update the table "metadata": 
     		//2-1 create metadata if doesn't exist
@@ -298,6 +306,7 @@ public  class IsogeoController {
     					}
     			}
     			context.close();
+    			return true;
     }
     
 	   

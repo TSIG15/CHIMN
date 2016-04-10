@@ -16,6 +16,7 @@ public class MetaData {
 	    private String _modified;
 	    private boolean changed;
 	    private boolean _deleted;
+	    private boolean asked;
 	    private String idisogeo;
 	    
 	    public MetaData(String title, String license, String _created, String _modified, 
@@ -26,12 +27,13 @@ public class MetaData {
 			this._created = _created;
 			this._modified = _modified;
 			this.changed = true;
+			this.asked=true;
 			this._deleted = _deleted;
 			this.idisogeo = idisogeo;
 		}
 
 		public MetaData() {
-			this.changed = true;
+			
 		}
 	 
 	  
@@ -97,6 +99,14 @@ public class MetaData {
 
 		public void set_deleted(boolean _deleted) {
 			this._deleted = _deleted;
+		}
+
+		public boolean isAsked() {
+			return asked;
+		}
+
+		public void setAsked(boolean asked) {
+			this.asked = asked;
 		}
 	}
 
