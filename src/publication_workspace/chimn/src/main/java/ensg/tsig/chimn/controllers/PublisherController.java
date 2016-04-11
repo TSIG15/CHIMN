@@ -141,18 +141,21 @@ public class PublisherController {
                 "applicationContext.xml");
     	MetaDataDao dao = context.getBean(MetaDataDao.class);
     	List<MetaData> layers=dao.findByAskedAndChangedAndLicense(true, true, license);
-    	//List<MetaData> layers=dao.findByAsked(true);
+    	
     	layersName=new ArrayList<String>();
+    	
     	String title;
     	for(int i=0;i<layers.size();i++)
     		{   
     			System.out.println(layers.get(i).isAsked());
+    			
+    			
     			title=layers.get(i).getName();
     			//get only table's name
     			layersName.add(title.substring(title.lastIndexOf(".") + 1));
     			System.out.println(title.substring(title.lastIndexOf(".") + 1));
-    			layers.get(i).setAsked(false);
-    			System.out.println(layers.get(i).isAsked());
+    			
+    			//layers.get(i).setAsked(false);;
     		}
     	
     	context.close();

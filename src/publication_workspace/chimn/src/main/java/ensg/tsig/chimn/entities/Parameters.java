@@ -26,6 +26,9 @@ public class Parameters {
 	private String gsport;
 	private String gsuser;
 	private String gspsw;
+	private String isid;
+	private String issecret;
+	private String isgroupetravail;
 	
 	
 	
@@ -95,6 +98,24 @@ public class Parameters {
 		return "Parameters [id=" + id + ", dbhote=" + dbhote + ", dbport=" + dbport + ", dbuser=" + dbuser + ", dbpsw="
 				+ dbpsw + ", dbname=" + dbname + ", gshote=" + gshote + ", gsport=" + gsport + ", gsuser=" + gsuser
 				+ ", gspsw=" + gspsw + "]";
+	}
+	public String getIsid() {
+		return isid;
+	}
+	public void setIsid(String isid) {
+		this.isid = isid;
+	}
+	public String getIssecret() {
+		return issecret;
+	}
+	public void setIssecret(String issecret) {
+		this.issecret = issecret;
+	}
+	public String getIsgroupetravail() {
+		return isgroupetravail;
+	}
+	public void setIsgroupetravail(String isgroupetravail) {
+		this.isgroupetravail = isgroupetravail;
 	}
 	
 }

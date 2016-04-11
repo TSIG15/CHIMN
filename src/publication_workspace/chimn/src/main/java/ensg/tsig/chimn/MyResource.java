@@ -3,7 +3,13 @@ package ensg.tsig.chimn;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import ensg.tsig.chimn.dao.ParametersDao;
+import ensg.tsig.chimn.entities.Parameters;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -19,7 +25,22 @@ public class MyResource {
      */
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
-        return "Got it!";
+    public String getIt(@QueryParam("idI") String id,@QueryParam("secretI") String sec,@QueryParam("groupeTI") String groupe) {
+        
+    	Parameters myParam=new Parameters();
+    	myParam.setIsid(id);
+    	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml");
+    	ParametersDao dao = context.getBean(ParametersDao.class);
+    	dao.save(myParam);
+    	
+    	
+    	
+    	context.close();
+    	
+    	
+    	
+    	return "Got it!"+id;
+        
     }
 }

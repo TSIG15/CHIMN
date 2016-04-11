@@ -14,15 +14,15 @@ public class MainTest {
 	public static void main(String[] args) {
 		
 		////Test IsoGeo
-   /* IsogeoController isogeo=new IsogeoController("projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0","jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd");
+    IsogeoController isogeo=new IsogeoController("projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0","jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd");
     System.out.println("credential encoded: "+isogeo.getCredentialsEncoded());
     isogeo.getToken();
     System.out.println("token type: "+isogeo.getToken_type());
     System.out.println("token access: "+isogeo.getAccess_token());
     
-    isogeo.setHistoricalMetaData();*/
+    isogeo.setHistoricalMetaData();
 		//test getting parameters for publisher
-		PublisherController publisher=new PublisherController();
+		/*PublisherController publisher=new PublisherController();
 		publisher.initializeParameters();
 		System.out.println(publisher.getParameters().toString());
 		//test connexion to geoserver
@@ -32,6 +32,6 @@ public class MainTest {
 			System.out.println("connexion to geoserver KO :/ ");*/
 		//test getting appropriate layers for publisher
 		
-		publisher.publish();
+		//publisher.publish();*/
 	}
 }

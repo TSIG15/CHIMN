@@ -3,6 +3,8 @@ package ensg.tsig.chimn.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.springframework.transaction.annotation.Transactional;
  
 @Entity
 public class MetaData {
@@ -36,7 +38,7 @@ public class MetaData {
 			
 		}
 	 
-	  
+	
 	     
 	    public Long getId() {
 	        return id;

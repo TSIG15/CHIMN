@@ -273,9 +273,16 @@ public  class IsogeoController {
                 "applicationContext.xml");
         MetaDataDao dao = context.getBean(MetaDataDao.class);
  
-    	
+    	//set all metadata.asked in db to false
+        List<MetaData> temList=dao.findAll();
+        for(int i=0;i<temList.size();i++)
+        {
+        	temList.get(i).setAsked(false);
+        	dao.save(temList.get(i));
+        }
+        
     	//1) search metadata that verify criteria (keywords, owner)
-    	if(!search_metadata_from_isogeo("", "conditions", "", "", "", "", "", "3", 0, "", ""))
+    	if(!search_metadata_from_isogeo("", "conditions", "", "", "", "", "", "", 0, "", ""))
     		return false;
     	
     	//2)  update the table "metadata": 
@@ -292,16 +299,25 @@ public  class IsogeoController {
     				else
     					{	
     						//metadata is not modified
-    						if(lm.get(0).get_modified()==gross_metadata.get(i).get_modified())
-    							lm.get(0).setChanged(false);
-    						else  //2-2 update attributes : _modified, _deleted,_licence
+    						if(lm.get(0).get_modified().equals(gross_metadata.get(i).get_modified()))
+    							{
+    								lm.get(0).setChanged(false);
+    								lm.get(0).setAsked(true);
+        							
+        							
+    							}
+    						else  //2-2 update attributes : _modified, _deleted,_licence, asked
     						{
+    							
     							lm.get(0).setChanged(true);
     							lm.get(0).set_modified(gross_metadata.get(i).get_modified());
     							lm.get(0).set_deleted(gross_metadata.get(i).is_deleted());
-    							lm.get(0).setlicense(gross_metadata.get(0).getlicense());
+    							lm.get(0).setlicense(gross_metadata.get(i).getlicense());
+    							lm.get(0).setAsked(true);
+    							
     							
     						}
+    						dao.save(lm.get(0));
     				
     					}
     			}
