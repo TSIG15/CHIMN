@@ -1,5 +1,7 @@
 package ensg.tsig.chimn;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -8,11 +10,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.json.simple.JSONArray;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import ensg.tsig.chimn.controllers.IsogeoController;
 import ensg.tsig.chimn.dao.ParametersDao;
 import ensg.tsig.chimn.entities.Parameters;
 
@@ -77,6 +82,19 @@ public class MyResource {
     	
     	/*return "Got it ! "+ id + "; "+ sec + "; " + groupe;*/
         
+    }
+    
+    @GET
+    @Path("/tags/")
+    @Produces( MediaType.TEXT_PLAIN)
+    public String  getTags()
+    {
+    	 IsogeoController isogeo=new IsogeoController("projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0","jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd");
+    	 isogeo.getToken();
+    	 if( isogeo.initializeTags())
+    		 return isogeo.getTags().toString();
+    	 return null;
+    
     }
     
 }
