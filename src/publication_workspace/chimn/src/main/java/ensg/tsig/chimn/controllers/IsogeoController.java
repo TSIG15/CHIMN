@@ -30,6 +30,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -49,6 +50,7 @@ public  class IsogeoController {
     private  String token_type;
     
     private  List<MetaData> gross_metadata=new ArrayList<MetaData>() ;
+    private List<String> tags=new ArrayList<String>();
     
     
 	/**
@@ -149,14 +151,90 @@ public  class IsogeoController {
 
 	    	
 	    }
-	    
-	public boolean search_metadata_from_isogeo(String query,String subResources, String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset, String wholeShare, String prot)
+	    //deprecated : should be replaced by a tag as an entity
+	public boolean initializeTags()
+	{
+		
+		JSONObject jsonObject=search_metadata_from_isogeo("", "", "", "", "", "", "", "", 0, "", "");
+						
+						
+						String str_tags = jsonObject.get("tags").toString();
+						JSONObject jsonTags;
+						try {
+							jsonTags = (JSONObject)new JSONParser().parse(str_tags);
+							System.out.println("voici keywords : "+jsonTags);
+							System.out.println("voici tags values  : "+jsonTags.values());
+							//get all keywords ????
+							Iterator i=jsonTags.values().iterator();
+							String tagValue;
+							while(i.hasNext())
+								{
+								tagValue=(String) i.next();
+								if(tagValue!=null)
+									tags.add(tagValue);
+									
+								}
+							return true;
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							
+						}
+						
+		return false;
+		
+	}
+
+	
+	public boolean initializeGrossMetaData(String query,String subResources, String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset, String wholeShare, String prot)
+	{
+		String title,license,created,modified,idisogeo;
+    	boolean deleted=false;
+    	
+    	JSONObject jsonObject=search_metadata_from_isogeo(query, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset, wholeShare, prot);
+		JSONArray jsonResult= (JSONArray) jsonObject.get("results");
+		System.out.println("voici results : "+jsonResult);
+		for(int i=0; i<jsonResult.size(); i++)
+			{
+			//getting proproties from isogeo response
+			JSONObject jsonObject2;
+			try {
+				jsonObject2 = (JSONObject)new JSONParser().parse(jsonResult.get(i).toString());
+				JSONArray conditions= (JSONArray) jsonObject2.get("conditions");
+				
+				JSONObject condition0 = (JSONObject)new JSONParser().parse(conditions.get(0).toString());
+				
+				JSONObject licence = (JSONObject)new JSONParser().parse(condition0.get("license").toString());
+				 
+				
+				title=jsonObject2.get("title").toString();
+				created=jsonObject2.get("_created").toString();
+				modified=jsonObject2.get("_modified").toString();
+				idisogeo=jsonObject2.get("_id").toString();
+				license=licence.get("name").toString();
+				//bug to resolve later...
+				if(jsonObject2.get("_deleted")!=null)
+					deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());
+				
+				gross_metadata.add(new MetaData(title,license,created,modified,deleted,idisogeo));
+
+				System.out.println(gross_metadata.get(i).isChanged());
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}							
+			
+			}
+			return true;
+	
+	}
+	
+	public JSONObject search_metadata_from_isogeo(String query,String subResources, String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset, String wholeShare, String prot)
 	    {
 	    	HttpClient client = new DefaultHttpClient();
 	    	HttpResponse response;
 	    	SSLSocketFactory sf;
-	    	String title,license,created,modified,idisogeo;
-	    	boolean deleted=false;
 	    	TrustStrategy acceptingTrustStrategy = new TrustStrategy() {
 			    @Override
 			        public boolean isTrusted(X509Certificate[] certificate, String authType) {
@@ -166,103 +244,51 @@ public  class IsogeoController {
 			    
 			
 					
-				    try {
-						sf = new SSLSocketFactory(acceptingTrustStrategy);
-						client.getConnectionManager().getSchemeRegistry().register(new Scheme("https", 443, sf));
-						//settng proxy to be intercepted by feddler
-						HttpHost proxy = new HttpHost("localhost", 8888);
-						client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
-
-						
-				    	HttpGet get = new HttpGet(requestURL+"_include="+subResources+"&_limit="+pageSize+"&_offset="+
-				    			offset+"&box="+bbox+"geo="+poly+"&rel="+georel+"&ob="+
-				    			orderedBy+"&od="+orderDir+"&q="+query);
-
-				    	// add header
-				    	get.setHeader("Authorization", token_type+" "+access_token);
-				    	
-				    	
+				   
 						try {
-							response = client.execute(get);
-						 	System.out.println("Response Code of Get Request : " 
-				                    + response.getStatusLine().getStatusCode());
+							sf = new SSLSocketFactory(acceptingTrustStrategy);
+							client.getConnectionManager().getSchemeRegistry().register(new Scheme("https", 443, sf));
+							//settng proxy to be intercepted by feddler
+							HttpHost proxy = new HttpHost("localhost", 8888);
+							client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
 
-				    	BufferedReader rd = new BufferedReader(
-				    		new InputStreamReader(response.getEntity().getContent()));
+							
+					    	HttpGet get = new HttpGet(requestURL+"_include="+subResources+"&_limit="+pageSize+"&_offset="+
+					    			offset+"&box="+bbox+"geo="+poly+"&rel="+georel+"&ob="+
+					    			orderedBy+"&od="+orderDir+"&q="+query);
 
-				    	StringBuffer result = new StringBuffer();
-				    	String line = "";
-				    	while ((line = rd.readLine()) != null) {
-				    		result.append(line);
-				    	}
-				    	System.out.println(result);
-				    	String str_result=result.toString();
-				    	JSONObject jsonObject;
-						try {
+					    	// add header
+					    	get.setHeader("Authorization", token_type+" "+access_token);
+					    	
+					    	
+							
+								response = client.execute(get);
+							 	System.out.println("Response Code of Get Request : " 
+					                    + response.getStatusLine().getStatusCode());
+
+					    	BufferedReader rd = new BufferedReader(
+					    		new InputStreamReader(response.getEntity().getContent()));
+
+					    	StringBuffer result = new StringBuffer();
+					    	String line = "";
+					    	while ((line = rd.readLine()) != null) {
+					    		result.append(line);
+					    	}
+					    	System.out.println(result);
+					    	String str_result=result.toString();
+					    	JSONObject jsonObject;
+							
 							jsonObject = (JSONObject)new JSONParser().parse(str_result);
-							JSONArray jsonResult= (JSONArray) jsonObject.get("results");
-							System.out.println("voici results : "+jsonResult);
-							for(int i=0; i<jsonResult.size(); i++)
-								{
-								//getting proproties from isogeo response
-								JSONObject jsonObject2 = (JSONObject)new JSONParser().parse(jsonResult.get(i).toString());							
-								JSONArray conditions= (JSONArray) jsonObject2.get("conditions");
-								
-								JSONObject condition0 = (JSONObject)new JSONParser().parse(conditions.get(0).toString());
-								
-								JSONObject licence = (JSONObject)new JSONParser().parse(condition0.get("license").toString());
-								 
-								
-								title=jsonObject2.get("title").toString();
-								created=jsonObject2.get("_created").toString();
-								modified=jsonObject2.get("_modified").toString();
-								idisogeo=jsonObject2.get("_id").toString();
-								license=licence.get("name").toString();
-								//bug to resolve later...
-								if(jsonObject2.get("_deleted")!=null)
-									deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());
-								
-								gross_metadata.add(new MetaData(title,license,created,modified,deleted,idisogeo));
-
-								System.out.println(gross_metadata.get(i).isChanged());
-								
-								}
-								
-						} catch (ParseException e) {
+							return jsonObject ;
+							
+						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							return false;
-						}
-						 
-						} catch (ClientProtocolException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							return false;
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							return false;
-						}
-			    	
-					} catch (KeyManagementException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						return false;
-					} catch (UnrecoverableKeyException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						return false;
-					} catch (NoSuchAlgorithmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						return false;
-					} catch (KeyStoreException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						return false;
-					}
-					
-			return true;
+						} 
+						
+							
+						return null;
+							
 	    
 	    }
 	
@@ -282,8 +308,11 @@ public  class IsogeoController {
         }
         
     	//1) search metadata that verify criteria (keywords, owner)
-    	if(!search_metadata_from_isogeo("", "conditions", "", "", "", "", "", "", 0, "", ""))
+    	if(!initializeGrossMetaData("", "conditions", "", "", "", "", "", "3", 0, "", ""))
+    		{
+    		System.out.println("erreur de mise à jour de l'historique des métadonnées");
     		return false;
+    		}
     	
     	//2)  update the table "metadata": 
     		//2-1 create metadata if doesn't exist
@@ -381,6 +410,14 @@ public  class IsogeoController {
 
 	public void setGross_metadata(List<MetaData> gross_metadata) {
 		this.gross_metadata = gross_metadata;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 
 
