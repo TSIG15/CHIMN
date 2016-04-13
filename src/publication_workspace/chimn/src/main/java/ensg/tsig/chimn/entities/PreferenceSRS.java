@@ -10,37 +10,30 @@ public class PreferenceSRS {
 	
 	@Id
     @GeneratedValue
-    
-	private String nom;
-	private String codeEpsg;
+    private Long id;
+	private String nameSRS;
+	private String epsg;
 	private boolean activated;
 	
 	
-	
-	public String getNom() {
-		return nom;
+	public String getNameSRS() {
+		return nameSRS;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNameSRS(String nameSRS) {
+		this.nameSRS = nameSRS;
 	}
-	
-	
-	public String getcodeEpsg() {
-		return codeEpsg;
+	public String getEpsg() {
+		return epsg;
 	}
-	public void setcodeEpsg(String codeEpsg) {
-		this.codeEpsg = codeEpsg;
+	public void setEpsg(String epsg) {
+		this.epsg = epsg;
 	}
-	
-	
 	public boolean isActivated() {
 		return activated;
 	}
 	public void setActivated(boolean activated) {
 		this.activated = activated;
 	}
-	
-	
-	
 
+	
 }

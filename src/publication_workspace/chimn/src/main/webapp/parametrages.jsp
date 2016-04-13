@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+    pageEncoding="UTF-8"%> 
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -77,7 +76,7 @@
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           
-          <!--formulaire général-->
+          <!--formulaire général pour récupérer tous les paramètres-->
           <form id="form" class="form-horizontal" action="webapi/myresource" method="post">
           
            <!--bouton d'envoi-->

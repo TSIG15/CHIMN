@@ -11,7 +11,7 @@ public class PreferenceService {
 	@Id
     @GeneratedValue
     private Long id;
-	private String nom;
+	private String nameSv;
 	private boolean activated;
 	private String style;
 	
@@ -22,12 +22,11 @@ public class PreferenceService {
 		this.id = id;
 	}
 	
-	
-	public String getNom() {
-		return nom;
+	public String getNameSv() {
+		return nameSv;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNameSv(String nameSv) {
+		this.nameSv = nameSv;
 	}
 	
 	public boolean isActivated() {
@@ -44,6 +43,4 @@ public class PreferenceService {
 		this.style = style;
 	}
 	
-	
-
 }

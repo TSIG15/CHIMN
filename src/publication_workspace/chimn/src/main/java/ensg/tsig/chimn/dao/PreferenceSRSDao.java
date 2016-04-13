@@ -8,8 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PreferenceSRSDao extends CrudRepository<PreferenceSRS, Long> {
 	
-	public List<PreferenceSRS> findByNom(int nom);
-	 public List<PreferenceSRS> findByCode(String codeEpsg);
-	 public List<PreferenceSRS> findByActivated(boolean activated);
+	public List<PreferenceSRS> findById(Long id);
+	public List<PreferenceSRS> findByNameSRS(String nameSRS);
+	public List<PreferenceSRS> findByEpsg(String epsg);
+	public List<PreferenceSRS> findByActivated(boolean activated);
 
 }

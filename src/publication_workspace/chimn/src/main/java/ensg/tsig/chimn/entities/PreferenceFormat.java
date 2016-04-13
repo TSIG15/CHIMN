@@ -12,19 +12,25 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class Preferenceformat {
+public class PreferenceFormat {
+	
 	@Id
     @GeneratedValue
     private Long id;
-	private String nom;
+	private String nameFm;
 	private boolean activated;
 	
-	
-	public String getNom() {
-		return nom;
+	public Long getId() {
+		return id;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getNameFm() {
+		return nameFm;
+	}
+	public void setNameFm(String nameFm) {
+		this.nameFm = nameFm;
 	}
 	public boolean isActivated() {
 		return activated;
@@ -32,6 +38,5 @@ public class Preferenceformat {
 	public void setActivated(boolean activated) {
 		this.activated = activated;
 	}
-	
 
 }
