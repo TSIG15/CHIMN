@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -63,161 +65,204 @@
       <div class="row">
         <div id="navbarSidebar" class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="parametrages.html">Paramétrages</a></li>
+            <li><a href="parametrages.jsp">Paramétrages</a></li>
             <li class="active"><a href="#">Préférences<span class="sr-only">(current)</span></a></li>
-            <li><a href="index.html">Déconnexion</a></li>
+            <li><a href="index.jsp">Déconnexion</a></li>
             <li>
-                  <button style="margin-left:8px;width:188px;font-size:12px;" type="submit" class="btn btn-default">Enregistrer les préferences</button>
+               <!--<button style="margin-left:8px;width:188px;font-size:12px;" type="submit" class="btn btn-default">Enregistrer les préferences</button>-->
             </li>
               </div>
           </ul>
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header" style="margin-top:0;" onclick="toggle_div(this,'televersements');">Téléversements</h1>
-
+        
         <!--téléversement-->
+                
+        <h1 class="page-header" style="margin-top:0;" onclick="toggle_div(this,'televersements');">Téléversements</h1>
+        
         <div id="televersements" style="display:none;">
+        
+         <!--formulaire formats -->
+         
+         <form name="formFormats" class="form-horizontal" action="" method="get"><!-- appel de la resource java dans action -->
+          
           <h3 class="sub-header">Formats</h3>
+          
+          <!-- formulaire des formats vecteurs-->
           <h5 style="font-style:italic;">Formats vecteur</h5>
-          <!-- formulaire des formats vecteurs-->
+                    
           <label class="checkbox-inline">
-            <input type="checkbox" id="shp" value="shp"> shp
+            <input type="checkbox" name="shp" value="shp"> shp
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" id="dxf" value="dxf"> dxf
+            <input type="checkbox" name="dxf" value="dxf"> dxf
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" id="gml" value="gml"> gml
+            <input type="checkbox" name="gml" value="gml"> gml
           </label>
-          <!--fin formulaire-->
 
+		<!-- formulaire des formats raster-->
           <h5 style="font-style:italic;">Formats raster</h5>
-          <!-- formulaire des formats vecteurs-->
+          
           <label class="checkbox-inline">
-            <input type="checkbox" id="geotiff" value="geotiff"> geotiff
+            <input type="checkbox" name="geotiff" name="fdxf" value="geotiff"> geotiff
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" id="png" value="png"> png
+            <input type="checkbox" name="png" value="png"> png
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" id="jpeg" value="jpeg"> jpeg
+            <input type="checkbox" name="jpeg" value="jpeg"> jpeg
           </label>
-          <!--fin formulaire-->
-
+         
+           <!--bouton d'envoi des formats mais l'appel de la resource java se trouve au niveau de la balise form -->
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Enregistrer les formats</button>
+              </div>
+            </div>
+           </form>
+        
+        <!--formulaire SRS -->
+         <form name="formSRS" class="form-horizontal" action="" method="get"><!-- appel de la resource java dans action -->
+ 
           <h3 class="sub-header">Systèmes de coordonnées</h3>
-          <!--formulaire des SRS-->
+
           <label class="checkbox-inline">
-            <input type="checkbox" id="WebMercator" value="Web Mercator"> Web Mercator
+            <input type="checkbox" name="WebMercator" value="Web Mercator"> Web Mercator
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" id="l93" value="Lambert 93"> Lambert 93
+            <input type="checkbox" name="l93" value="Lambert 93"> Lambert 93
           </label>
-          <!--fin formulaire-->
+          
+          <!--bouton d'envoi SRS mais l'appel de la resource java se trouve au niveau de la balise form-->
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Enregistrer les SRS</button>
+              </div>
+            </div>
+           </form>
+          
         </div>
-        <!--fin téléversements-->
+        
+        <!-- Publication -->
 
-          <h1 class="page-header" onclick="toggle_div(this,'publications');">Publication</h1>
+         <h1 class="page-header" onclick="toggle_div(this,'publications');">Publication</h1>
 
-          <!--publications-->
-          <div id="publications" style="display:none;">
+         <div id="publications" style="display:none;">
+          
+          	<!--formulaire Service -->
+          
+         	<form name="formSRS" class="form-horizontal" action="" method="get"><!-- appel de la resource java dans action -->
+ 
               <h3 class="sub-header">Services</h3>
               <!--formulaire des services-->
               <label class="checkbox-inline">
-                <input type="checkbox" id="wms" value="WMS"> WMS
+                <input type="checkbox" name="wms" value="WMS"> WMS
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" id="wfs" value="WFS"> WFS
+                <input type="checkbox" name="wfs" value="WFS"> WFS
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" id="wmts" value="WMTS"> WMTS
+                <input type="checkbox" name="wmts" value="WMTS"> WMTS
               </label>
-              <!--fin formulaire-->
-
-              <h3 class="sub-header">Systèmes de coordonnées</h3>
-              <!--formulaire des SRS-->
-              <label class="checkbox-inline">
-                <input type="checkbox" id="WebMercator" value="Web Mercator"> Web Mercator
-              </label>
-              <label class="checkbox-inline">
-                <input type="checkbox" id="l93" value="Lambert 93"> Lambert 93
-              </label>
-
+       
+           	<!--formulaire Styles -->
+         	
               <h3 class="sub-header">Style</h3>
-              <!--formulaire des styles-->
+
               <div class="form-group">
                 <label for="style">Appliquez un style :</label>
-                <input type="file" id="style">
+                <input type="file" name="style">
                 <p class="help-block">Veuillez sélectionner votre style.</p>
               </div>
-              <!--fin formulaire-->
-            </div>
-            <!--fin publications-->
+            
+            <!--bouton d'envoi publication mais l'appel de la resource java se trouve au niveau de la balise form-->
+            	<div class="form-group">
+              		<div class="col-sm-offset-2 col-sm-10">
+                		<button type="submit" class="btn btn-default">Enregistrer les options de publications</button>
+              		</div>
+            	</div>
+           	</form>
+          </div>
+           	
+          <!--Traitements-->
 
           <h1 class="page-header" onclick="toggle_div(this,'traitements');">Traitements</h1>
 
-          <!--traitements-->
           <div id="traitements" style="display:none;">
+          
+          <!--formulaire Traitements -->
+          
+         <form name="formTrait" class="form-horizontal" action="" method="get"><!-- appel de la resource java dans action -->
+ 
             <h3 class="sub-header">Critères d'éligibilité</h3>
+            
             <!--formulaire des critères-->
+            
             <!-- licences-->
+
             <h5>Licence</h5>
-            <select class="form-control">
+            <select class="form-control" name="licences">
               <option>1</option>
               <option>2</option>
               <option>3</option>
               <option>4</option>
               <option>5</option>
             </select>
+            
             <!--mots-clés-->
-            <h5>Mot-clé</h5>
-            <select class="form-control">
+            
+            <h5>Mot-clé</h5><!--fixé en dur à 6 choix pour le moment, il faudra revoir l'html en fonction de la liste récupérée -->
+            <select multiple class="form-control" name="motscles">
               <option>1</option>
               <option>2</option>
               <option>3</option>
               <option>4</option>
               <option>5</option>
+              <option>6</option>
             </select>
 
             <!--propriétaire-->
-            <h5>Propriétaire</h5>
-            <select class="form-control">
+            
+            <h5>Propriétaire</h5><!--fixé en dur à 6 choix pour le moment, il faudra revoir l'html en fonction de la liste récupérée-->
+            <select multiple class="form-control" name="proprios">
               <option>1</option>
               <option>2</option>
               <option>3</option>
               <option>4</option>
               <option>5</option>
+              <option>6</option>
             </select>
 
             <!--périodicité-->
+            
             <h5>Périodicité</h5>
             <form class="form-inline">
               <div class="form-group">
                 <label class="sr-only" for="periodicite">Nombre de jours</label>
                 <div class="input-group">
                   <div class="input-group-addon"></div>
-                  <input type="number" class="form-control" id="periodicite" placeholder="Nbre de jours">
+                  <input type="number" class="form-control" name="periodicite" placeholder="Nbre de jours">
                   <div class="input-group-addon">jours</div>
                 </div>
               </div>
             </form>
-
-            <!-- éligibilité-->
-            <!--<h5 class="sub-header"></h5>
-            <div class="checkbox" style="padding-bottom:10px;">
-              <label class="checkbox-inline">
-                <input type="checkbox" id="eligibilite" value="oui"> Eligible au téléchargement ?
-              </label>
-            </div>-->
+            
+            <!--bouton d'envoi traitements mais l'appel de la resource java se trouve au niveau de la balise form-->
+            	
+            	<div class="form-group">
+              		<div class="col-sm-offset-2 col-sm-10">
+                		<button type="submit" class="btn btn-default">Enregistrer les options de traitements</button>
+              		</div>
+            	</div>
+           </form>
 
           <!--traitement immédiat-->
           <h3 class="sub-header">Lancer les traitements immédiatement</h3>
               <button type="submit" class="btn btn-default">Go!</button>
 
           </div>
-          <!-- fin traitements-->
-
-
         </div>
       </div>
     </div>

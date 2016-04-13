@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> 
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -66,31 +66,31 @@
         <div id="navbarSidebar" class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Paramétrages<span class="sr-only">(current)</span></a></li>
-            <li><a href="preferences.html">Préférences</a></li>
-            <li><a href="index.html">Déconnexion</a></li>
+            <li><a href="preferences.jsp">Préférences</a></li>
+            <li><a href="index.jsp">Déconnexion</a></li>
             <li>
-              <button style="margin-left:8px;width:188px;font-size:12px;" class="btn btn-default">Enregistrer les paramétrages</button>
+               <!--<button style="margin-left:8px;width:188px;font-size:12px;" type="submit" class="btn btn-default">Enregistrer les préferences</button>-->
             </li>
           </ul>
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          
+
           <!--formulaire général pour récupérer tous les paramètres-->
-          <form id="form" class="form-horizontal" action="webapi/myresource" method="post">
-          
+          <form id="form" name="formGeneral" class="form-horizontal" action="webapi/myresource" method="post">
+
            <!--bouton d'envoi-->
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Enregistrer les préférences</button>
               </div>
             </div>
-            
+
            <!--Base de données source-->
            <h1 id="titreBDD" class="page-header" style="margin-top:0;" onclick="toggle_div(this,'formBDD');">Base de données source</h1>
-             
+
            <div id="formBDD" style="display:none;">
-            
+
             <!--hôte-->
             <div class="form-group">
               <label for="hoteBDD" class="col-sm-2 control-label">Hôte</label>
@@ -130,9 +130,9 @@
 
           <!--Geoserver-->
           <h1 class="page-header" onclick="toggle_div(this,'formGS');">Serveur cartographique</h1>
-          
+
           <div id="formGS" style="display:none;">
-          
+
           	<!--hôte-->
             <div class="form-group">
               <label for="hoteGS" class="col-sm-2 control-label">Hôte</label>
@@ -160,16 +160,16 @@
               <div class="col-sm-10">
                 <input type="password" class="form-control" name="passwordGS" placeholder="ex : ********">
               </div>
-            </div> 
+            </div>
            </div>
-          
+
 
           <!--Isogeo-->
           <h1 class="page-header" onclick="toggle_div(this,'formI');">Isogeo</h1>
-          
+
           <div id="formI" style="display:none;">
-          
-          <!--id-->
+
+          	<!--id-->
             <div class="form-group">
               <label for="idI" class="col-sm-2 control-label">ID</label>
               <div class="col-sm-10">
@@ -190,13 +190,13 @@
                 <input type="text" class="form-control" name="groupeTI" placeholder="groupe de travail Isogeo">
               </div>
             </div>
-		</div>          
+		</div>
 
           <!--téléversement-->
           <h1 class="page-header" onclick="toggle_div(this,'formT');">Téléversement des données</h1>
-          
+
           <div id="formT" style="display:none;">
-          
+
           <!--serveur distant-->
             <div class="form-group">
               <label for="urlSD" class="col-sm-2 control-label">Serveur distant</label>
@@ -205,7 +205,7 @@
               </div>
             </div>
            </div>
-          </form>
+         </form>
 
         </div>
       </div>

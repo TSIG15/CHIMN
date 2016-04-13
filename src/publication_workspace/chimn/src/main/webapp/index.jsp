@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,45 +63,25 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main authentification">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main index">
 
-        <!--deuxième bloc administrateur-->
+        <!--bloc administrateur-->
         <div class="col-sm-6">
           <div class="panel panel-primary">
             <div class="panel-heading">
-              <!-- formulaire d'authentification-->
-              <form class="form-horizontal" action="" method="post">
-                <div class="form-group">
-                  <label for="login" class="col-sm-4 control-label">Identifiant</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control" id="login" name ="username" placeholder="ex : toto" value="">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="mdp" class="col-sm-4 control-label">Mot de passe</label>
-                  <div class="col-sm-7">
-                    <input type="password" class="form-control" id="mdp" name="password" placeholder="ex : ********">
-                  </div>
-                </div>
-                <!--bouton d'envoi-->
-                <div class="form-group">
-                  <label for="submit" class="col-sm-4 control-label"></label>
-                  <div class="col-sm-1">
-                    <button type="submit" class="btn btn-default">Valider</button>
-                  </div>
-                </div>
-                <!-- retour à l'accueil-->
-                <div class="form-group">
-                  <label for="accueil" class="col-sm-4 control-label"></label>
-                  <div class="col-sm-7">
-                    <p style="text-align:left;"><a href="index.html">Retour à l'accueil</a></p>
-                  </div>
-                </div>
-              </form>
-                <!-- fin formulaire-->
+              <a href="authentification.jsp">Vous êtes administrateur ?</a>
             </div>
           </div>
         </div>
+        <!--bloc utilisateur-->
+        <div class="col-sm-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <a href="user.jsp">Vous êtes utilisateur ?</a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -112,7 +94,7 @@
       <script src="js/bootstrap.min.js"></script>
       <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
       <script src="js/holder.min.js"></script>
-      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug>
       <script src="js/ie10-viewport-bug-workaround.js"></script>
       <!-- script maison-->
       <script src="js/scripts_divers.js"></script>

@@ -124,6 +124,4 @@ public class Parameters {
 				+ ",tlurl=" + tlurl +"]";
 	}
 	
-	
-	
 }
