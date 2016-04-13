@@ -1,11 +1,6 @@
-<html>
-<body>
-    <h2>Jersey RESTful Web Application!</h2>
-    <p><a href="webapi/myresource">Jersey resource</a>
-    <p>Visit <a href="http://jersey.java.net">Project Jersey website</a>
-    for more information on Jersey!
-</body>
-</html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -57,7 +52,7 @@
 
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
-            <li><p id="titre_appli">Livraison et publication de donnÈes automatisÈes<p></li>
+            <li><p id="titre_appli">Livraison et publication de donn√©es automatis√©es<p></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Aide</a></li>
@@ -66,115 +61,115 @@
       </div>
     </nav>
     <!--fin navbar-->
-<div class="container-fluid">
+
+    <div class="container-fluid">
       <div class="row">
         <div id="navbarSidebar" class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">ParamÈtrages<span class="sr-only">(current)</span></a></li>
-            <li><a href="preferences.php">PrÈfÈrences</a></li>
-            <li><a href="index.php">DÈconnexion</a></li>
+            <li class="active"><a href="#">Param√©trages<span class="sr-only">(current)</span></a></li>
+            <li><a href="preferences.html">Pr√©f√©rences</a></li>
+            <li><a href="index.html">D√©connexion</a></li>
             <li>
-                  <button style="margin-left:8px;width:188px;font-size:12px;" type="submit" class="btn btn-default">Enregistrer les paramÈtrages</button>
+              <button style="margin-left:8px;width:188px;font-size:12px;" class="btn btn-default">Enregistrer les param√©trages</button>
             </li>
           </ul>
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-          <!--BDD-->
-          <h1 id="titreBDD" class="page-header" style="margin-top:0;" onclick="toggle_div(this,'formBDD');">Base de donnÈes source</h1>
-          <!--formulaire-->
-          <form id="formBDD" class="form-horizontal" style="display:none;">
+          
+          <!--formulaire g√©n√©ral-->
+          <form id="form" class="form-horizontal" action="webapi/myresource" method="post">
+          
+           <!--bouton d'envoi-->
             <div class="form-group">
-              <label for="connexionBDD" class="col-sm-2 control-label">Nom de la connexion</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="connexionBDD" placeholder="ex : arbres">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Enregistrer les pr√©f√©rences</button>
               </div>
             </div>
+            
+           <!--Base de donn√©es source-->
+           <h1 id="titreBDD" class="page-header" style="margin-top:0;" onclick="toggle_div(this,'formBDD');">Base de donn√©es source</h1>
+             
+           <div id="formBDD" style="display:none;">
+            
+            <!--h√¥te-->
             <div class="form-group">
-              <label for="hoteBDD" class="col-sm-2 control-label">HÙte</label>
+              <label for="hoteBDD" class="col-sm-2 control-label">H√¥te</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="hoteBDD" placeholder="ex : localhost">
+                <input type="text" class="form-control" name="hoteBDD" placeholder="ex : localhost">
               </div>
             </div>
+            <!--port-->
             <div class="form-group">
               <label for="portBDD" class="col-sm-2 control-label">Port</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="portBDD" placeholder="ex : 5432">
+                <input type="text" class="form-control" name="portBDD" placeholder="ex : 5432">
               </div>
             </div>
-            <!--base de donnÈes-->
+            <!--base de donn√©es-->
             <div class="form-group">
-              <label for="bdd" class="col-sm-2 control-label">Base de donnÈes</label>
+              <label for="bdd" class="col-sm-2 control-label">Base de donn√©es</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="bdd" placeholder="ex : forÍts">
+                <input type="text" class="form-control" name="bdd" placeholder="ex : for√™ts">
               </div>
             </div>
             <!--utilisateur-->
             <div class="form-group">
               <label for="userBDD" class="col-sm-2 control-label">Nom d'utilisateur</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="userBDD" placeholder="ex : tsig2015">
+                <input type="text" class="form-control" name="userBDD" placeholder="ex : tsig2015">
               </div>
             </div>
             <!--mot de passe-->
             <div class="form-group">
               <label for="passwordBDD" class="col-sm-2 control-label">Mot de passe</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" id="passwordBDD" placeholder="ex : ********">
+                <input type="password" class="form-control" name="passwordBDD" placeholder="ex : ********">
               </div>
             </div>
-            <!--bouton d'envoi-->
-            <!--<div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Valider</button>
-              </div>
-            </div>-->
-          </form>
+           </div>
 
           <!--Geoserver-->
           <h1 class="page-header" onclick="toggle_div(this,'formGS');">Serveur cartographique</h1>
-          <!--formulaire-->
-          <form id="formGS" class="form-horizontal" style="display:none;">
-          <!--hÙte-->
+          
+          <div id="formGS" style="display:none;">
+          
+          	<!--h√¥te-->
             <div class="form-group">
-              <label for="hoteGS" class="col-sm-2 control-label">HÙte</label>
+              <label for="hoteGS" class="col-sm-2 control-label">H√¥te</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="hoteGS" placeholder="ex : localhost">
+                <input type="text" class="form-control" name="hoteGS" placeholder="ex : localhost">
               </div>
             </div>
+            <!--port-->
             <div class="form-group">
               <label for="portGS" class="col-sm-2 control-label">Port</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="portGS" placeholder="ex : 5432">
+                <input type="text" class="form-control" name="portGS" placeholder="ex : 5432">
               </div>
             </div>
             <!--utilisateur-->
             <div class="form-group">
               <label for="userGS" class="col-sm-2 control-label">Nom d'utilisateur</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="userGS" placeholder="ex : tsig2015">
+                <input type="text" class="form-control" name="userGS" placeholder="ex : tsig2015">
               </div>
             </div>
             <!--mot de passe-->
             <div class="form-group">
               <label for="passwordGS" class="col-sm-2 control-label">Mot de passe</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" id="passwordGS" placeholder="ex : ********">
+                <input type="password" class="form-control" name="passwordGS" placeholder="ex : ********">
               </div>
-            </div>
-            <!--bouton d'envoi-->
-            <!--<div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Valider</button>
-              </div>
-            </div>-->
-          </form>
+            </div> 
+           </div>
+          
 
           <!--Isogeo-->
-          <h1 class="page-header">Isogeo</h1>
-          <!--formulaire-->
-          <form id="formI" class="form-horizontal" action="webapi/myresource" >
+          <h1 class="page-header" onclick="toggle_div(this,'formI');">Isogeo</h1>
+          
+          <div id="formI" style="display:none;">
+          
           <!--id-->
             <div class="form-group">
               <label for="idI" class="col-sm-2 control-label">ID</label>
@@ -196,44 +191,38 @@
                 <input type="text" class="form-control" name="groupeTI" placeholder="groupe de travail Isogeo">
               </div>
             </div>
-            <!--bouton d'envoi-->
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Valider</button>
-              </div>
-            </div>
-          </form>
+		</div>          
 
-          <h1 class="page-header" onclick="toggle_div(this,'formT');">TÈlÈversement des donnÈes</h1>
-          <!--formulaire-->
-          <form id="formT" class="form-horizontal" style="display:none;">
+          <!--t√©l√©versement-->
+          <h1 class="page-header" onclick="toggle_div(this,'formT');">T√©l√©versement des donn√©es</h1>
+          
+          <div id="formT" style="display:none;">
+          
           <!--serveur distant-->
             <div class="form-group">
               <label for="urlSD" class="col-sm-2 control-label">Serveur distant</label>
               <div class="col-sm-10">
-                <input type="url" class="form-control" id="urlSD" placeholder="http://localhost:8888/">
+                <input type="url" class="form-control" name="urlSD" placeholder="http://localhost:8888/">
               </div>
             </div>
-            <!--bouton d'envoi-->
-            <!--<div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Valider</button>
-              </div>
-            </div>-->
+           </div>
           </form>
 
         </div>
       </div>
     </div>
 
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="js/holder.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
-    <!-- script maison-->
-    <script src="js/scripts_divers.js"></script>
-  </body>
-</html>
+        <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+        <script src="js/bootstrap.min.js"></script>
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="js/holder.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="js/ie10-viewport-bug-workaround.js"></script>
+        <!-- script maison-->
+        <script src="js/scripts_divers.js"></script>
+      </body>
+    </html>

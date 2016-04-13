@@ -37,8 +37,6 @@ public class MetaData {
 		public MetaData() {
 			
 		}
-	 
-	
 	     
 	    public Long getId() {
 	        return id;

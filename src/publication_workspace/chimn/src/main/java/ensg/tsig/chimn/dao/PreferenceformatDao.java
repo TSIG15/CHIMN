@@ -16,5 +16,4 @@ import ensg.tsig.chimn.entities.Preferenceformat;
  */
 public interface PreferenceformatDao extends CrudRepository<Preferenceformat, Long>{
 	//public List<Preferenceformat> findAll();
-
 }

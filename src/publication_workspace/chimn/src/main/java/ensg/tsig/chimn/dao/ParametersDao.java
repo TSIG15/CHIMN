@@ -13,8 +13,6 @@ import ensg.tsig.chimn.entities.Parameters;;
  * @author hanane
  *
  */
-public interface ParametersDao extends CrudRepository<Parameters, Long>{
+public interface ParametersDao extends CrudRepository<Parameters, Long> {
 	 public List<Parameters> findAll(); //should return just one instance of parameters !
-	 
-
 }

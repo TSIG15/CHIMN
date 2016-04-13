@@ -29,9 +29,9 @@ public class Parameters {
 	private String isid;
 	private String issecret;
 	private String isgroupetravail;
+	private String tlurl;
 	
-	
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -91,14 +91,6 @@ public class Parameters {
 	public void setGspsw(String gspsw) {
 		this.gspsw = gspsw;
 	}
-	
-
-	@Override
-	public String toString() {
-		return "Parameters [id=" + id + ", dbhote=" + dbhote + ", dbport=" + dbport + ", dbuser=" + dbuser + ", dbpsw="
-				+ dbpsw + ", dbname=" + dbname + ", gshote=" + gshote + ", gsport=" + gsport + ", gsuser=" + gsuser
-				+ ", gspsw=" + gspsw + "]";
-	}
 	public String getIsid() {
 		return isid;
 	}
@@ -117,5 +109,21 @@ public class Parameters {
 	public void setIsgroupetravail(String isgroupetravail) {
 		this.isgroupetravail = isgroupetravail;
 	}
+	public String getTlurl() {
+		return tlurl;
+	}
+	public void setTlurl(String tlurl) {
+		this.tlurl = tlurl;
+	}
+
+	@Override
+	public String toString() {
+		return "Parameters [id=" + id + ", dbhote=" + dbhote + ", dbport=" + dbport + ", dbuser=" + dbuser + ", dbpsw="
+				+ dbpsw + ", dbname=" + dbname + ", gshote=" + gshote + ", gsport=" + gsport + ", gsuser=" + gsuser
+				+ ", gspsw=" + gspsw + ", isid=" + isid + ", issecret=" + issecret + ", isgroupetravail=" + isgroupetravail 
+				+ ",tlurl=" + tlurl +"]";
+	}
+	
+	
 	
 }
