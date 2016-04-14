@@ -20,7 +20,7 @@ function toggle_div (bouton, id) {
 
   if (username == "admin" && password == "MaDdPmin")
   {
-    document.location.href="parametrages.html";
+    document.location.href="parametrages.jsp";
   }
     else
   {

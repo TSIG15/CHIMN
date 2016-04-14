@@ -77,7 +77,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
           <!--formulaire général pour récupérer tous les paramètres-->
-          <form id="form" name="formGeneral" class="form-horizontal" action="webapi/myresource" method="post">
+          <form id="form" name="formGeneral" class="form-horizontal" action="webapi/myresource/post/" method="post">
 
            <!--bouton d'envoi-->
             <div class="form-group">

@@ -82,9 +82,9 @@ public  class IsogeoController {
 					
 				    sf = new SSLSocketFactory(acceptingTrustStrategy);
 					client.getConnectionManager().getSchemeRegistry().register(new Scheme("https", 443, sf));
-					//settng proxy to be intercepted by feddler
+					//setting proxy to be intercepted by fiddler
 					HttpHost proxy = new HttpHost("localhost", 8888);
-					client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
+					client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 
 					
 			    	HttpPost post = new HttpPost(authURL);

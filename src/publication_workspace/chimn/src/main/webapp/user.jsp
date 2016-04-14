@@ -61,11 +61,25 @@
     </nav>
     <!--fin navbar-->
 
-    <div class="container-fluid">
+    <div class="container-fluid, rechercheUser">
       <div class="row">
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main index">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 
-      </div>
+        <!--formulaire recherche-->
+        <form role="search" name="searchform" method="get">
+
+              <div class="form-group">
+                <div class="input-group">
+                    <input type="text" placeholder="recherche" name="s" class="form-control left-rounded">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-inverse right-rounded">Chercher</button>
+                    </div>
+                </div>
+              </div>
+  <p style="text-align:left;"><a href="index.jsp">Retour à l'accueil</a></p>
+        </form>
+
+
     </div>
   </div>
 

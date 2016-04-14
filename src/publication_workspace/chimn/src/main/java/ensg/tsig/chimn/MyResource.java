@@ -30,6 +30,7 @@ public class MyResource {
      */
 	
     @POST
+    @Path("/post/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public Response createFromPost(
