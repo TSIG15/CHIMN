@@ -61,27 +61,62 @@
     </nav>
     <!--fin navbar-->
 
+
     <div class="container-fluid, rechercheUser">
       <div class="row">
         <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 
         <!--formulaire recherche-->
-        <form role="search" name="searchform" method="get">
+        <form role="search" name="searchform" action="webapi/myresource/data/" method="get">
 
               <div class="form-group">
                 <div class="input-group">
-                    <input type="text" placeholder="recherche" name="s" class="form-control left-rounded">
+                    <input type="text" placeholder="recherche" name="word" class="form-control left-rounded">
                     <div class="input-group-btn">
                         <button type="submit" class="btn btn-inverse right-rounded">Chercher</button>
                     </div>
                 </div>
               </div>
-  <p style="text-align:left;"><a href="index.jsp">Retour à l'accueil</a></p>
+              <p style="text-align:left;"><a href="index.jsp">Retour à l'accueil</a></p>
         </form>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+        <!-- sidebar basse-->
+          <div id="sidebarUser" class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+              <li style="padding-left:20px;">Données disponibles</li>
+            </ul>
+          </div>
 
 
+
+        </div>
+      </div>
     </div>
-  </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-3 col-md-10 col-md-offset-2">
+          <table class="table table-striped">
+            <tr>
+              <th style="color:#5C9610;">Données</th>
+            </tr>
+            <tr>
+              <td>hydrographie.shp</td>
+            </tr>
+            <tr>
+              <td>arbres.dwg</td>
+            </tr>
+            <tr>
+              <td>routes.csv</td>
+            </tr>
+        </table>
+        </div>
+      </div>
+    </div>
+
+
 
   <!-- Bootstrap core JavaScript
   ================================================== -->

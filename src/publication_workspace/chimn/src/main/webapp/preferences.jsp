@@ -223,7 +223,7 @@
               <option>6</option>-->
             </select>
 
-            <!--propriétaire : incclus dans les tags-->
+            <!--propriétaire : inclus dans les tags-->
             
 
 
