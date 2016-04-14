@@ -194,7 +194,7 @@
           
           <!--formulaire Traitements -->
           
-         <form name="formTrait" class="form-horizontal" action="" method="get"><!-- appel de la resource java dans action -->
+         <form name="formTrait" class="form-horizontal" action=""><!-- appel de la resource java dans action -->
  
             <h3 class="sub-header">Critères d'éligibilité</h3>
             
@@ -213,27 +213,19 @@
             
             <!--mots-clés-->
             
-            <h5>Mot-clé</h5><!--fixé en dur à 6 choix pour le moment, il faudra revoir l'html en fonction de la liste récupérée -->
-            <select multiple class="form-control" name="motscles">
-              <option>1</option>
+            <h5>Tags</h5><!--fixé en dur à 6 choix pour le moment, il faudra revoir l'html en fonction de la liste récupérée -->
+            <select multiple class="form-control" name="motscles" id="tags">
+              <!-- <option>1</option>
               <option>2</option>
               <option>3</option>
               <option>4</option>
               <option>5</option>
-              <option>6</option>
+              <option>6</option>-->
             </select>
 
-            <!--propriétaire-->
+            <!--propriétaire : incclus dans les tags-->
             
-            <h5>Propriétaire</h5><!--fixé en dur à 6 choix pour le moment, il faudra revoir l'html en fonction de la liste récupérée-->
-            <select multiple class="form-control" name="proprios">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-            </select>
+
 
             <!--périodicité-->
             
@@ -253,7 +245,7 @@
             	
             	<div class="form-group">
               		<div class="col-sm-offset-2 col-sm-10">
-                		<button type="submit" class="btn btn-default">Enregistrer les options de traitements</button>
+                		<button  class="btn btn-default" id="saveCriteria">Enregistrer les options de traitements</button>
               		</div>
             	</div>
            </form>
@@ -277,7 +269,7 @@
         <script src="js/holder.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="js/ie10-viewport-bug-workaround.js"></script>
-        <!-- script maison-->
+         <!-- script maison-->
         <script src="js/scripts_divers.js"></script>
       </body>
     </html>
