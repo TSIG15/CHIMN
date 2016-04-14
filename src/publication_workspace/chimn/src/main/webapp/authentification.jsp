@@ -73,7 +73,7 @@
             
               <!-- formulaire d'authentification-->
               
-              <form class="form-horizontal" action="" method="post">
+              <form class="form-horizontal" action="webapi/myresource/authentification/" method="post">
                 <div class="form-group">
                   <label for="login" class="col-sm-4 control-label">Identifiant</label>
                   <div class="col-sm-7">

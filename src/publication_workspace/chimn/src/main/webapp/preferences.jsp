@@ -85,7 +85,7 @@
         
          <!--formulaire formats -->
          
-         <form name="formFormats" class="form-horizontal" action="" method="get"><!-- appel de la resource java dans action -->
+         <form name="formFormats" class="form-horizontal" action="webapi/myresource/run/" method="get"><!-- appel de la resource java dans action -->
           
           <h3 class="sub-header">Formats</h3>
           
@@ -251,9 +251,11 @@
            </form>
 
           <!--traitement immédiat-->
+          <form action="webapi/myresource/run/" method="">
+          
           <h3 class="sub-header">Lancer les traitements immédiatement</h3>
-              <button type="submit" class="btn btn-default">Go!</button>
-
+              <button  class="btn btn-default" type="submit">Go!</button>
+			</form>
           </div>
         </div>
       </div>
@@ -270,6 +272,7 @@
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="js/ie10-viewport-bug-workaround.js"></script>
          <!-- script maison-->
-        <script src="js/scripts_divers.js"></script>
-      </body>
+        <script src="js/scripts_divers.js"> </script>
+        <script src="js/script_tags_licence.js"> </script>
+           </body>
     </html>
