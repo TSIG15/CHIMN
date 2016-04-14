@@ -7,9 +7,6 @@ body {
   padding-top: 50px;
 }
 
-.container-fluide {
-  background-color:#ADCA87;/*coloration vert clair de la navbar*/
-}
 
 .navbar-inverse .navbar-nav > li > a {
   color:#000;
@@ -44,6 +41,14 @@ body {
 
  }
 
+/*
+barre de recherche utilisateur
+*/
+
+.rechercheUser {
+  margin-top:6em;
+  border-bottom:1px solid #eee;
+}
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
@@ -116,6 +121,24 @@ PAGE ACCUEIL
   .sidebar {
     position: fixed;
     top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+/*
+special sidebar for users.jsp
+*/
+@media (min-width: 768px) {
+  #sidebarUser {
+    position: fixed;
+    top: 215px;
     bottom: 0;
     left: 0;
     z-index: 1000;

@@ -29,13 +29,12 @@ public class MetaData {
 			this.created = _created;
 			this.modified = _modified;
 			this.changed = true;
-			this.asked=true;
+			this.asked= true;
 			this.deleted = _deleted;
 			this.idisogeo = idisogeo;
 		}
 
 		public MetaData() {
-			
 		}
 	     
 	    public Long getId() {

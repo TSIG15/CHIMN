@@ -1,5 +1,7 @@
 package ensg.tsig.chimn;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -10,8 +12,15 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ensg.tsig.chimn.controllers.IsogeoController;
@@ -37,6 +46,7 @@ public class MyResource {
 	private IsogeoController isogeo;
 	private PublisherController publisher;
 	
+
 	public void initializeIsogeo()
 	{
 		//getting isogeoParameters
@@ -95,10 +105,14 @@ public class MyResource {
 		    
 		    return "the end of get run!";
 	    }
+
+	//method post to get the parameters
+
     @POST
+    @Path("/parameters/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response createFromPost(
+    public Response postParameters(
     		@FormParam("hoteBDD") String dbhote,
     		@FormParam("portBDD") String dbport,
     		@FormParam("bdd") String dbname,
@@ -142,18 +156,18 @@ public class MyResource {
     	
 		return null;
     	
-    	/*return "Got it ! "+ id + "; "+ sec + "; " + groupe;*/
-        
     }
     
     @GET
     @Path("/tags/")
-    @Produces( MediaType.TEXT_PLAIN)
-    public String  getTags()
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getTags()
     {
+
     	initializeIsogeo();
     	if(isogeo==null) return null;
     	if( isogeo.initializeTags())
+
     		 return isogeo.getTags().toString();
     	 return null;
     
@@ -170,4 +184,19 @@ public class MyResource {
     
     }
     
-}
+    @GET
+    @Path ("/data/")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getData(@QueryParam("word") String word)
+    {
+
+    	IsogeoController isogeo=new IsogeoController("projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0","jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd");
+   	 	//we catch the token
+    	isogeo.getToken();
+   	 	
+    	isogeo.search_metadata_from_isogeo(word, "conditions", "", "", "", "", "", "3", 0);
+    	
+    	return null;
+	}
+	
+ }

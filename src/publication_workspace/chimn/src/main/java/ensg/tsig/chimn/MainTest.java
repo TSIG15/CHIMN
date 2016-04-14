@@ -17,11 +17,21 @@ public class MainTest {
     IsogeoController isogeo=new IsogeoController("projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0","jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd");
     System.out.println("credential encoded: "+isogeo.getCredentialsEncoded());
     isogeo.getToken();
-    System.out.println("token type: "+isogeo.getToken_type());
-    System.out.println("token access: "+isogeo.getAccess_token());
+    System.out.println("token type : "+isogeo.getToken_type());
+    System.out.println("token access : "+isogeo.getAccess_token());
+    
     //test updating metadata in chimn database
-    isogeo.setHistoricalMetaData();
+    
+    //isogeo.setHistoricalMetaData();
+    
+    //test search a word in the metadata in chimn database
+    
+    //isogeo.search_metadata_from_isogeo("parole", "conditions", "", "", "", "", "", "3", 0);       
+    // query, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset
+    
+    
 		/*//test getting parameters for publisher
+		 
 		PublisherController publisher=new PublisherController();
 		publisher.initializeParameters();
 		System.out.println(publisher.getParameters().toString());
@@ -34,9 +44,8 @@ public class MainTest {
 		
 		publisher.publish();*/
     
-    
-    
     //test getting tags
-    isogeo.initializeTags();
+    
+    //isogeo.initializeTags();
    }
 }

@@ -10,6 +10,7 @@ function toggle_div (bouton, id) {
   }
 }
 
+
 function saveCriteria()
 {
 	$('#saveCriteria').click(function( event ) {
@@ -20,20 +21,4 @@ function saveCriteria()
 	});
 	
 }
-/*vérification simple authentification admin*/
-/*source : http://www.clubic.com/forum/logiciel-general/exercice-javascript-mot-de-passe-id139868-page1.html*/
 
-/*function Login(form)
-{
-  var username = form.username.value;
-  var password = form.password.value;
-
-  if (username == "admin" && password == "MaDdPmin")
-  {
-    document.location.href="parametrages.html";
-  }
-    else
-  {
-    alert("Mot de passe invalide !");
-  }
-}*/

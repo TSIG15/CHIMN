@@ -51,7 +51,7 @@ public  class IsogeoController {
     private  String access_token;
     private  String token_type;
     
-    private  List<MetaData> gross_metadata=new ArrayList<MetaData>() ;
+    private List<MetaData> gross_metadata=new ArrayList<MetaData>() ;
     private List<String> tags=new ArrayList<String>();
     
     
@@ -86,9 +86,9 @@ public  class IsogeoController {
 					
 				    sf = new SSLSocketFactory(acceptingTrustStrategy);
 					client.getConnectionManager().getSchemeRegistry().register(new Scheme("https", 443, sf));
-					//settng proxy to be intercepted by feddler
+					//setting proxy to be intercepted by fiddler
 					HttpHost proxy = new HttpHost("localhost", 8888);
-					client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
+					client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 
 					
 			    	HttpPost post = new HttpPost(authURL);
@@ -124,8 +124,8 @@ public  class IsogeoController {
 						 access_token=(String) jsonObject.get("access_token");
 						 token_type=(String) jsonObject.get("token_type");
 						System.out.println(result);
-						System.out.println("ceci est le token"+access_token);
-						System.out.println("ceci est le type"+token_type);
+						System.out.println("ceci est le token "+access_token);
+						System.out.println("ceci est le type "+token_type);
 					} catch (ClientProtocolException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -150,14 +150,13 @@ public  class IsogeoController {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-
-	    	
 	    }
+	
 	    //deprecated : should be replaced by a tag as an entity
 	public boolean initializeTags()
 	{
 		
-		JSONObject jsonObject=search_metadata_from_isogeo("", "", "", "", "", "", "", "", 0, "", "");
+		JSONObject jsonObject=search_metadata_from_isogeo("", "", "", "", "", "", "", "", 0);
 						
 						
 						String str_tags = jsonObject.get("tags").toString();
@@ -186,14 +185,13 @@ public  class IsogeoController {
 		return false;
 		
 	}
-
 	
-	public boolean initializeGrossMetaData(String query,String subResources, String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset, String wholeShare, String prot)
+	public boolean initializeGrossMetaData(String query,String subResources,String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset)
 	{
 		String title,license,created,modified,idisogeo;
     	boolean deleted=false;
     	
-    	JSONObject jsonObject=search_metadata_from_isogeo(query, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset, wholeShare, prot);
+    	JSONObject jsonObject=search_metadata_from_isogeo(query, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset);
 		JSONArray jsonResult= (JSONArray) jsonObject.get("results");
 		System.out.println("voici results : "+jsonResult);
 		for(int i=0; i<jsonResult.size(); i++)
@@ -201,14 +199,13 @@ public  class IsogeoController {
 			//getting proproties from isogeo response
 			JSONObject jsonObject2;
 			try {
-				jsonObject2 = (JSONObject)new JSONParser().parse(jsonResult.get(i).toString());
+				jsonObject2 = (JSONObject) new JSONParser().parse(jsonResult.get(i).toString());
 				JSONArray conditions= (JSONArray) jsonObject2.get("conditions");
 				
-				JSONObject condition0 = (JSONObject)new JSONParser().parse(conditions.get(0).toString());
+				JSONObject condition0 = (JSONObject) new JSONParser().parse(conditions.get(0).toString());
 				
-				JSONObject licence = (JSONObject)new JSONParser().parse(condition0.get("license").toString());
+				JSONObject licence = (JSONObject) new JSONParser().parse(condition0.get("license").toString());
 				 
-				
 				title=jsonObject2.get("title").toString();
 				created=jsonObject2.get("_created").toString();
 				modified=jsonObject2.get("_modified").toString();
@@ -232,7 +229,7 @@ public  class IsogeoController {
 	
 	}
 	
-	public JSONObject search_metadata_from_isogeo(String query,String subResources, String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset, String wholeShare, String prot)
+	public JSONObject search_metadata_from_isogeo(String query,String subResources, String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset)
 	    {
 	    	HttpClient client = new DefaultHttpClient();
 	    	HttpResponse response;
@@ -244,26 +241,21 @@ public  class IsogeoController {
 			        }
 			    };
 			    
-			
-					
-				   
 						try {
 							sf = new SSLSocketFactory(acceptingTrustStrategy);
 							client.getConnectionManager().getSchemeRegistry().register(new Scheme("https", 443, sf));
-							//settng proxy to be intercepted by feddler
+							//setting proxy to be intercepted by fiddler or Charles for clem's Mac os x
 							HttpHost proxy = new HttpHost("localhost", 8888);
 							client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
 
-							
+						
 					    	HttpGet get = new HttpGet(requestURL+"_include="+subResources+"&_limit="+pageSize+"&_offset="+
-					    			offset+"&box="+bbox+"geo="+poly+"&rel="+georel+"&ob="+
+					    			offset+"&box="+bbox+"&geo="+poly+"&rel="+georel+"&ob="+
 					    			orderedBy+"&od="+orderDir+"&q="+query);
 
 					    	// add header
 					    	get.setHeader("Authorization", token_type+" "+access_token);
-					    	
-					    	
-							
+					
 								response = client.execute(get);
 							 	System.out.println("Response Code of Get Request : " 
 					                    + response.getStatusLine().getStatusCode());
@@ -276,23 +268,22 @@ public  class IsogeoController {
 					    	while ((line = rd.readLine()) != null) {
 					    		result.append(line);
 					    	}
+					    	
 					    	System.out.println(result);
 					    	String str_result=result.toString();
 					    	JSONObject jsonObject;
 							
-							jsonObject = (JSONObject)new JSONParser().parse(str_result);
+							jsonObject = (JSONObject) new JSONParser().parse(str_result);
 							return jsonObject ;
 							
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} 
-						
-							
-						return null;
-							
-	    
+										
+						return null;					
 	    }
+	
 	
 	public boolean setHistoricalMetaData()
     {
@@ -310,7 +301,11 @@ public  class IsogeoController {
         }
         
     	//1) search metadata that verify criteria (keywords, owner)
-    	if(!initializeGrossMetaData("", "conditions", "", "", "", "", "", "3", 0, "", ""))
+    	if(!initializeGrossMetaData("", "conditions", "", "", "", "", "", "3", 0))
+    		// query, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset
+    		// subResources fait appel au paramètre "_include" de la recherche url qui permet de récupérer les 
+    		// sous-ressources d'un ressource. Passer "conditions" revient à écrire dans l'url "?_include=conditions"
+    		// et dans notre cas cela nous permet d'avoir accès à la licence de la MD.
     		{
     		System.out.println("erreur de mise à jour de l'historique des métadonnées");
     		return false;
@@ -346,7 +341,6 @@ public  class IsogeoController {
     							lm.get(0).setlicense(gross_metadata.get(i).getlicense());
     							lm.get(0).setAsked(true);
     							
-    							
     						}
     						dao.save(lm.get(0));
     				
@@ -355,8 +349,6 @@ public  class IsogeoController {
     			context.close();
     			return true;
     }
-    
-	   
 	    
 	public String getAuthURL() {
 		return authURL;
@@ -421,10 +413,5 @@ public  class IsogeoController {
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
-
-
-
-    
- 
     
 }
