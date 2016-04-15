@@ -91,6 +91,7 @@
       		<groupId>xerces</groupId>
       		<artifactId>xercesImpl</artifactId>
       		<version>2.10.0</version>
+<<<<<<< HEAD
     	  </dependency>
 
     	  <dependency>
@@ -117,6 +118,30 @@
           <version>3.0.1</version>
           <scope>provided</scope>
         </dependency>
+=======
+    	</dependency>
+    	<dependency>
+    		<groupId>org.postgresql</groupId>
+    		<artifactId>postgresql</artifactId>
+    		<version>9.4.1207.jre7</version>
+		</dependency>
+		<dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.7.1.RELEASE</version>
+     	</dependency>
+     	<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.ejb</groupId>
+			<artifactId>javax.ejb-api</artifactId>
+			<version>3.2</version>
+		</dependency>
+		
+>>>>>>> 6d9f24852e98afae27cc7ab114cab7cc049b518e
     </dependencies>
 
     <properties>

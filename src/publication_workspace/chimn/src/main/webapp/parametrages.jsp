@@ -95,35 +95,35 @@
             <div class="form-group">
               <label for="hoteBDD" class="col-sm-2 control-label">Hôte</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="hoteBDD" placeholder="ex : localhost">
+                <input type="text" class="form-control" name="hoteBDD" placeholder="ex : localhost" value="localhost">
               </div>
             </div>
             <!--port-->
             <div class="form-group">
               <label for="portBDD" class="col-sm-2 control-label">Port</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="portBDD" placeholder="ex : 5432">
+                <input type="text" class="form-control" name="portBDD" placeholder="ex : 5432" value="5432">
               </div>
             </div>
             <!--base de données-->
             <div class="form-group">
               <label for="bdd" class="col-sm-2 control-label">Base de données</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="bdd" placeholder="ex : forêts">
+                <input type="text" class="form-control" name="bdd" placeholder="ex : forêts" value="chimnsource">
               </div>
             </div>
             <!--utilisateur-->
             <div class="form-group">
               <label for="userBDD" class="col-sm-2 control-label">Nom d'utilisateur</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="userBDD" placeholder="ex : tsig2015">
+                <input type="text" class="form-control" name="userBDD" placeholder="ex : tsig2015" value="postgres">
               </div>
             </div>
             <!--mot de passe-->
             <div class="form-group">
               <label for="passwordBDD" class="col-sm-2 control-label">Mot de passe</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" name="passwordBDD" placeholder="ex : ********">
+                <input type="password" class="form-control" name="passwordBDD" placeholder="ex : ********" value="postgres">
               </div>
             </div>
            </div>
@@ -137,28 +137,28 @@
             <div class="form-group">
               <label for="hoteGS" class="col-sm-2 control-label">Hôte</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="hoteGS" placeholder="ex : localhost">
+                <input type="text" class="form-control" name="hoteGS" placeholder="ex : localhost" value="localhost">
               </div>
             </div>
             <!--port-->
             <div class="form-group">
               <label for="portGS" class="col-sm-2 control-label">Port</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="portGS" placeholder="ex : 5432">
+                <input type="text" class="form-control" name="portGS" placeholder="ex : 5432" value="8081">
               </div>
             </div>
             <!--utilisateur-->
             <div class="form-group">
               <label for="userGS" class="col-sm-2 control-label">Nom d'utilisateur</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="userGS" placeholder="ex : tsig2015">
+                <input type="text" class="form-control" name="userGS" placeholder="ex : tsig2015" value="admin">
               </div>
             </div>
             <!--mot de passe-->
             <div class="form-group">
               <label for="passwordGS" class="col-sm-2 control-label">Mot de passe</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" name="passwordGS" placeholder="ex : ********">
+                <input type="password" class="form-control" name="passwordGS" placeholder="ex : ********" value="geoserver">
               </div>
             </div>
            </div>
@@ -173,14 +173,14 @@
             <div class="form-group">
               <label for="idI" class="col-sm-2 control-label">ID</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="idI" placeholder="id Isogeo">
+                <input type="text" class="form-control" name="idI" placeholder="id Isogeo" value="projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0">
               </div>
             </div>
             <!--secret-->
             <div class="form-group">
               <label for="secretI" class="col-sm-2 control-label">Secret</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="secretI" placeholder="secret Isogeo">
+                <input type="text" class="form-control" name="secretI" placeholder="secret Isogeo" value="jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd">
               </div>
             </div>
             <!--groupe de travail-->

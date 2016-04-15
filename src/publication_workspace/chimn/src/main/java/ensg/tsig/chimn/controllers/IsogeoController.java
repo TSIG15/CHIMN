@@ -5,6 +5,8 @@ import ensg.tsig.chimn.dao.MetaDataDao;
 import ensg.tsig.chimn.entities.*;
 import java.util.List;
 
+import javax.ejb.Stateful;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -37,7 +39,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
+@Stateful
 public  class IsogeoController {
 
     private  final static String  authURL = "https://id.api.isogeo.com/oauth/token";
