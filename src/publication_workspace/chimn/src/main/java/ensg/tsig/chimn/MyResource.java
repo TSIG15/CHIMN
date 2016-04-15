@@ -26,7 +26,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ensg.tsig.chimn.controllers.IsogeoController;
 import ensg.tsig.chimn.controllers.PublisherController;
 import ensg.tsig.chimn.dao.ParametersDao;
+import ensg.tsig.chimn.dao.PreferenceFormatDao;
+import ensg.tsig.chimn.dao.PreferenceSRSDao;
 import ensg.tsig.chimn.entities.Parameters;
+import ensg.tsig.chimn.entities.PreferenceFormat;
+import ensg.tsig.chimn.entities.PreferenceSRS;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -158,6 +162,20 @@ public class MyResource {
     	
     }
     
+   
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @GET
     @Path("/tags/")
     @Produces(MediaType.TEXT_PLAIN)
@@ -198,5 +216,106 @@ public class MyResource {
     	
     	return null;
 	}
-	
+
+    @POST
+    @Path("/formats/")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String formatCheckedToDB(
+    		@FormParam("shp") String shpVal ,
+    		@FormParam("dxf") String dxfVal,
+    		@FormParam("gml") String gmlVal,
+    		@FormParam("geotiff") String geotiffVal,
+    		@FormParam("png") String pngVal,
+    		@FormParam("jpeg") String jpegVal
+    		) {
+    	
+    	/*PreferenceFormat myShp = new PreferenceFormat();   crée un nouvel objet paramètres
+    	myShp.setNameformat("shp");
+    	myShp.setActivateformat(Boolean.valueOf(shpVal));
+    	
+    	PreferenceFormat myDxf=new PreferenceFormat();   crée un nouvel objet paramètres
+    	myShp.setNameformat("dxf");
+    	myShp.setActivateformat(Boolean.valueOf(dxfVal));*/
+    	
+    	
+    	
+    	
+    	
+    	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml"); /*ouvre la connexion bdd*/
+    	
+    	/*action faites sur la table*/
+    	PreferenceFormatDao dao0 = context.getBean(PreferenceFormatDao.class);/* dao permet transaction CRUD*/
+    	PreferenceFormatDao dao1 = context.getBean(PreferenceFormatDao.class);
+    	PreferenceFormatDao dao2 = context.getBean(PreferenceFormatDao.class);
+    	PreferenceFormatDao dao3 = context.getBean(PreferenceFormatDao.class);
+    	PreferenceFormatDao dao4 = context.getBean(PreferenceFormatDao.class);
+    	PreferenceFormatDao dao5 = context.getBean(PreferenceFormatDao.class);
+    	
+    	
+    	List<PreferenceFormat> listshp = dao0.findByNameformat("shp");   
+    	List<PreferenceFormat> listdxf = dao1.findByNameformat("dxf");
+    	List<PreferenceFormat> listgml = dao2.findByNameformat("gml");
+    	List<PreferenceFormat> listgeotiff = dao3.findByNameformat("geotiff");
+    	List<PreferenceFormat> listpng = dao4.findByNameformat("png");
+    	List<PreferenceFormat> listjpeg = dao5.findByNameformat("jpeg");
+    	
+    	
+    	if(listdxf!=null) listshp.get(0).setActivateformat(Boolean.valueOf(shpVal));
+    	if(listdxf!=null) listdxf.get(0).setActivateformat(Boolean.valueOf(dxfVal));
+    	if(listgml!=null) listgml.get(0).setActivateformat(Boolean.valueOf(gmlVal));
+    	if(listgeotiff!=null) listgeotiff.get(0).setActivateformat(Boolean.valueOf(geotiffVal));
+    	if(listshp!=null) listpng.get(0).setActivateformat(Boolean.valueOf(pngVal));
+    	if(listjpeg!=null) listjpeg.get(0).setActivateformat(Boolean.valueOf(jpegVal));
+    	
+    	
+    	dao0.save(listshp.get(0));
+    	dao1.save(listdxf.get(0));
+    	dao2.save(listgml.get(0));
+    	dao3.save(listgeotiff.get(0));
+    	dao4.save(listpng.get(0));
+    	dao5.save(listjpeg.get(0));
+    	
+    	context.close();
+    	return null;
+    }
+    
+    @POST
+    @Path("/srs/")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String srsCheckedToDB(
+    		@FormParam("WebMercator") String webMVal ,
+    		@FormParam("l93") String lambertVal,
+    		@FormParam("wgs84") String wgsVal
+    		){
+    	
+    	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml"); /*ouvre la connexion bdd*/
+    	
+    	
+    	PreferenceSRSDao dao0 = context.getBean(PreferenceSRSDao.class);
+    	PreferenceSRSDao dao1 = context.getBean(PreferenceSRSDao.class);
+    	PreferenceSRSDao dao2 = context.getBean(PreferenceSRSDao.class);
+    	
+    	
+    	List<PreferenceSRS> listwebM = dao0.findByEpsg("3857");
+    	List<PreferenceSRS> listlam = dao1.findByEpsg("2154");
+    	List<PreferenceSRS> listwgs = dao2.findByEpsg("32631");
+    	
+    	
+    	if(listwebM!=null) listwebM.get(0).setActivatesrs(Boolean.valueOf(webMVal));
+    	if(listlam!=null) listlam.get(0).setActivatesrs(Boolean.valueOf(lambertVal));
+    	if(listwgs!=null) listwgs.get(0).setActivatesrs(Boolean.valueOf(wgsVal));
+    	
+    	dao0.save(listwebM.get(0));
+    	dao1.save(listlam.get(0));
+    	dao2.save(listwgs.get(0));
+    	
+    	
+    	context.close();
+    	
+    	return null;
+    }
  }

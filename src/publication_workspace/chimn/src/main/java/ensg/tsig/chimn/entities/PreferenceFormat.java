@@ -17,8 +17,9 @@ public class PreferenceFormat {
 	@Id
     @GeneratedValue
     private Long id;
-	private String nameFm;
-	private boolean activated;
+	private String nameformat;
+	private boolean activateformat;
+	
 	
 	public Long getId() {
 		return id;
@@ -26,17 +27,17 @@ public class PreferenceFormat {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNameFm() {
-		return nameFm;
+	public String getNameformat() {
+		return nameformat;
 	}
-	public void setNameFm(String nameFm) {
-		this.nameFm = nameFm;
+	public void setNameformat(String nameformat) {
+		this.nameformat = nameformat;
 	}
-	public boolean isActivated() {
-		return activated;
+	public boolean isActivateformat() {
+		return activateformat;
 	}
-	public void setActivated(boolean activated) {
-		this.activated = activated;
+	public void setActivateformat(boolean activateformat) {
+		this.activateformat = activateformat;
 	}
 
 }
