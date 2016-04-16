@@ -1,12 +1,11 @@
 /*
  * Base structure
  */
-
 /* Move down content because we have a fixed navbar that is 50px tall */
+
 body {
   padding-top: 50px;
 }
-
 
 .navbar-inverse .navbar-nav > li > a {
   color:#000;
@@ -54,6 +53,12 @@ barre de recherche utilisateur
   border-bottom: 1px solid #eee;
 }
 
+/*
+boutons des préférences
+*/
+.boutonPref {
+  margin-top: 25px;
+}
 /*
 PAGE ACCUEIL
 */

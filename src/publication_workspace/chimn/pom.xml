@@ -57,93 +57,74 @@
             <artifactId>jersey-media-moxy</artifactId>
         </dependency>
         -->
-        <dependency>
-    		    <groupId>it.geosolutions</groupId>
-    		    <artifactId>geoserver-manager</artifactId>
-    		    <version>1.5.2</version>
-  		  </dependency>
+      <dependency>
+    		<groupId>it.geosolutions</groupId>
+    		<artifactId>geoserver-manager</artifactId>
+    		<version>1.5.2</version>
+  		</dependency>
 
   		  <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.2.0.Final</version>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-entitymanager</artifactId>
+          <version>4.2.0.Final</version>
         </dependency>
 
- 		    <dependency>
-  			    <groupId>org.slf4j</groupId>
-  			    <artifactId>slf4j-simple</artifactId>
-  			    <version>1.7.18</version>
-  		  </dependency>
+ 		  <dependency>
+  			<groupId>org.slf4j</groupId>
+  			<artifactId>slf4j-simple</artifactId>
+  			<version>1.7.18</version>
+  		</dependency>
 
-		    <dependency>
+		  <dependency>
       		<groupId>org.apache.httpcomponents</groupId>
       		<artifactId>httpclient</artifactId>
       		<version>4.1.2</version>
-    	  </dependency>
+    	</dependency>
 
-     	  <dependency>
+     	<dependency>
       		<groupId>commons-lang</groupId>
       		<artifactId>commons-lang</artifactId>
       		<version>2.6</version>
-    	  </dependency>
+    	</dependency>
 
-    	  <dependency>
+    	<dependency>
       		<groupId>xerces</groupId>
       		<artifactId>xercesImpl</artifactId>
       		<version>2.10.0</version>
-<<<<<<< HEAD
-    	  </dependency>
+    	</dependency>
 
-    	  <dependency>
+    	<dependency>
     		  <groupId>org.postgresql</groupId>
-    		  <artifactId>postgresql</artifactId>
+          <artifactId>postgresql</artifactId>
     		  <version>9.4.1207.jre7</version>
 		    </dependency>
 
-		    <dependency>
-          <groupId>org.springframework.data</groupId>
-          <artifactId>spring-data-jpa</artifactId>
-          <version>1.7.1.RELEASE</version>
-        </dependency>
-
-     	  <dependency>
-			    <groupId>com.googlecode.json-simple</groupId>
-			    <artifactId>json-simple</artifactId>
-			    <version>1.1</version>
-		    </dependency>
-
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>javax.servlet-api</artifactId>
-          <version>3.0.1</version>
-          <scope>provided</scope>
-        </dependency>
-=======
-    	</dependency>
-    	<dependency>
-    		<groupId>org.postgresql</groupId>
-    		<artifactId>postgresql</artifactId>
-    		<version>9.4.1207.jre7</version>
-		</dependency>
-		<dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>1.7.1.RELEASE</version>
+		  <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+        <version>1.7.1.RELEASE</version>
      	</dependency>
+
      	<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.ejb</groupId>
 			<artifactId>javax.ejb-api</artifactId>
 			<version>3.2</version>
 		</dependency>
-		
->>>>>>> 6d9f24852e98afae27cc7ab114cab7cc049b518e
-    </dependencies>
 
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+
+    </dependencies>
     <properties>
         <jersey.version>2.16</jersey.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

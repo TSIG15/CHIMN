@@ -1,7 +1,6 @@
 /**
- * 
+ *JQuery to say that the document is ready
  */
-
 $(document).ready(function(){
 
 	//Send the AJAX call to the server
@@ -14,25 +13,22 @@ $(document).ready(function(){
 	  //Any post-data/get-data parameters
 	  //This is optional
 	    'data' : {
-	      
 	    },
 	  //The response from the server
 	    'success' : function(data) {
 	    //You can use any jQuery/JavaScript here!!!
-	    	var first=data.substring(1, data.length);
-	    	var last =first.slice(0,-1);
+	    	var first = data.substring(1, data.length);
+	    	var last = first.slice(0,-1);
 	    	var items = last.split(",");
-	        
+
 	        $.each(items, function (i, item) {
-	    	    $('#tags').append($('<option>', { 
+	    	    $('#tags').append($('<option>', {
 	    	        value: 1,
-	    	        text : item 
+	    	        text : item
 	    	    }));
 	    	});
-	      
+
 	    }
 	  });
-	
-	
-	
+
 })
