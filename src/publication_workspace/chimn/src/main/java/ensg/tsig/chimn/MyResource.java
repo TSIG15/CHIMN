@@ -1,5 +1,8 @@
 package ensg.tsig.chimn;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -86,7 +89,7 @@ public class MyResource {
 	    {	
 	    	//initialize attributes for the current instance
 	    	initializeIsogeo();
-	    	initializePublisher();
+	    	//initializePublisher();
 	    	
 		//test updating metadata in chimn database
 		    if(isogeo!=null)
@@ -105,7 +108,33 @@ public class MyResource {
 		    	System.out.println("Services were published successfully :)"); 
 		    }
 		    //run python
-		    
+		   /* String cmd = "python D:\\3eme_ENSG\\projet_industriel\\src\\publication_workspace\\chimn\\src\\main\\java\\ensg\\tsig\\chimn\\helloworld.py  ";
+		    String s = null;
+		    try {
+		    	Process p = Runtime.getRuntime().exec(cmd);
+		        
+		        BufferedReader stdInput = new BufferedReader(new
+		             InputStreamReader(p.getInputStream()));
+
+		        BufferedReader stdError = new BufferedReader(new
+		             InputStreamReader(p.getErrorStream()));
+
+		        // read the output from the command
+		        System.out.println("Here is the standard output of the command:\n");
+		        while ((s = stdInput.readLine()) != null) {
+		            System.out.println(s);
+		        }
+		         
+		        // read any errors from the attempted command
+		        System.out.println("Here is the standard error of the command (if any):\n");
+		        while ((s = stdError.readLine()) != null) {
+		            System.out.println(s);
+		        }
+		         
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
 		    
 		    return "the end of get run!";
 	    }
@@ -183,17 +212,33 @@ public class MyResource {
     	 return null;
     
     }
-    @POST
-    @Path("/authentification/")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces( MediaType.TEXT_PLAIN)
-    public String postAuthentification (@FormParam("username") String login,
-    		@FormParam("password") String mdp)
-    {
-    	
-    	 return "authentification ok!"+login+mdp;
+   
+    	  @POST
+    	    @Path("/authentification/")
+    	    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    	    @Produces(MediaType.TEXT_PLAIN)
+    public String postAuthentification (
+    	            @FormParam("username") String login,
+    	            @FormParam("password") String mdp)
+    	                     
+    	    {       
+    	        String loginAdmin = "admin";
+    	        String mdpAdmin = "MaDdPmin";
+    	        String success = "success";
+    	        String failure = "failure";
+    	        
+    	        System.out.println(login.equals(loginAdmin)); 
+    	        System.out.println(mdp.equals(mdpAdmin)); 
+    	        
+    	        int logInt = (login.equals(loginAdmin)) ? 1 : 0;
+    	        int mdpInt = (mdp.equals(mdpAdmin)) ? 1 : 0;
+    	        
+    	        if((logInt==1) && (mdpInt==1))
+    	            return success;
+    	        else
+    	            return failure;
+    	    }
     
-    }
     
     @GET
     @Path ("/data/")

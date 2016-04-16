@@ -74,7 +74,7 @@
               <!-- formulaire d'authentification-->
               
 
-              <form class="form-horizontal" action="webapi/myresource/authentification/" method="post">
+              <form class="form-horizontal" action="" method="">
 
                 <div class="form-group">
                   <label for="login" class="col-sm-4 control-label">Identifiant</label>
@@ -94,7 +94,7 @@
                 <div class="form-group">
                   <label for="submit" class="col-sm-4 control-label"></label>
                   <div class="col-sm-1">
-                    <button type="submit" class="btn btn-default">Valider</button>
+                    <button id="auth" type="submit" class="btn btn-default">Valider</button>
                   </div>
                 </div>
                 

@@ -1,6 +1,7 @@
 package ensg.tsig.chimn.controllers;
 
 
+import ensg.tsig.chimn.dao.CriteriaDao;
 import ensg.tsig.chimn.dao.MetaDataDao;
 import ensg.tsig.chimn.entities.*;
 import java.util.List;
@@ -234,10 +235,34 @@ public  class IsogeoController {
 	
 	public boolean initializeGrossMetaData(String query,String subResources,String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset)
 	{
-		String title,license,created,modified,idisogeo;
+		String name,license,created,modified,idisogeo;
+		String keywords_criteria; //to get from database "creteria"
+		boolean license_criteria=false;  //to get from database
     	boolean deleted=false;
+    	//getting criteria from chimn database :keywords and license
+    		//0) initiate context for crud operations
+    	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml");
+        CriteriaDao dao = context.getBean(CriteriaDao.class);
+        
+        List<Criteria> criteria=dao.findAll();
+        
+        if(criteria.size()!=1) 
+        	
+        	return false; //if there is more than one criteria in the table retrn false
+        	
+    
+        keywords_criteria=criteria.get(0).getKeyword();
+        keywords_criteria=keywords_criteria.replace(" ", "%20");
+        keywords_criteria=keywords_criteria.replace(":", "%3A");
+		
+        license_criteria=criteria.get(0).isLicense();
+        
+        context.close();
+ 
     	
-    	JSONObject jsonObject=search_metadata_from_isogeo(query, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset);
+    	
+    	JSONObject jsonObject=search_metadata_from_isogeo(keywords_criteria, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset);
 		JSONArray jsonResult= (JSONArray) jsonObject.get("results");
 		System.out.println("voici results : "+jsonResult);
 		for(int i=0; i<jsonResult.size(); i++)
@@ -246,23 +271,36 @@ public  class IsogeoController {
 			JSONObject jsonObject2;
 			try {
 				jsonObject2 = (JSONObject) new JSONParser().parse(jsonResult.get(i).toString());
-				JSONArray conditions= (JSONArray) jsonObject2.get("conditions");
 				
-				JSONObject condition0 = (JSONObject) new JSONParser().parse(conditions.get(0).toString());
-				
-				JSONObject licence = (JSONObject) new JSONParser().parse(condition0.get("license").toString());
-				 
-				title=jsonObject2.get("title").toString();
+				name=jsonObject2.get("name").toString();
 				created=jsonObject2.get("_created").toString();
 				modified=jsonObject2.get("_modified").toString();
 				idisogeo=jsonObject2.get("_id").toString();
-				license=licence.get("name").toString();
-				//bug to resolve later...
-				if(jsonObject2.get("_deleted")!=null)
-					deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());
-				
-				gross_metadata.add(new MetaData(title,license,created,modified,deleted,idisogeo));
-
+				//testing if meta data has conditions
+				JSONArray conditions= (JSONArray) jsonObject2.get("conditions");
+				if(license_criteria==true) //
+				{//add only metadata that has a license
+					if(conditions!=null)
+					{
+						JSONObject condition0 = (JSONObject) new JSONParser().parse(conditions.get(0).toString());
+						JSONObject licence = (JSONObject) new JSONParser().parse(condition0.get("license").toString());
+						license=licence.get("name").toString();
+						//bug to resolve later...
+						if(jsonObject2.get("_deleted")!=null)
+							deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());						
+						gross_metadata.add(new MetaData(name,license,created,modified,deleted,idisogeo));
+	
+					}
+					
+					
+				}
+				else //add a metadata enven it has not a license
+					//bug to resolve later...
+					if(jsonObject2.get("_deleted")!=null)
+						deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());
+					
+					gross_metadata.add(new MetaData(name,"none",created,modified,deleted,idisogeo));
+	
 				System.out.println(gross_metadata.get(i).isChanged());
 				
 			} catch (ParseException e) {
@@ -345,8 +383,9 @@ public  class IsogeoController {
         	temList.get(i).setAsked(false);
         	dao.save(temList.get(i));
         }
+        //1)look for criteria
         
-    	//1) search metadata that verify criteria (keywords, owner)
+    	//2) search metadata that verify criteria (keywords, owner)
     	if(!initializeGrossMetaData("", "conditions", "", "", "", "", "", "3", 0))
     		// query, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset
     		// subResources fait appel au paramètre "_include" de la recherche url qui permet de récupérer les 
