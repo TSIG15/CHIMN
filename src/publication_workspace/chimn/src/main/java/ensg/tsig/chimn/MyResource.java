@@ -92,8 +92,7 @@ public class MyResource {
 		    		   return "error updating metadata :/ ";
 		    		System.out.println("Hitorical was updated successfully :)");
 		    	}		    
-		
-		    
+
 		 // publish OGC services
 		    if(publisher!=null)
 		    {
@@ -101,8 +100,7 @@ public class MyResource {
 		    	System.out.println("Services were published successfully :)"); 
 		    }
 		    //run python
-		    
-		    
+
 		    return "the end of get run!";
 	    }
 
@@ -153,7 +151,6 @@ public class MyResource {
     	
     	context.close(); /*ferme connexion bdd*/
     	
-    	
 		return null;
     	
     }
@@ -175,8 +172,7 @@ public class MyResource {
     			j.putAll(isogeo.getKeywords());
     			return j;
     		}
-    	
-
+ 
     	 return null;
     
     }
@@ -208,7 +204,7 @@ public class MyResource {
     }
     
     
-	@GET
+	/*@GET
     @Path ("/data/")
     @Produces(MediaType.TEXT_PLAIN)
     public String getData(@QueryParam("word") String word)
@@ -219,7 +215,7 @@ public class MyResource {
     	isogeo.search_metadata_from_isogeo(word,"conditions", "", "", "", "", "", "3", 0);
     	
     	return null;
-	}
+	}*/
 
     @POST
     @Path("/formats/")
@@ -314,9 +310,33 @@ public class MyResource {
     	dao1.save(listlam.get(0));
     	dao2.save(listwgs.get(0));
     	
-    	
     	context.close();
     	
     	return null;
     }
+    
+    @GET
+    @Path ("/televersement/")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getTeleversement() {
+		
+    	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml");/*ouvre la connexion bdd*/
+    	
+    	/*action faites sur la table*/
+    	ParametersDao dao = context.getBean(ParametersDao.class);/* dao permet transaction CRUD*/
+    	List<Parameters> listeParams = dao.findAll();
+    	if (listeParams.size()!= 1){
+    		return null;
+    	}
+    	
+    	String tlurl = listeParams.get(0).getTlurl();
+    	
+    	context.close(); /*ferme connexion bdd*/
+
+		return tlurl;
+    }
+    
+    
  }
+

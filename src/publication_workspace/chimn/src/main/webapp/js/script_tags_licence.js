@@ -39,9 +39,11 @@ $(document).ready(function(){
 	    }
 	  });
 
+
+
 	  $('select').on('change', function() {
 
-		  $('#keywords').val($('#keywords').val() + " "+ this.value);
+		$('#keywords').val($('#keywords').val() + " "+ this.value);
 		  var newkeywordsTofilterOn= $('#keywords').val();
 		  $.ajax({
 			  //The URL to process the request
@@ -60,7 +62,7 @@ $(document).ready(function(){
 			    	for(k in data)
 		    	  {
 			    	  $('#tags').append($('<option>', {
-			    	        value: k,
+			    	        value : k,
 			    	        text : data[k]
 			    	    }));
 			      }

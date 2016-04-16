@@ -210,13 +210,18 @@
             <!-- licences-->
 
             <h5>Licence</h5>
-            <select class="form-control" name="licences">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="OUI">
+                  OUI
+                </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="NON">
+                  NON
+              </label>
+            </div>
 
             <!--mots-clés-->
 
@@ -230,7 +235,7 @@
               <option>6</option>-->
             </select>
 
-			<input type="text" class="form-control" id="keywords" placeholder="mots clés">
+			<input style="margin-top:10px;" type="text" class="form-control" id="keywords" placeholder="mots clés">
             <!--propriétaire : inclus dans les tags-->
 
             <!--périodicité-->

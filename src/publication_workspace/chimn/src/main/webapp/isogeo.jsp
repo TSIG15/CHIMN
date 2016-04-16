@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html style="height:100%" lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +33,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body style="height:100%">
 
     <!--navbar du haut-->
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -61,30 +61,25 @@
     </nav>
     <!--fin navbar-->
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main index">
 
-        <!--bloc administrateur-->
-        <div class="col-sm-6">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <a href="authentification.jsp">Vous êtes administrateur ?</a>
-            </div>
+    <div style="height:100%" class="container-fluid">
+      <div style="height:100%" class="row">
+
+        <!-- sidebar basse-->
+          <div id="navbarSidebar" class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+              <li style="padding-left:20px;">Catalogue de métadonnées</li>
+            </ul>
+          </div>
+
+          <div style="padding-left:15px;padding-right:0px;height:100%" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+          <!-- open catalog -->
+          <iframe style="height:100%" src="http://open.isogeo.com/s/d107b19c310c44b7954844c369dbd617/Xif-bJGI5P4oRwziFj6EEAunGTcq0"
+            name="isogeo" id="isogeocatalog" width="100%" height="100%" ></iframe>
           </div>
         </div>
-        <!--bloc utilisateur-->
-        <div class="col-sm-6">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <a href="isogeo.jsp">Vous êtes utilisateur ?</a>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
-  </div>
 
   <!-- Bootstrap core JavaScript
   ================================================== -->
@@ -94,7 +89,7 @@
       <script src="js/bootstrap.min.js"></script>
       <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
       <script src="js/holder.min.js"></script>
-      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug>
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
       <script src="js/ie10-viewport-bug-workaround.js"></script>
       <!-- script maison-->
       <script src="js/scripts_divers.js"></script>
