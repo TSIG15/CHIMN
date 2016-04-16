@@ -1,10 +1,13 @@
 package ensg.tsig.chimn;
 
+<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+=======
+>>>>>>> origin/master
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -19,11 +22,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ensg.tsig.chimn.controllers.IsogeoController;
@@ -49,6 +48,7 @@ public class MyResource {
      *
      * @return String that will be returned as a text/plain response.
      */
+	
 	@EJB
 	private IsogeoController isogeo;
 	private PublisherController publisher;
@@ -68,8 +68,8 @@ public class MyResource {
     	isogeo=new IsogeoController(param.get(0).getIsid(),param.get(0).getIssecret());
     	isogeo.getToken();
     	context.close();
-    	
 	}
+	
 	public void initializePublisher()
 	{
 		//Connect to publisher
@@ -82,23 +82,24 @@ public class MyResource {
     	else 
     		System.out.println("connexion to geoserver KO :/ ");
 	}
-	 	@GET
-	    @Path("/run/")
-	    @Produces( MediaType.TEXT_PLAIN)
-	public String  getRun()
+	 	
+	
+	@GET
+	@Path("/run/")
+	@Produces( MediaType.TEXT_PLAIN)
+	public String getRun()
 	    {	
 	    	//initialize attributes for the current instance
 	    	initializeIsogeo();
 	    	//initializePublisher();
 	    	
-		//test updating metadata in chimn database
+	    	//test updating metadata in chimn database
 		    if(isogeo!=null)
 		    	{
 		    		if(!isogeo.setHistoricalMetaData())
 		    		   return "error updating metadata :/ ";
 		    		System.out.println("Hitorical was updated successfully :)");
-		    	}
-		    
+		    	}		    
 		
 		    
 		 // publish OGC services
@@ -139,8 +140,8 @@ public class MyResource {
 		    return "the end of get run!";
 	    }
 
+	
 	//method post to get the parameters
-
     @POST
     @Path("/parameters/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -201,6 +202,7 @@ public class MyResource {
 
     	initializeIsogeo();
     	if(isogeo==null) return null;
+
     	if( isogeo.initializeKeyWords(q))
     		{
     			JSONObject j=new JSONObject();
@@ -208,49 +210,49 @@ public class MyResource {
     			return j;
     		}
     	
-    		 
+
     	 return null;
     
     }
-   
-    	  @POST
-    	    @Path("/authentification/")
-    	    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    	    @Produces(MediaType.TEXT_PLAIN)
+
+    
+    @POST
+    @Path("/authentification/")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
     public String postAuthentification (
-    	            @FormParam("username") String login,
-    	            @FormParam("password") String mdp)
-    	                     
-    	    {       
-    	        String loginAdmin = "admin";
-    	        String mdpAdmin = "MaDdPmin";
-    	        String success = "success";
-    	        String failure = "failure";
-    	        
-    	        System.out.println(login.equals(loginAdmin)); 
-    	        System.out.println(mdp.equals(mdpAdmin)); 
-    	        
-    	        int logInt = (login.equals(loginAdmin)) ? 1 : 0;
-    	        int mdpInt = (mdp.equals(mdpAdmin)) ? 1 : 0;
-    	        
-    	        if((logInt==1) && (mdpInt==1))
-    	            return success;
-    	        else
-    	            return failure;
-    	    }
+    		@FormParam("username") String login,
+    		@FormParam("password") String mdp)
+    			     
+    {   	
+    	String loginAdmin = "admin";
+    	String mdpAdmin = "MaDdPmin";
+    	String success = "success";
+    	String failure = "failure";
+    	
+    	System.out.println(login.equals(loginAdmin)); 
+    	System.out.println(mdp.equals(mdpAdmin)); 
+    	
+    	int logInt = (login.equals(loginAdmin)) ? 1 : 0;
+    	int mdpInt = (mdp.equals(mdpAdmin)) ? 1 : 0;
+    	
+    	if((logInt==1) && (mdpInt==1))
+    		return success;
+    	else
+    		return failure;
+    }
+
     
     
-    @GET
+	@GET
     @Path ("/data/")
     @Produces(MediaType.TEXT_PLAIN)
     public String getData(@QueryParam("word") String word)
     {
 
-    	IsogeoController isogeo=new IsogeoController("projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0","jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd");
-   	 	//we catch the token
-    	isogeo.getToken();
-   	 	
-    	isogeo.search_metadata_from_isogeo(word, "conditions", "", "", "", "", "", "3", 0);
+    	initializeIsogeo();
+    	if(isogeo==null) return null;
+    	isogeo.search_metadata_from_isogeo(word,"conditions", "", "", "", "", "", "3", 0);
     	
     	return null;
 	}
@@ -276,10 +278,7 @@ public class MyResource {
     	myShp.setNameformat("dxf");
     	myShp.setActivateformat(Boolean.valueOf(dxfVal));*/
     	
-    	
-    	
-    	
-    	
+     	
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
     	

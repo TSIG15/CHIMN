@@ -66,20 +66,21 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main authentification">
 
         <!--deuxième bloc administrateur-->
-        
+
         <div class="col-sm-6">
           <div class="panel panel-primary">
             <div class="panel-heading">
-            
-              <!-- formulaire d'authentification-->
-              
 
-              <form class="form-horizontal" action="" method="">
+              <!-- formulaire d'authentification-->
+
+
+
+              <form class="form-horizontal" method="post">
 
                 <div class="form-group">
                   <label for="login" class="col-sm-4 control-label">Identifiant</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control" id="login" name ="username" placeholder="ex : toto" value="">
+                    <input type="text" class="form-control" id="login" name ="username" placeholder="ex : toto">
                   </div>
                 </div>
                 <div class="form-group">
@@ -88,18 +89,20 @@
                     <input type="password" class="form-control" id="mdp" name="password" placeholder="ex : ********">
                   </div>
                 </div>
-                
+
                 <!--bouton d'envoi-->
-                
+
                 <div class="form-group">
                   <label for="submit" class="col-sm-4 control-label"></label>
                   <div class="col-sm-1">
-                    <button id="auth" type="submit" class="btn btn-default">Valider</button>
+
+                    <button id ="auth" type="submit" class="btn btn-default">Valider</button><!---->
+
                   </div>
                 </div>
-                
+
                 <!-- retour à l'accueil-->
-                
+
                 <div class="form-group">
                   <label for="accueil" class="col-sm-4 control-label"></label>
                   <div class="col-sm-7">
@@ -107,9 +110,9 @@
                   </div>
                 </div>
               </form>
-              
+
               <!-- fin formulaire-->
-              
+
             </div>
           </div>
         </div>

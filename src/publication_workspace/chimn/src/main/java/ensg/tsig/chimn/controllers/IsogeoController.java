@@ -43,7 +43,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 @Stateful
+
 public  class IsogeoController {
 
     private  final static String  authURL = "https://id.api.isogeo.com/oauth/token";

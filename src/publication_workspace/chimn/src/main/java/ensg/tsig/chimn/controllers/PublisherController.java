@@ -62,7 +62,7 @@ public class PublisherController {
     		}
     	setParameters(dao.findAll().get(0));
     	try {
-			gs_url = new URL("http://"+parameters.getGshote()+":"+parameters.getGsport()+"/geoserver");
+			gs_url = new URL("Http://"+parameters.getGshote()+":"+parameters.getGsport()+"/geoserver");
 			manager = new GeoServerRESTManager(gs_url, parameters.getGsuser(), parameters.getGspsw());
 			reader = manager.getReader();
 			publisher = manager.getPublisher();    
@@ -177,7 +177,7 @@ public class PublisherController {
          * 
          * {@code curl -u admin:geoserver -XPOST -H 'Content-type: text/xml' \ -d
          * "<featureType><name>easia_gaul_1_aggr</name><nativeCRS>EPSG:4326</nativeCRS><enabled>true</enabled></featureType>" \
-         * http://localhost:8080/geoserver/rest/workspaces/it.geosolutions/ datastores/pg_kids/featuretypes }
+         * Http://localhost:8080/geoserver/rest/workspaces/it.geosolutions/ datastores/pg_kids/featuretypes }
          * 
          * and a PUT to <BR> restURL + "/rest/layers/" workspace + : + layerName
          */
