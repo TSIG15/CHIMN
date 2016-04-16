@@ -12,7 +12,14 @@ var result;
 var FormatChoice;
 var srsChoice;
 
+var clicks = 0;
+function onClick() {
+    clicks += 1;
+    document.getElementById("clicks").innerHTML = clicks;
+};
+
 function cheminFinal() {
+    
     FormatChoice = "vide";
     srsChoice = "vide";
     
@@ -97,11 +104,11 @@ function cheminFinal() {
     class="btn btn-primary btn-block"
     id "button"
     style="background-color:#ADCA87;border-color:#ADCA87;"
-    href="javascript:window.location=cheminFinal();" >TÉLÉCHARGER</a>
+    href="javascript:window.location=cheminFinal();"
+    onclick="onClick()">TÉLÉCHARGER</a>
+    <p>Donnée téléchargée <a id="clicks">0</a> fois.</p>
 
 <!--fin téléversements-->
-
-
 
 
 
