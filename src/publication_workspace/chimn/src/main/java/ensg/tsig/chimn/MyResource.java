@@ -31,6 +31,7 @@ import ensg.tsig.chimn.dao.PreferenceSRSDao;
 import ensg.tsig.chimn.entities.Parameters;
 import ensg.tsig.chimn.entities.PreferenceFormat;
 import ensg.tsig.chimn.entities.PreferenceSRS;
+import ensg.tsig.chimn.utils.MsgLog;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -87,6 +88,14 @@ public class MyResource {
 	@Produces( MediaType.TEXT_PLAIN)
 	public String getRun()
 	    {	
+		try {
+			
+			MsgLog.write("happy run");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	    	//initialize attributes for the current instance
 	    	initializeIsogeo();
 	    	//initializePublisher();
