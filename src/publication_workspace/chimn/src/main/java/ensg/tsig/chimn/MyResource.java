@@ -1,13 +1,11 @@
 package ensg.tsig.chimn;
 
-<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
-=======
->>>>>>> origin/master
+
 import java.util.List;
 
 import javax.ejb.EJB;
