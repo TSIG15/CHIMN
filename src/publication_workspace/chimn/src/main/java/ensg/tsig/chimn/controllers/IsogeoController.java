@@ -4,6 +4,8 @@ package ensg.tsig.chimn.controllers;
 import ensg.tsig.chimn.dao.MetaDataDao;
 import ensg.tsig.chimn.entities.*;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.Stateful;
 
@@ -32,6 +34,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -55,7 +58,7 @@ public  class IsogeoController {
     
     private List<MetaData> gross_metadata=new ArrayList<MetaData>() ;
     private List<String> tags=new ArrayList<String>();
-    
+    private Map<String,String> keywords = new HashMap<String,String>();
     
 	/**
 	 * @param consumerKey
@@ -177,6 +180,49 @@ public  class IsogeoController {
 									tags.add(tagValue);
 									
 								}
+							return true;
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							
+						}
+						
+		return false;
+		
+	}
+	
+	
+	public boolean initializeKeyWords(String keywords)
+	{
+		System.out.println("old keywords"+keywords); 
+		keywords=keywords.replace(" ", "%20");
+		keywords=keywords.replace(":", "%3A");
+		System.out.println("new keywords"+keywords);
+		JSONObject jsonObject=search_metadata_from_isogeo(keywords, "", "", "", "", "", "", "", 0);
+						
+						
+						String str_tags = jsonObject.get("tags").toString();
+						JSONObject jsonTags;
+						try {
+							jsonTags = (JSONObject)new JSONParser().parse(str_tags);
+							System.out.println("voici keywords : "+jsonTags);
+							System.out.println("voici tags values  : "+jsonTags.values());
+							
+							Set<String> keys = jsonTags.keySet();
+							Iterator i=keys.iterator(); // on crée un Iterator pour parcourir notre HashSet
+							while(i.hasNext()) // tant qu'on a un suivant
+							{
+								
+								String cle = (String) i.next();
+								String val = (String) jsonTags.get(String.valueOf(cle));
+							    if(cle.contains("keyword:"))
+							    	{
+							    		System.out.println("cle=" + cle + ", valeur=" + val);
+							    		this.keywords.put(cle, val);
+							    	}
+							    
+							}
+							
 							return true;
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
@@ -414,6 +460,14 @@ public  class IsogeoController {
 
 	public void setTags(List<String> tags) {
 		this.tags = tags;
+	}
+
+	public Map<String,String> getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(Map<String,String> keywords) {
+		this.keywords = keywords;
 	}
     
 }

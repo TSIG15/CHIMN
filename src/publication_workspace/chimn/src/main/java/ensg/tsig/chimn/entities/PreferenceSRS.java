@@ -10,17 +10,16 @@ public class PreferenceSRS {
 	
 	@Id
     @GeneratedValue
-    private Long id;
-	private String nameSRS;
+	private String namesrs;
 	private String epsg;
-	private boolean activated;
+	private boolean activatesrs;
 	
 	
 	public String getNameSRS() {
-		return nameSRS;
+		return namesrs;
 	}
-	public void setNameSRS(String nameSRS) {
-		this.nameSRS = nameSRS;
+	public void setNameSRS(String namesrs) {
+		this.namesrs = namesrs;
 	}
 	public String getEpsg() {
 		return epsg;
@@ -28,11 +27,11 @@ public class PreferenceSRS {
 	public void setEpsg(String epsg) {
 		this.epsg = epsg;
 	}
-	public boolean isActivated() {
-		return activated;
+	public boolean isActivatesrs() {
+		return activatesrs;
 	}
-	public void setActivated(boolean activated) {
-		this.activated = activated;
+	public void setActivatesrs(boolean activatesrs) {
+		this.activatesrs = activatesrs;
 	}
 
 	

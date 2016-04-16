@@ -85,7 +85,8 @@
 
          <!--formulaire formats -->
 
-         <form name="formFormats" class="form-horizontal" action="webapi/myresource/run/" method="get"><!-- appel de la resource java dans action -->
+         <form id="format-form" name="formFormats" class="form-horizontal" action="" method=""><!-- appel de la resource java dans action -->
+
 
           <h3 class="sub-header">Formats</h3>
 
@@ -93,26 +94,26 @@
           <h5 style="font-style:italic;">Formats vecteur</h5>
 
           <label class="checkbox-inline">
-            <input type="checkbox" name="shp" value="shp"> shp
+            <input type="checkbox" name="shp"> shp
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" name="dxf" value="dxf"> dxf
+            <input type="checkbox" name="dxf"> dxf
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" name="gml" value="gml"> gml
+            <input type="checkbox" name="gml"> gml
           </label>
 
 		<!-- formulaire des formats raster-->
           <h5 style="font-style:italic;">Formats raster</h5>
 
           <label class="checkbox-inline">
-            <input type="checkbox" name="geotiff" name="fdxf" value="geotiff"> geotiff
+            <input type="checkbox" name="geotiff"> geotiff
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" name="png" value="png"> png
+            <input type="checkbox" name="png"> png
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" name="jpeg" value="jpeg"> jpeg
+            <input type="checkbox" name="jpeg" > jpeg
           </label>
 
            <!--bouton d'envoi des formats mais l'appel de la resource java se trouve au niveau de la balise form -->
@@ -124,15 +125,19 @@
            </form>
 
         <!--formulaire SRS -->
-         <form name="formSRS" class="form-horizontal" action="" method="get"><!-- appel de la resource java dans action -->
+         <form id="srs-form"name="formSRS" class="form-horizontal" action="" method=""><!-- appel de la resource java dans action -->
 
           <h3 class="sub-header">Systèmes de coordonnées</h3>
 
           <label class="checkbox-inline">
-            <input type="checkbox" name="WebMercator" value="Web Mercator"> Web Mercator
+            <input type="checkbox" name="WebMercator" value="3857"> WGS84 (Web Mercator)
           </label>
           <label class="checkbox-inline">
-            <input type="checkbox" name="l93" value="Lambert 93"> Lambert 93
+            <input type="checkbox" name="l93" value="2154"> RGF93 (LAMBERT 93)
+          </label>
+
+           <label class="checkbox-inline">
+            <input type="checkbox" name="wgs84" value="32631"> WGS84(UTM 31N)
           </label>
 
           <!--bouton d'envoi SRS mais l'appel de la resource java se trouve au niveau de la balise form-->
@@ -216,7 +221,7 @@
             <!--mots-clés-->
 
             <h5>Tags</h5><!--fixé en dur à 6 choix pour le moment, il faudra revoir l'html en fonction de la liste récupérée -->
-            <select multiple class="form-control" name="motscles" id="tags">
+            <select  class="form-control" name="motscles" id="tags">
               <!-- <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -224,6 +229,9 @@
               <option>5</option>
               <option>6</option>-->
             </select>
+
+			<input type="text" class="form-control" id="keywords" placeholder="mots clés">
+            <!--propriétaire : inclus dans les tags-->
 
             <!--périodicité-->
 
@@ -269,5 +277,47 @@
          <!-- script maison-->
         <script src="js/scripts_divers.js"> </script>
         <script src="js/script_tags_licence.js"> </script>
+        <script>
+        	$('#format-form').submit(function(e) {
+        		e.preventDefault();
+
+        		$.ajax({
+        			'url' : '/chimn/webapi/myresource/formats',
+        			'type' : 'POST',
+     				'data' : {
+     	        		shp: $('[name="shp"]').prop('checked'),
+     	        		dxf: $('[name="dxf"]').prop('checked'),
+     	        		gml: $('[name="gml"]').prop('checked'),
+     	        		png: $('[name="png"]').prop('checked'),
+     	        		geotiff: $('[name="geotiff"]').prop('checked'),
+     	        		jpeg: $('[name="jpeg"]').prop('checked')
+     	        	}
+        		})
+        		.done(function(data) {
+        			console.log(data);
+        		});
+        	});
+        </script>
+
+         <script>
+        	$('#srs-form').submit(function(e) {
+        		e.preventDefault();
+
+        		$.ajax({
+        			'url' : '/chimn/webapi/myresource/srs',
+        			'type' : 'POST',
+     				'data' : {
+     					WebMercator: $('[name="WebMercator"]').prop('checked'),
+     					l93: $('[name="l93"]').prop('checked'),
+     					wgs84: $('[name="wgs84"]').prop('checked')
+
+     	        	}
+        		})
+        		.done(function(data) {
+        			console.log(data);
+        		});
+        	});
+        </script>
+
            </body>
     </html>

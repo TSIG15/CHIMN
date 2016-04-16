@@ -1,7 +1,7 @@
 #################
 ## Eclipse
 #################
-
+.*
 *.pydevproject
 .project
 .metadata
@@ -15,7 +15,8 @@ local.properties
 .classpath
 .settings/
 .loadpath
-
+Servers
+applicationContext.xml
 # External tool builders
 .externalToolBuilders/
 

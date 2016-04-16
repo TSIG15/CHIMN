@@ -47,5 +47,8 @@ public class MainTest {
     //test getting tags
     
     //isogeo.initializeTags();
+    //test getting keywords
+    
+    isogeo.initializeKeyWords("");
    }
 }
