@@ -1,7 +1,6 @@
 <?php
     include ('includes/enTete.php');
-    include ('includes/requeteBDDupload.php');
-    echo $chemin
+    include ('includes/test_File_requeteBDDupload.php');
     ?>
 
 <div class="container-fluid">
@@ -39,15 +38,15 @@
 </br>
 
 <script language="JavaScript" type="text/javascript">
-var titledata = "test.test";
-var tlurl = "cheminVide\\";
+var titledata = "testFichier";
+var tlurl = <?php echo json_encode($chemin); ?>;
 var result;
-var FormatChoice = "0";
-var srsChoice = "0";
+var FormatChoice;
+var srsChoice;
 
 function cheminFinal() {
-    var FormatChoice = "vide";
-    var srsChoice = "vide";
+    FormatChoice = "vide";
+    srsChoice = "vide";
     
     if (document.getElementById('shp').checked) {
         var FormatChoice = 'shp';
@@ -82,25 +81,23 @@ function cheminFinal() {
     }
     
     if (FormatChoice !=="vide" && srsChoice !=="vide"){
-        var result = tlurl + FormatChoice + "\\" + "EPSG:" + srsChoice + "\\" + titledata;
-        alert(result)
+        var result = tlurl + FormatChoice + "/" + "EPSG" + srsChoice + "/" + titledata + ".zip";
+        return result;
     }
     else if (FormatChoice =="vide" && srsChoice =="vide"){
         alert("Veuillez selectionner un format et un système de coordonnées")
     }
 }
+
 </script>
 
-
-<button type="button" class="btn btn-primary btn-block"
-        id="button" style="color:black;background-color:#ADCA87;border-color:#ADCA87;"
-        onclick="cheminFinal(this)">TÉLÉCHARGER</button>
-<!--Créer la fonction JS(?) pour le chemin-->
+<a  button type ="button"
+    class="btn btn-primary btn-block"
+    id "button"
+    style="background-color:#ADCA87;border-color:#ADCA87;"
+    href="javascript:window.location=cheminFinal();" >TÉLÉCHARGER</a>
 
 <!--fin téléversements-->
-
-
-
 
 
 </div>

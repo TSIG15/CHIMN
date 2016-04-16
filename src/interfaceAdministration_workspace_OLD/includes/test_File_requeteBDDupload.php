@@ -15,8 +15,3 @@
         $chemin = "$row[0]";
     }
     ?>
-
-
-//A FAIRE :
-//- Mettre la variable $chemin dans le chemin de sortie (alert JS)
-//- Transformer l alerte en une sortie : return ?
