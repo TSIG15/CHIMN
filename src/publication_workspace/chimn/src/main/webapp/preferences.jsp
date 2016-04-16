@@ -214,7 +214,7 @@
             <!--mots-clés-->
             
             <h5>Tags</h5><!--fixé en dur à 6 choix pour le moment, il faudra revoir l'html en fonction de la liste récupérée -->
-            <select multiple class="form-control" name="motscles" id="tags">
+            <select  class="form-control" name="motscles" id="tags">
               <!-- <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -222,7 +222,8 @@
               <option>5</option>
               <option>6</option>-->
             </select>
-
+            
+			<input type="text" class="form-control" id="keywords" placeholder="mots clés">
             <!--propriétaire : inclus dans les tags-->
             
 

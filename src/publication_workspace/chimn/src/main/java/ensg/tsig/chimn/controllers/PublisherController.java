@@ -6,8 +6,9 @@ package ensg.tsig.chimn.controllers;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,8 @@ public class PublisherController {
 	private final String workspaceName ="chimn_workspace";
 	private String dataStoreName;
 	private List<String> layersName;
+	private List<String> urls_services=new ArrayList<String>() ;
+	private Map<Integer,String> mapLayersUrl = new HashMap<Integer,String>();
 	private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(GeoServerRESTPublisher.class);
 
    
@@ -292,5 +295,11 @@ public class PublisherController {
 
 	public void setParameters(Parameters parameters) {
 		this.parameters = parameters;
+	}
+	public List<String> getUrls_services() {
+		return urls_services;
+	}
+	public void setUrls_services(List<String> urls_services) {
+		this.urls_services = urls_services;
 	}
 }

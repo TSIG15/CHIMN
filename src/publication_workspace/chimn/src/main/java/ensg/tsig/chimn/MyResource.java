@@ -158,17 +158,23 @@ public class MyResource {
     	
     }
     
-    @GET
+    @POST
     @Path("/tags/")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getTags()
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getTags(@FormParam("q") String q)
     {
 
     	initializeIsogeo();
     	if(isogeo==null) return null;
-    	if( isogeo.initializeTags())
-
-    		 return isogeo.getTags().toString();
+    	if( isogeo.initializeKeyWords(q))
+    		{
+    			JSONObject j=new JSONObject();
+    			j.putAll(isogeo.getKeywords());
+    			return j;
+    		}
+    	
+    		 
     	 return null;
     
     }
