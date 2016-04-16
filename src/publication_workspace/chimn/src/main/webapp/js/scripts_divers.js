@@ -14,7 +14,30 @@ function toggle_div (bouton, id) {
   }
 })
 }
+/*
+* Ecoutons l'évènement click() du bouton auth
+*/
+$("#auth").click(function(){
 
+var ident = $("#login").val();
+var pwd = $("#mdp").val();
+
+$.ajax({
+//The URL to process the request
+  'url' : 'webapi/myresource/authentification',
+//The type of request, also known as the "method" in HTML forms
+//Can be 'GET' or 'POST'
+  'type' : 'POST',
+//Any post-data/get-data parameters
+//This is optional
+  'data' : {"username": ident,"password" : pwd}
+
+//The response from the server
+  
+  }).done(function(data) {
+		alert(data);
+	});;
+});
 
 function saveCriteria()
 {

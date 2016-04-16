@@ -74,6 +74,7 @@
               <!-- formulaire d'authentification-->
 
 
+
               <form class="form-horizontal" method="post">
 
                 <div class="form-group">
@@ -94,7 +95,9 @@
                 <div class="form-group">
                   <label for="submit" class="col-sm-4 control-label"></label>
                   <div class="col-sm-1">
+
                     <button id ="auth" type="submit" class="btn btn-default">Valider</button><!---->
+
                   </div>
                 </div>
 

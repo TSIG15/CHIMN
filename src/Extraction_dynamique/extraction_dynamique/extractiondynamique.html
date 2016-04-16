@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CHIM'N</title>
+	
+	
+	  <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--script src="js/ie-emulation-modes-warning.js"></script-->
+	
+	 <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" href="img/Logo_titre.png"/>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script src="commande.js"></script>
+
+    <link rel="stylesheet" href="libs/leaflet.css" />
+    <link rel="stylesheet" href="../dist/leaflet.draw.css" />
+    <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.2/leaflet.js"></script>
+    <script src="libs/leaflet-src.js"></script>
+
+    <script src="../src/Leaflet.draw.js"></script>
+
+    <script src="../src/edit/handler/Edit.Poly.js"></script>
+    <script src="../src/edit/handler/Edit.SimpleShape.js"></script>
+    <script src="../src/edit/handler/Edit.Circle.js"></script>
+    <script src="../src/edit/handler/Edit.Rectangle.js"></script>
+
+    <script src="../src/draw/handler/Draw.Feature.js"></script>
+    <script src="../src/draw/handler/Draw.Polyline.js"></script>
+    <script src="../src/draw/handler/Draw.Polygon.js"></script>
+    <script src="../src/draw/handler/Draw.SimpleShape.js"></script>
+    <script src="../src/draw/handler/Draw.Rectangle.js"></script>
+    <script src="../src/draw/handler/Draw.Circle.js"></script>
+    <script src="../src/draw/handler/Draw.Marker.js"></script>
+
+    <script src="../src/ext/TouchEvents.js"></script>
+    <script src="../src/ext/LatLngUtil.js"></script>
+    <script src="../src/ext/GeometryUtil.js"></script>
+    <script src="../src/ext/LineUtil.Intersect.js"></script>
+    <script src="../src/ext/Polyline.Intersect.js"></script>
+    <script src="../src/ext/Polygon.Intersect.js"></script>
+
+    <script src="../src/Control.Draw.js"></script>
+    <script src="../src/Tooltip.js"></script>
+    <script src="../src/Toolbar.js"></script>
+
+    <script src="../src/draw/DrawToolbar.js"></script>
+    <script src="../src/edit/EditToolbar.js"></script>
+    <script src="../src/edit/handler/EditToolbar.Edit.js"></script>
+    <script src="../src/edit/handler/EditToolbar.Delete.js"></script>
+	
+	
+	
+</head>
+<body>
+
+
+<div class="container-fluid">
+      <div class="row">
+        <div id="navbarSidebar" class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#" onclick="toggle_div(this,'map');">OU<span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="#" onclick="toggle_div(this,'formquoi');">QUOI</a></li>
+            <li ><a href="#" onclick="toggle_div(this,'formqui');">QUI</a></li>
+            
+          </ul>
+        </div>
+ <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <center> <h1 id="titreBDD" class="page-header" style="margin-top:0">où</h1></center>
+	<center><div id="map" style="width: 700px; height: 400px; border: 6px solid #000"></div><center>
+	<!--<button id="changeColor">Rectangle -> Blue</button>-->    
+
+  <!--quoi-->
+         <center> <h1 id="titreBDD" class="page-header" style="margin-top:0;">Quoi</h1></center>
+          <!--formulaire-->
+          <form id="formquoi" class="form-horizontal">
+           
+	      <div class="form-group">
+              <label for="connexionBDD" class="col-sm-2 control-label">SRS</label>
+              <div class="col-sm-10">
+                 <SELECT name="srs"  class="form-control" id="srs">
+			       <option>  </option>
+			
+		 </SELECT>
+              </div>
+	      </div>
+
+  		<div class="form-group">
+                <label for="connexionBDD" class="col-sm-2 control-label">Format de Sortie</label>
+                <div class="col-sm-10">
+				
+				
+                 <SELECT name="formatsortie"  class="form-control" id="formatsortie">
+			         <option> format de sortie </option>
+		</SELECT>
+			
+		</div>
+              </div>
+
+
+ <!--qui-->
+         <center> <h1 id="titreBDD" class="page-header" style="margin-top:0;" onclick="toggle_div(this,'formqui');">Qui</h1></center>
+          <!--formulaire-->
+          <form id="formqui" class="form-horizontal" style="display:none;">
+           
+	      <div class="form-group">
+              <label for="connexionBDD" class="col-sm-2 control-label">Nom</label>
+              <div class="col-sm-10">
+              <input type="text" class="form-control" id="username" placeholder="ex : jassmin">
+              </div>
+	      </div>
+
+  		<div class="form-group">
+                <label for="connexionBDD" class="col-sm-2 control-label">Mail</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" id="usermail" placeholder="ex : jassmin@gmail.com">
+		</div>
+              </div>
+
+
+                 
+           		  <button class="btn btn-default" style="margin-left:8px;width:188px;font-size:12px;" type="submit"  onclick="cmd(event)">Valider la commande</button>
+
+            <!--bouton d'envoi-->
+            <!--<div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Valider</button>
+              </div>
+            </div>-->
+          </form>
+	  <!--navbar du haut-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+
+        <div class="navbar-header">
+          <img src="img/Logo.png" alt="logoTSIG"/>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarSidebar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+
+
+
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li><p id="titre_appli">Livraison et publication de données automatisées<p></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Aide</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!--fin navbar-->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main index">
+
+      </div>
+    </div>
+  </div>
+  
+
+	  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+      <script src="js/bootstrap.min.js"></script>
+      <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+      <script src="js/holder.min.js"></script>
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+      <script src="js/ie10-viewport-bug-workaround.js"></script>
+      <!-- script maison-->
+      <script src="js/scripts_divers.js"></script>
+	 
+</body>
+</html>
