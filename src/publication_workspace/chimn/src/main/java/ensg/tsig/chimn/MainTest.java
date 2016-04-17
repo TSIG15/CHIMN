@@ -19,8 +19,8 @@ import ensg.tsig.chimn.controllers.PublisherController;
 public class MainTest {
 	public static void main(String[] args) {
 		Path currentRelativePath = Paths.get("");
-		String st = currentRelativePath.toAbsolutePath().toString();
-		System.out.println("Current relative path is: " + st);
+		String st = System.getenv("CATALINA_HOME");
+		       System.out.println("Current relative path is: " + st);
 		
 		
 		////Test IsoGeo

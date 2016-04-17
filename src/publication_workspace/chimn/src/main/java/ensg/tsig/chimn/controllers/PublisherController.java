@@ -3,6 +3,7 @@
  */
 package ensg.tsig.chimn.controllers;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import ensg.tsig.chimn.dao.MetaDataDao;
 import ensg.tsig.chimn.dao.ParametersDao;
 import ensg.tsig.chimn.entities.MetaData;
 import ensg.tsig.chimn.entities.Parameters;
+import ensg.tsig.chimn.utils.MsgLog;
 import it.geosolutions.geoserver.rest.GeoServerRESTManager;
 import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
 import it.geosolutions.geoserver.rest.GeoServerRESTReader;
@@ -58,6 +60,13 @@ public class PublisherController {
     	if(dao.findAll().size()!=1)
     		{
     			System.out.println("Error : multiple prameters were found in database ");
+    			try {
+					MsgLog.write("Error : multiple prameters were found in database ");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
     			return false;
     		}
     	setParameters(dao.findAll().get(0));
@@ -69,6 +78,13 @@ public class PublisherController {
     	} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				MsgLog.write(e.getMessage());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 		}
        
     	context.close();
@@ -82,7 +98,15 @@ public class PublisherController {
 	
 		
          		if(reader.getWorkspaceNames()!=null && reader.getWorkspaceNames().contains(workspaceName))
+         			{
          			System.out.print("chimn's workspace exists!");
+         			try {
+    					MsgLog.write("chimn's workspace exists!");
+    				} catch (IOException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+         			}
          		else
          		{
          			System.out.print("Creating chimn workspace...");
@@ -90,35 +114,42 @@ public class PublisherController {
          			if(reader.getWorkspaceNames()!=null && reader.getWorkspaceNames().contains(workspaceName))
              		{
          				System.out.print("Chimn workspace was created !");
+         				try {
+        					MsgLog.write("Chimn workspace was created !");
+        				} catch (IOException e1) {
+        					// TODO Auto-generated catch block
+        					e1.printStackTrace();
+        				}
          				             			
              		}
              			
          			else 
          			{
          				System.out.print("An error occured when trying to create Chimn workspace :/");
+         				try {
+        					MsgLog.write("An error occured when trying to create Chimn workspace :/");
+        				} catch (IOException e1) {
+        					// TODO Auto-generated catch block
+        					e1.printStackTrace();
+        				}
          				return false;
          			}
          		}
          		
          		
          		//now let's check if the associated datastore already exists  !
-         		/*RESTDataStoreList existingDataStore =reader.getDatastores(workspaceName);
-         		boolean dsExists=false;
-         		for (int i=0;i<existingDataStore.size();i++)
-         			{
-         			System.out.println(existingDataStore.get(i).getName());
-         			System.out.println("chimn_datastore"+parameters.getDbname());
-         			if(existingDataStore.get(i).getName().equals("chimn_datastore"+parameters.getDbname()))
-         			{    				 	
-     					dsExists=true;
-     				}
-         			}*/
-         				
          		
  				if(reader.getDatastore(workspaceName, parameters.getDbname())!=null)
  					{
  					
  					System.out.print(parameters.getDbname()+" already exists !");
+ 					try {
+    					MsgLog.write(parameters.getDbname()+" already exists !");
+    				} catch (IOException e1) {
+    					// TODO Auto-generated catch block
+    					e1.printStackTrace();
+    				}
+ 					
  					dataStoreName=parameters.getDbname();
  					}
  				else
@@ -134,11 +165,23 @@ public class PublisherController {
  	            	if (storecreated) 
  	            		{
  	            		System.out.print("Chimn_datastore"+parameters.getDbname()+" was created !");
+ 	            		try {
+ 	    					MsgLog.write("Chimn_datastore"+parameters.getDbname()+" was created !");
+ 	    				} catch (IOException e1) {
+ 	    					// TODO Auto-generated catch block
+ 	    					e1.printStackTrace();
+ 	    				}
  	            		dataStoreName="Chimn_datastore"+parameters.getDbname();
  	            		}
  	            	else 
  	            		{
  	            		System.out.print("Chimn_datastore"+parameters.getDbname()+" was NOT created :/");
+ 	            		try {
+ 	    					MsgLog.write("Chimn_datastore"+parameters.getDbname()+" was NOT created :/");
+ 	    				} catch (IOException e1) {
+ 	    					// TODO Auto-generated catch block
+ 	    					e1.printStackTrace();
+ 	    				}
  	            		return false;
  	            		}
  	            	
@@ -182,8 +225,8 @@ public class PublisherController {
          * and a PUT to <BR> restURL + "/rest/layers/" workspace + : + layerName
          */
         String ftypeXml = fte.toString();
-        System.out.println("gs_url.getPath() "+gs_url.getPath());
-        StringBuilder postUrl = new StringBuilder(gs_url.getPath()).append("/rest/workspaces/")
+        System.out.println("gs_url.getPath() "+gs_url.getAuthority()+gs_url.getFile());
+        StringBuilder postUrl = new StringBuilder("http://"+gs_url.getAuthority()+gs_url.getFile()).append("/rest/workspaces/")
                 .append(workspace).append("/datastores/").append(storename).append("/featuretypes");
 
         final String layername = fte.getName();
@@ -251,8 +294,78 @@ public class PublisherController {
 
         return sendResult != null;
     }
+    //removes all layers which were not asked by the admin from the workspace
+    public boolean cleanWorkspace()
+    {
+    	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml");
+    	MetaDataDao dao = context.getBean(MetaDataDao.class);
+    	List<MetaData> layersToRemove=dao.findByAsked(false);
+    	//for each layer : check if it exists and then remove it!!
+    	String title;
+    	for(int i=0; i<layersToRemove.size();i++)
+    		{
+    			title=layersToRemove.get(i).getName();
+    			unpublishFeatureType(workspaceName,dataStoreName,title.substring(title.lastIndexOf(".") + 1));
+    		}
+    	context.close();
+    	return true;
+    }
+    /**
+     * Removes the featuretype and the associated layer.
+     * <P>
+     * You may also want to {@link #removeDatastore(String, String) remove the datastore}.
+     * 
+     * @return true if the operation completed successfully.
+     */
+    public boolean unpublishFeatureType(String workspace, String storename, String layerName) {
+        try {
 
-   
+            final String fqLayerName;
+            // this null check is here only for backward compatibility.
+            // workspace
+            // shall be mandatory.
+            if (workspace == null) {
+
+                fqLayerName = layerName;
+
+                if (LOGGER.isWarnEnabled()) {
+                    LOGGER.warn("Null workspace while configuring layer : " + layerName
+                            + " -- This behavior is deprecated.");
+                }
+            } else {
+                fqLayerName = workspace + ":" + layerName;
+            }
+            // delete related layer
+            URL deleteLayerUrl = new URL(gs_url + "/rest/layers/" + fqLayerName);
+            boolean layerDeleted = HTTPUtils
+                    .delete(deleteLayerUrl.toExternalForm(), parameters.getGsuser(), parameters.getGspsw());
+            if (!layerDeleted) {
+                LOGGER.warn("Could not delete layer '" + fqLayerName + "'");
+                return false;
+            }
+            // delete the coverage
+            URL deleteFtUrl = new URL(gs_url + "/rest/workspaces/" + workspace + "/datastores/"
+                    + storename + "/featuretypes/" + layerName);
+            boolean ftDeleted = HTTPUtils.delete(deleteFtUrl.toExternalForm(), parameters.getGsuser(), parameters.getGspsw());
+            if (!ftDeleted) {
+                LOGGER.warn("Could not delete featuretype " + workspace + ":" + storename + "/"
+                        + layerName + ", but layer was deleted.");
+            } else {
+                LOGGER.info("FeatureType successfully deleted " + workspace + ":" + storename + "/"
+                        + layerName);
+            }
+
+            return ftDeleted;
+
+            // the store is still there: should we delete it?
+
+        } catch (MalformedURLException ex) {
+            if (LOGGER.isErrorEnabled())
+                LOGGER.error(ex.getLocalizedMessage(), ex);
+            return false;
+        }
+    }
     public void publish()
     {	//get license from preferences
     	String license="Licence ouverte ETALAB 1.0";
@@ -264,14 +377,15 @@ public class PublisherController {
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml");
     	MetaDataDao dao = context.getBean(MetaDataDao.class);
-    	List<MetaData> layers=dao.findByAskedAndChangedAndLicense(true, true, license);
+    	List<MetaData> layers=dao.findByAskedAndChanged(true, true);
     	
     	layersName=new ArrayList<String>();
     	
     	String title;
+    	boolean publishDBLayer;
     	for(int i=0;i<layers.size();i++)
     		{   
-    			System.out.println(layers.get(i).isAsked());
+    			//System.out.println(layers.get(i).isAsked());
     			
     			
     			title=layers.get(i).getName();
@@ -280,9 +394,17 @@ public class PublisherController {
     			System.out.println(title.substring(title.lastIndexOf(".") + 1));
     			
     			 //test publishing a layer
-    		   if(layersName.get(i).equals("coursdo"))
-    			  publisher.publishDBLayer(workspaceName,dataStoreName,layersName.get(i),"EPSG:4326","line");
-    			
+    		   //if(layersName.get(i).equals("coursdo"))
+    			  publishDBLayer = publisher.publishDBLayer(workspaceName,dataStoreName,layersName.get(i),layers.get(i).getSrs(),"line");
+    			  if(publishDBLayer)
+    				  System.out.println(layersName.get(i)+"was successfully published :)");
+				else
+					try {
+						MsgLog.write("An error has occured while publishing "+layersName.get(i));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
     		}
     	
     	context.close();

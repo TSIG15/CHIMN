@@ -12,5 +12,6 @@ public interface MetaDataDao extends CrudRepository<MetaData, Long>{
 	 public List<MetaData> findByIdisogeo(String id);
 	 public List<MetaData> findByAsked(boolean asked);
 	 public List<MetaData> findByAskedAndChangedAndLicense(boolean asked, boolean _changed, String license);
+	 public List<MetaData> findByAskedAndChanged(boolean asked, boolean changed);
 	 public MetaData findOne(Long id);
 }

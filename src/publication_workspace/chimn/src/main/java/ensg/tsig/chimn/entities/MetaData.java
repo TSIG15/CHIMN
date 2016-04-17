@@ -20,9 +20,11 @@ public class MetaData {
 	    private boolean deleted;
 	    private boolean asked;
 	    private String idisogeo;
+	    private String geometrytype;
+	    private String srs;
 	    
 	    public MetaData(String title, String license, String _created, String _modified, 
-				boolean _deleted, String idisogeo) {
+				boolean _deleted, String idisogeo,String srs, String geom) {
 			super();
 			this.title = title;
 			this.license = license;
@@ -32,6 +34,8 @@ public class MetaData {
 			this.asked= true;
 			this.deleted = _deleted;
 			this.idisogeo = idisogeo;
+			this.srs=srs;
+			this.geometrytype=geom;
 		}
 
 		public MetaData() {
@@ -106,6 +110,22 @@ public class MetaData {
 
 		public void setAsked(boolean asked) {
 			this.asked = asked;
+		}
+
+		public String getGeometrytype() {
+			return geometrytype;
+		}
+
+		public void setGeometrytype(String geometrytype) {
+			this.geometrytype = geometrytype;
+		}
+
+		public String getSrs() {
+			return srs;
+		}
+
+		public void setSrs(String srs) {
+			this.srs = srs;
 		}
 	}
 

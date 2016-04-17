@@ -37,8 +37,6 @@ import ensg.tsig.chimn.utils.MsgLog;
  * Root resource (exposed at "myresource" path)
  */
 @Path("myresource")
-@Stateful
-
 public class MyResource {
 
     /**
@@ -48,7 +46,7 @@ public class MyResource {
      * @return String that will be returned as a text/plain response.
      */
 	
-	@EJB
+	
 	private IsogeoController isogeo;
 	private PublisherController publisher;
 	
@@ -98,57 +96,64 @@ public class MyResource {
 		}
 	    	//initialize attributes for the current instance
 	    	initializeIsogeo();
-	    	//initializePublisher();
+	    	initializePublisher();
 	    	
 	    	//test updating metadata in chimn database
-		    if(isogeo!=null)
+		    /*if(isogeo!=null)
 		    	{
 		    		if(!isogeo.setHistoricalMetaData())
 		    		   return "error updating metadata :/ ";
 		    		System.out.println("Hitorical was updated successfully :)");
-		    	}		    
+		    	}	*/   
 
 		 // publish OGC services
 		    if(publisher!=null)
-		    {
-		    	//publisher.publish();
+		    {	//clean workspace: remove layers which are not asked by administrator
+		    	publisher.cleanWorkspace();
+		    	publisher.publish();
 		    	System.out.println("Services were published successfully :)"); 
 		    }
 		    //run python
 
-		   /* String cmd = "python D:\\3eme_ENSG\\projet_industriel\\src\\publication_workspace\\chimn\\src\\main\\java\\ensg\\tsig\\chimn\\helloworld.py  ";
-		    String s = null;
-		    try {
-		    	Process p = Runtime.getRuntime().exec(cmd);
-		        
-		        BufferedReader stdInput = new BufferedReader(new
-		             InputStreamReader(p.getInputStream()));
-
-		        BufferedReader stdError = new BufferedReader(new
-		             InputStreamReader(p.getErrorStream()));
-
-		        // read the output from the command
-		        System.out.println("Here is the standard output of the command:\n");
-		        while ((s = stdInput.readLine()) != null) {
-		            System.out.println(s);
-		        }
-		         
-		        // read any errors from the attempted command
-		        System.out.println("Here is the standard error of the command (if any):\n");
-		        while ((s = stdError.readLine()) != null) {
-		            System.out.println(s);
-		        }
-		         
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+		  // runPythonScript("D:\\3eme_ENSG\\projet_industriel\\src\\publication_workspace\\chimn\\src\\main\\java\\ensg\\tsig\\chimn\\helloworld.py")
 		    
 
 		    return "the end of get run!";
 	    }
 
-	
+	public void runPythonScript(String path)
+	{
+		String cmd = "python "+path; 
+	    String s = null;
+	    String errors="/*********Python Errors*******/";
+	    try {
+	    	Process p = Runtime.getRuntime().exec(cmd);
+	        
+	        BufferedReader stdInput = new BufferedReader(new
+	             InputStreamReader(p.getInputStream()));
+
+	        BufferedReader stdError = new BufferedReader(new
+	             InputStreamReader(p.getErrorStream()));
+
+	        // read the output from the command
+	        System.out.println("Here is the standard output of the command:\n");
+	        while ((s = stdInput.readLine()) != null) {
+	            System.out.println(s);
+	        }
+	         
+	        // read any errors from the attempted command
+	        System.out.println("Here is the standard error of the command (if any):\n");
+	        
+	        while ((s = stdError.readLine()) != null) {
+	            
+	        	errors+=s;
+	        }
+	         
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	//method post to get the parameters
     @POST
     @Path("/parameters/")
