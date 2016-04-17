@@ -32,11 +32,11 @@ import ensg.tsig.chimn.dao.PreferenceServiceDao;
 import ensg.tsig.chimn.entities.Parameters;
 import ensg.tsig.chimn.entities.PreferenceFormat;
 import ensg.tsig.chimn.entities.PreferenceSRS;
-<<<<<<< HEAD
+
 import ensg.tsig.chimn.entities.PreferenceService;
-=======
+
 import ensg.tsig.chimn.utils.MsgLog;
->>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
+
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -368,19 +368,15 @@ public class MyResource {
     	
     	dao0.save(listwebM.get(0));
     	dao1.save(listlam.get(0));
-<<<<<<< HEAD
     	dao2.save(listwgsUTM.get(0));
     	dao3.save(listwgs.get(0));
-=======
-    	dao2.save(listwgs.get(0));
->>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
+
     	
     	context.close();
     	
     	return null;
     }
     
-<<<<<<< HEAD
     
     @POST
     @Path("/services/")
@@ -449,17 +445,7 @@ public class MyResource {
     	
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-=======
+
     @GET
     @Path ("/televersement/")
     @Produces(MediaType.TEXT_PLAIN)
@@ -482,7 +468,6 @@ public class MyResource {
 		return tlurl;
     }
     
-    
->>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
+
  }
 

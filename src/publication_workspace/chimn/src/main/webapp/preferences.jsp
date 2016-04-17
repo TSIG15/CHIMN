@@ -68,8 +68,8 @@
             <li><a href="parametrages.jsp">Paramétrages</a></li>
             <li class="active"><a href="#">Préférences<span class="sr-only">(current)</span></a></li>
             <li><a href="index.jsp">Déconnexion</a></li>
-              </div>
-          </ul>
+            </ul>
+          </div>
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -129,6 +129,11 @@
           <label class="checkbox-inline">
             <input type="checkbox" name="WebMercator" value="3857"> WGS84 (Web Mercator)
           </label>
+
+          <label class="checkbox-inline">
+            <input type="checkbox" name="wgs84" value="4326"> WGS84
+          </label>
+
           <label class="checkbox-inline">
             <input type="checkbox" name="l93" value="2154"> RGF93 (LAMBERT 93)
           </label>
@@ -136,16 +141,8 @@
            <label class="checkbox-inline">
             <input type="checkbox" name="wgs84UTM" value="32631"> WGS84(UTM 31N)
           </label>
-<<<<<<< HEAD
-          
-          <label class="checkbox-inline">
-            <input type="checkbox" name="wgs84" value="4326"> WGS84
-          </label>
-          
-          
-=======
 
->>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
+
           <!--bouton d'envoi SRS mais l'appel de la resource java se trouve au niveau de la balise form-->
             <div class="form-group">
               <div class="boutonPref col-sm-10">
@@ -163,15 +160,9 @@
          <div id="publications" style="display:none;">
 
           	<!--formulaire Service -->
-<<<<<<< HEAD
-          
-         	<form  id="service-form" name="formService" class="form-horizontal" action="" method=""><!-- appel de la resource java dans action -->
- 
-=======
 
-         	<form name="formSRS" class="form-horizontal" action="" method="get"><!-- appel de la resource java dans action -->
+         	<form id="service-form" name="formService" class="form-horizontal" action="" method=""><!-- appel de la resource java dans action -->
 
->>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
               <h3 class="sub-header">Services</h3>
               <!--formulaire des services-->
               <label class="checkbox-inline">
@@ -189,17 +180,11 @@
               <h3 class="sub-header">Style</h3>
 
               <div class="form-group">
-<<<<<<< HEAD
-                <label for="style">Appliquez un style :</label>
-                <input  type="file"  name="style">
-                <p class="help-block">Veuillez sélectionner votre style.</p>
-=======
                 <div class="col-sm-10">
                   <label for="style">Appliquez un style :</label>
                   <input type="file" name="style">
                   <p class="help-block">Veuillez sélectionner votre style.</p>
                 </div>
->>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
               </div>
 
             <!--bouton d'envoi publication mais l'appel de la resource java se trouve au niveau de la balise form-->
@@ -222,12 +207,7 @@
          <form name="formTrait" class="form-horizontal" action=""><!-- appel de la resource java dans action -->
 
             <h3 class="sub-header">Critères d'éligibilité</h3>
-<<<<<<< HEAD
-            
-           
-=======
 
->>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
             <!--formulaire des critères-->
 
             <!-- licences-->
@@ -346,12 +326,10 @@
         			console.log(data);
         		});
         	});
-        	
-        	
-        	
+
         	$('#service-form').submit(function(e) {
         		e.preventDefault();
-        		
+
         		$.ajax({
         			'url' : '/chimn/webapi/myresource/services',
         			'type' : 'POST',
@@ -360,20 +338,13 @@
      	        		wms: $('[name="wms"]').prop('checked'),
      	        		wmts: $('[name="wmts"]').prop('checked'),
      	        		style: $('[name="style"]').val()
-     	       
+
      	        	}
         		})
         		.done(function(data) {
         			console.log(data);
         		});
         	});
-        	
-        	
-        	
-        	
-        	
-        	
-        	
         </script>
 
            </body>
