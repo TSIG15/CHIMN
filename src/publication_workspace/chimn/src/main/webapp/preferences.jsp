@@ -136,8 +136,13 @@
           </label>
           
            <label class="checkbox-inline">
-            <input type="checkbox" name="wgs84" value="32631"> WGS84(UTM 31N)
+            <input type="checkbox" name="wgs84UTM" value="32631"> WGS84(UTM 31N)
           </label>
+          
+          <label class="checkbox-inline">
+            <input type="checkbox" name="wgs84" value="4326"> WGS84
+          </label>
+          
           
           <!--bouton d'envoi SRS mais l'appel de la resource java se trouve au niveau de la balise form-->
             <div class="form-group">
@@ -157,18 +162,18 @@
           
           	<!--formulaire Service -->
           
-         	<form name="formSRS" class="form-horizontal" action="" method="get"><!-- appel de la resource java dans action -->
+         	<form  id="service-form" name="formService" class="form-horizontal" action="" method=""><!-- appel de la resource java dans action -->
  
               <h3 class="sub-header">Services</h3>
               <!--formulaire des services-->
               <label class="checkbox-inline">
-                <input type="checkbox" name="wms" value="WMS"> WMS
+                <input type="checkbox" name="wms" value=""> WMS
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" name="wfs" value="WFS"> WFS
+                <input type="checkbox" name="wfs" value=""> WFS
               </label>
               <label class="checkbox-inline">
-                <input type="checkbox" name="wmts" value="WMTS"> WMTS
+                <input type="checkbox" name="wmts" value="S"> WMTS
               </label>
        
            	<!--formulaire Styles -->
@@ -177,7 +182,7 @@
 
               <div class="form-group">
                 <label for="style">Appliquez un style :</label>
-                <input type="file" name="style">
+                <input  type="file"  name="style">
                 <p class="help-block">Veuillez sélectionner votre style.</p>
               </div>
             
@@ -202,6 +207,7 @@
  
             <h3 class="sub-header">Critères d'éligibilité</h3>
             
+           
             <!--formulaire des critères-->
             
             <!-- licences-->
@@ -311,6 +317,7 @@
      				'data' : {
      					WebMercator: $('[name="WebMercator"]').prop('checked'),
      					l93: $('[name="l93"]').prop('checked'),
+     					wgs84UTM: $('[name="wgs84UTM"]').prop('checked'),
      					wgs84: $('[name="wgs84"]').prop('checked')
   		
      	        	}
@@ -319,6 +326,34 @@
         			console.log(data);
         		});
         	});
+        	
+        	
+        	
+        	$('#service-form').submit(function(e) {
+        		e.preventDefault();
+        		
+        		$.ajax({
+        			'url' : '/chimn/webapi/myresource/services',
+        			'type' : 'POST',
+     				'data' : {
+     	        		wfs: $('[name="wfs"]').prop('checked'),
+     	        		wms: $('[name="wms"]').prop('checked'),
+     	        		wmts: $('[name="wmts"]').prop('checked'),
+     	        		style: $('[name="style"]').val()
+     	       
+     	        	}
+        		})
+        		.done(function(data) {
+        			console.log(data);
+        		});
+        	});
+        	
+        	
+        	
+        	
+        	
+        	
+        	
         </script>
         
         
