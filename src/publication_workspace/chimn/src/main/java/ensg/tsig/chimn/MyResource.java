@@ -1,7 +1,11 @@
 package ensg.tsig.chimn;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -16,11 +20,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ensg.tsig.chimn.controllers.IsogeoController;
@@ -32,14 +32,16 @@ import ensg.tsig.chimn.dao.PreferenceServiceDao;
 import ensg.tsig.chimn.entities.Parameters;
 import ensg.tsig.chimn.entities.PreferenceFormat;
 import ensg.tsig.chimn.entities.PreferenceSRS;
+<<<<<<< HEAD
 import ensg.tsig.chimn.entities.PreferenceService;
+=======
+import ensg.tsig.chimn.utils.MsgLog;
+>>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
 
 /**
  * Root resource (exposed at "myresource" path)
  */
 @Path("myresource")
-@Stateful
-
 public class MyResource {
 
     /**
@@ -48,7 +50,8 @@ public class MyResource {
      *
      * @return String that will be returned as a text/plain response.
      */
-	@EJB
+	
+	
 	private IsogeoController isogeo;
 	private PublisherController publisher;
 	
@@ -67,8 +70,8 @@ public class MyResource {
     	isogeo=new IsogeoController(param.get(0).getIsid(),param.get(0).getIssecret());
     	isogeo.getToken();
     	context.close();
-    	
 	}
+	
 	public void initializePublisher()
 	{
 		//Connect to publisher
@@ -81,39 +84,82 @@ public class MyResource {
     	else 
     		System.out.println("connexion to geoserver KO :/ ");
 	}
-	 	@GET
-	    @Path("/run/")
-	    @Produces( MediaType.TEXT_PLAIN)
-	public String  getRun()
+	 	
+	
+	@GET
+	@Path("/run/")
+	@Produces( MediaType.TEXT_PLAIN)
+	public String getRun()
 	    {	
+		try {
+			
+			MsgLog.write("happy run");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	    	//initialize attributes for the current instance
 	    	initializeIsogeo();
 	    	initializePublisher();
 	    	
-		//test updating metadata in chimn database
-		    if(isogeo!=null)
+	    	//test updating metadata in chimn database
+		    /*if(isogeo!=null)
 		    	{
 		    		if(!isogeo.setHistoricalMetaData())
 		    		   return "error updating metadata :/ ";
 		    		System.out.println("Hitorical was updated successfully :)");
-		    	}
-		    
-		
-		    
+		    	}	*/   
+
 		 // publish OGC services
 		    if(publisher!=null)
-		    {
-		    	//publisher.publish();
+		    {	//clean workspace: remove layers which are not asked by administrator
+		    	publisher.cleanWorkspace();
+		    	publisher.publish();
 		    	System.out.println("Services were published successfully :)"); 
 		    }
 		    //run python
+
+		  // runPythonScript("D:\\3eme_ENSG\\projet_industriel\\src\\publication_workspace\\chimn\\src\\main\\java\\ensg\\tsig\\chimn\\helloworld.py")
 		    
-		    
+
 		    return "the end of get run!";
 	    }
 
-	//method post to get the parameters
+	public void runPythonScript(String path)
+	{
+		String cmd = "python "+path; 
+	    String s = null;
+	    String errors="/*********Python Errors*******/";
+	    try {
+	    	Process p = Runtime.getRuntime().exec(cmd);
+	        
+	        BufferedReader stdInput = new BufferedReader(new
+	             InputStreamReader(p.getInputStream()));
 
+	        BufferedReader stdError = new BufferedReader(new
+	             InputStreamReader(p.getErrorStream()));
+
+	        // read the output from the command
+	        System.out.println("Here is the standard output of the command:\n");
+	        while ((s = stdInput.readLine()) != null) {
+	            System.out.println(s);
+	        }
+	         
+	        // read any errors from the attempted command
+	        System.out.println("Here is the standard error of the command (if any):\n");
+	        
+	        while ((s = stdError.readLine()) != null) {
+	            
+	        	errors+=s;
+	        }
+	         
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//method post to get the parameters
     @POST
     @Path("/parameters/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -159,7 +205,6 @@ public class MyResource {
     	
     	context.close(); /*ferme connexion bdd*/
     	
-    	
 		return null;
     	
     }
@@ -174,43 +219,59 @@ public class MyResource {
 
     	initializeIsogeo();
     	if(isogeo==null) return null;
+
     	if( isogeo.initializeKeyWords(q))
     		{
     			JSONObject j=new JSONObject();
     			j.putAll(isogeo.getKeywords());
     			return j;
     		}
-    	
-    		 
+ 
     	 return null;
     
     }
+
+    
     @POST
     @Path("/authentification/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces( MediaType.TEXT_PLAIN)
-    public String postAuthentification (@FormParam("username") String login,
+    @Produces(MediaType.TEXT_PLAIN)
+    public String postAuthentification (
+    		@FormParam("username") String login,
     		@FormParam("password") String mdp)
-    {
+    			     
+    {   	
+    	String loginAdmin = "admin";
+    	String mdpAdmin = "MaDdPmin";
+    	String success = "success";
+    	String failure = "failure";
     	
-    	 return "authentification ok!"+login+mdp;
-    
+    	System.out.println(login.equals(loginAdmin)); 
+    	System.out.println(mdp.equals(mdpAdmin)); 
+    	
+    	int logInt = (login.equals(loginAdmin)) ? 1 : 0;
+    	int mdpInt = (mdp.equals(mdpAdmin)) ? 1 : 0;
+    	
+    	if((logInt==1) && (mdpInt==1))
+    		return success;
+    	else
+    		return failure;
     }
+
     
-    @GET
+    
+	/*@GET
     @Path ("/data/")
     @Produces(MediaType.TEXT_PLAIN)
     public String getData(@QueryParam("word") String word)
     {
 
-    	IsogeoController isogeo=new IsogeoController("projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0","jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd");
-   	 	//we catch the token
-    	isogeo.getToken();
-   	 	
-    	isogeo.search_metadata_from_isogeo(word, "conditions", "", "", "", "", "", "3", 0);
+    	initializeIsogeo();
+    	if(isogeo==null) return null;
+    	isogeo.search_metadata_from_isogeo(word,"conditions", "", "", "", "", "", "3", 0);
     	
     	return null;
-	}
+	}*/
 
     @POST
     @Path("/formats/")
@@ -233,10 +294,7 @@ public class MyResource {
     	myShp.setNameformat("dxf");
     	myShp.setActivateformat(Boolean.valueOf(dxfVal));*/
     	
-    	
-    	
-    	
-    	
+     	
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
     	
@@ -311,14 +369,19 @@ public class MyResource {
     	
     	dao0.save(listwebM.get(0));
     	dao1.save(listlam.get(0));
+<<<<<<< HEAD
     	dao2.save(listwgsUTM.get(0));
     	dao3.save(listwgs.get(0));
+=======
+    	dao2.save(listwgs.get(0));
+>>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
     	
     	context.close();
     	
     	return null;
     }
     
+<<<<<<< HEAD
     
     @POST
     @Path("/services/")
@@ -397,4 +460,30 @@ public class MyResource {
     
     
     
+=======
+    @GET
+    @Path ("/televersement/")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getTeleversement() {
+		
+    	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml");/*ouvre la connexion bdd*/
+    	
+    	/*action faites sur la table*/
+    	ParametersDao dao = context.getBean(ParametersDao.class);/* dao permet transaction CRUD*/
+    	List<Parameters> listeParams = dao.findAll();
+    	if (listeParams.size()!= 1){
+    		return null;
+    	}
+    	
+    	String tlurl = listeParams.get(0).getTlurl();
+    	
+    	context.close(); /*ferme connexion bdd*/
+
+		return tlurl;
+    }
+    
+    
+>>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
  }
+

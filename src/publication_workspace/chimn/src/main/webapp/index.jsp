@@ -77,7 +77,7 @@
         <div class="col-sm-6">
           <div class="panel panel-primary">
             <div class="panel-heading">
-              <a href="user.jsp">Vous êtes utilisateur ?</a>
+              <a href="isogeo.jsp">Vous êtes utilisateur ?</a>
             </div>
           </div>
         </div>

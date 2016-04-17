@@ -76,22 +76,23 @@
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        
+
         <!--téléversement-->
-                
+
         <h1 class="page-header" style="margin-top:0;" onclick="toggle_div(this,'televersements');">Téléversements</h1>
-        
+
         <div id="televersements" style="display:none;">
-        
+
          <!--formulaire formats -->
-         
+
          <form id="format-form" name="formFormats" class="form-horizontal" action="" method=""><!-- appel de la resource java dans action -->
-          
+
+
           <h3 class="sub-header">Formats</h3>
-          
+
           <!-- formulaire des formats vecteurs-->
           <h5 style="font-style:italic;">Formats vecteur</h5>
-                    
+
           <label class="checkbox-inline">
             <input type="checkbox" name="shp"> shp
           </label>
@@ -104,7 +105,7 @@
 
 		<!-- formulaire des formats raster-->
           <h5 style="font-style:italic;">Formats raster</h5>
-          
+
           <label class="checkbox-inline">
             <input type="checkbox" name="geotiff"> geotiff
           </label>
@@ -114,18 +115,18 @@
           <label class="checkbox-inline">
             <input type="checkbox" name="jpeg" > jpeg
           </label>
-         
+
            <!--bouton d'envoi des formats mais l'appel de la resource java se trouve au niveau de la balise form -->
             <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
+              <div class="boutonPref col-sm-10">
                 <button type="submit" class="btn btn-default">Enregistrer les formats</button>
               </div>
             </div>
            </form>
-        
+
         <!--formulaire SRS -->
          <form id="srs-form"name="formSRS" class="form-horizontal" action="" method=""><!-- appel de la resource java dans action -->
- 
+
           <h3 class="sub-header">Systèmes de coordonnées</h3>
 
           <label class="checkbox-inline">
@@ -134,36 +135,46 @@
           <label class="checkbox-inline">
             <input type="checkbox" name="l93" value="2154"> RGF93 (LAMBERT 93)
           </label>
-          
+
            <label class="checkbox-inline">
             <input type="checkbox" name="wgs84UTM" value="32631"> WGS84(UTM 31N)
           </label>
+<<<<<<< HEAD
           
           <label class="checkbox-inline">
             <input type="checkbox" name="wgs84" value="4326"> WGS84
           </label>
           
           
+=======
+
+>>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
           <!--bouton d'envoi SRS mais l'appel de la resource java se trouve au niveau de la balise form-->
             <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
+              <div class="boutonPref col-sm-10">
                 <button type="submit" class="btn btn-default">Enregistrer les SRS</button>
               </div>
             </div>
            </form>
-          
+
         </div>
-        
+
         <!-- Publication -->
 
          <h1 class="page-header" onclick="toggle_div(this,'publications');">Publication</h1>
 
          <div id="publications" style="display:none;">
-          
+
           	<!--formulaire Service -->
+<<<<<<< HEAD
           
          	<form  id="service-form" name="formService" class="form-horizontal" action="" method=""><!-- appel de la resource java dans action -->
  
+=======
+
+         	<form name="formSRS" class="form-horizontal" action="" method="get"><!-- appel de la resource java dans action -->
+
+>>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
               <h3 class="sub-header">Services</h3>
               <!--formulaire des services-->
               <label class="checkbox-inline">
@@ -175,54 +186,71 @@
               <label class="checkbox-inline">
                 <input type="checkbox" name="wmts" value="S"> WMTS
               </label>
-       
+
            	<!--formulaire Styles -->
-         	
+
               <h3 class="sub-header">Style</h3>
 
               <div class="form-group">
+<<<<<<< HEAD
                 <label for="style">Appliquez un style :</label>
                 <input  type="file"  name="style">
                 <p class="help-block">Veuillez sélectionner votre style.</p>
+=======
+                <div class="col-sm-10">
+                  <label for="style">Appliquez un style :</label>
+                  <input type="file" name="style">
+                  <p class="help-block">Veuillez sélectionner votre style.</p>
+                </div>
+>>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
               </div>
-            
+
             <!--bouton d'envoi publication mais l'appel de la resource java se trouve au niveau de la balise form-->
             	<div class="form-group">
-              		<div class="col-sm-offset-2 col-sm-10">
+              		<div class="col-sm-10">
                 		<button type="submit" class="btn btn-default">Enregistrer les options de publications</button>
               		</div>
             	</div>
            	</form>
           </div>
-           	
+
           <!--Traitements-->
 
           <h1 class="page-header" onclick="toggle_div(this,'traitements');">Traitements</h1>
 
           <div id="traitements" style="display:none;">
-          
+
           <!--formulaire Traitements -->
-          
+
          <form name="formTrait" class="form-horizontal" action=""><!-- appel de la resource java dans action -->
- 
+
             <h3 class="sub-header">Critères d'éligibilité</h3>
+<<<<<<< HEAD
             
            
+=======
+
+>>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
             <!--formulaire des critères-->
-            
+
             <!-- licences-->
 
             <h5>Licence</h5>
-            <select class="form-control" name="licences">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-            
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="OUI">
+                  OUI
+                </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="NON">
+                  NON
+              </label>
+            </div>
+
             <!--mots-clés-->
-            
+
             <h5>Tags</h5><!--fixé en dur à 6 choix pour le moment, il faudra revoir l'html en fonction de la liste récupérée -->
             <select  class="form-control" name="motscles" id="tags">
               <!-- <option>1</option>
@@ -232,41 +260,36 @@
               <option>5</option>
               <option>6</option>-->
             </select>
-            
-			<input type="text" class="form-control" id="keywords" placeholder="mots clés">
-            <!--propriétaire : inclus dans les tags-->
-            
 
+			<input style="margin-top:10px;" type="text" class="form-control" id="keywords" placeholder="mots clés">
+            <!--propriétaire : inclus dans les tags-->
 
             <!--périodicité-->
-            
+
             <h5>Périodicité</h5>
-            <form class="form-inline">
-              <div class="form-group">
-                <label class="sr-only" for="periodicite">Nombre de jours</label>
-                <div class="input-group">
-                  <div class="input-group-addon"></div>
+
+            <label class="sr-only" for="periodicite">Nombre de jours</label>
+                <div class="input-group col-sm-3">
                   <input type="number" class="form-control" name="periodicite" placeholder="Nbre de jours">
                   <div class="input-group-addon">jours</div>
                 </div>
-              </div>
-            </form>
-            
+
             <!--bouton d'envoi traitements mais l'appel de la resource java se trouve au niveau de la balise form-->
-            	
+
             	<div class="form-group">
-              		<div class="col-sm-offset-2 col-sm-10">
-                		<button  class="btn btn-default" id="saveCriteria">Enregistrer les options de traitements</button>
+              		<div class="boutonPref col-sm-10">
+                		<button class="btn btn-default" id="saveCriteria">Enregistrer les options de traitements</button>
               		</div>
             	</div>
            </form>
 
           <!--traitement immédiat-->
           <form action="webapi/myresource/run/" method="">
-          
+
           <h3 class="sub-header">Lancer les traitements immédiatement</h3>
-              <button  class="btn btn-default" type="submit">Go!</button>
-			</form>
+              <button class="btn btn-default" type="submit">Go !</button>
+			    </form>
+
           </div>
         </div>
       </div>
@@ -288,7 +311,7 @@
         <script>
         	$('#format-form').submit(function(e) {
         		e.preventDefault();
-        		
+
         		$.ajax({
         			'url' : '/chimn/webapi/myresource/formats',
         			'type' : 'POST',
@@ -306,11 +329,11 @@
         		});
         	});
         </script>
-        
+
          <script>
         	$('#srs-form').submit(function(e) {
         		e.preventDefault();
-        		
+
         		$.ajax({
         			'url' : '/chimn/webapi/myresource/srs',
         			'type' : 'POST',
@@ -319,7 +342,7 @@
      					l93: $('[name="l93"]').prop('checked'),
      					wgs84UTM: $('[name="wgs84UTM"]').prop('checked'),
      					wgs84: $('[name="wgs84"]').prop('checked')
-  		
+
      	        	}
         		})
         		.done(function(data) {
@@ -355,8 +378,6 @@
         	
         	
         </script>
-        
-        
-        
+
            </body>
     </html>

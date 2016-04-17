@@ -11,9 +11,9 @@ public class Criteria {
     @GeneratedValue
     private Long id;
 	private String keyword;
-	private String license;
+	private boolean license;
 	private String owner;
-	private int periodicity;
+	private int periodicity=0;
 	
 	public Long getId() {
 		return id;
@@ -28,11 +28,12 @@ public class Criteria {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	
-	public String getLicense() {
-		return license;
+	public boolean isLicense()
+	{
+		return this.license;
 	}
-	public void setLicense(String license) {
+	
+	public void setLicense(boolean license) {
 		this.license = license;
 	}
 	

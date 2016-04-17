@@ -1,7 +1,6 @@
 /**
- * 
+ *JQuery to say that the document is ready
  */
-
 $(document).ready(function(){
 
 	//Send the AJAX call to the server
@@ -19,29 +18,32 @@ $(document).ready(function(){
 	  //The response from the server
 	    'success' : function(data) {
 	    //You can use any jQuery/JavaScript here!!!
+
 	    	/*var first=data.substring(1, data.length);
 	    	var last =first.slice(0,-1);
 	    	var items = last.split(",");*/
-	        
+
 	        /*$.each(items, function (i, item) {
-	    	    $('#tags').append($('<option>', { 
+	    	    $('#tags').append($('<option>', {
 	    	        value: item,
-	    	        text : item 
+	    	        text : item
 	    	    }));
 	    	});*/
 	      for(k in data)
 	    	  {
-	    	  $('#tags').append($('<option>', { 
+	    	  $('#tags').append($('<option>', {
 	    	        value: k,
-	    	        text : data[k] 
+	    	        text : data[k]
 	    	    }));
 	    	  }
 	    }
 	  });
-	
+
+
+
 	  $('select').on('change', function() {
-		  
-		  $('#keywords').val($('#keywords').val() + " "+ this.value);
+
+		$('#keywords').val($('#keywords').val() + " "+ this.value);
 		  var newkeywordsTofilterOn= $('#keywords').val();
 		  $.ajax({
 			  //The URL to process the request
@@ -55,18 +57,18 @@ $(document).ready(function(){
 			      "q":newkeywordsTofilterOn
 			    },
 			  //The response from the server
-			    'success' : function(data) {    
+			    'success' : function(data) {
 			    	$('#tags').html('');
 			    	for(k in data)
 		    	  {
-			    	  $('#tags').append($('<option>', { 
-			    	        value: k,
-			    	        text : data[k] 
+			    	  $('#tags').append($('<option>', {
+			    	        value : k,
+			    	        text : data[k]
 			    	    }));
 			      }
 			    }
 			  });
-			
+
 		});
-	
+
 })

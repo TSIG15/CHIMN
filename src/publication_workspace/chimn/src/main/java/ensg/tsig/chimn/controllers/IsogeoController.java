@@ -1,8 +1,11 @@
 package ensg.tsig.chimn.controllers;
 
 
+import ensg.tsig.chimn.dao.CriteriaDao;
 import ensg.tsig.chimn.dao.MetaDataDao;
 import ensg.tsig.chimn.entities.*;
+import ensg.tsig.chimn.utils.MsgLog;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,7 +45,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 @Stateful
+
 public  class IsogeoController {
 
     private  final static String  authURL = "https://id.api.isogeo.com/oauth/token";
@@ -110,6 +115,12 @@ public  class IsogeoController {
 					catch (UnsupportedEncodingException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
+							try {
+								MsgLog.write(e1.getMessage());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 
 			    	//send and read the response 
@@ -182,6 +193,13 @@ public  class IsogeoController {
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							e.printStackTrace();
+							try {
+								MsgLog.write(e.getMessage());
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							
 						}
 						
@@ -226,6 +244,13 @@ public  class IsogeoController {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 							
+							try {
+								MsgLog.write(e.getMessage());
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
 						}
 						
 		return false;
@@ -234,42 +259,119 @@ public  class IsogeoController {
 	
 	public boolean initializeGrossMetaData(String query,String subResources,String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset)
 	{
-		String title,license,created,modified,idisogeo;
+		String name,license,created,modified,idisogeo,geometryType,srs;
+		srs="EPSG:4326"; //default value for srs
+		String keywords_criteria; //to get from database "creteria"
+		boolean license_criteria=false;  //to get from database
     	boolean deleted=false;
+    	//getting criteria from chimn database :keywords and license
+    		//0) initiate context for crud operations
+    	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml");
+        CriteriaDao dao = context.getBean(CriteriaDao.class);
+        
+        List<Criteria> criteria=dao.findAll();
+        
+        if(criteria.size()!=1) 
+        	
+        	return false; //if there is more than one criteria in the table retrn false
+        	
+    
+        keywords_criteria=criteria.get(0).getKeyword();
+        keywords_criteria=keywords_criteria.replace(" ", "%20");
+        keywords_criteria=keywords_criteria.replace(":", "%3A");
+		
+        license_criteria=criteria.get(0).isLicense();
+        
+        context.close();
+ 
     	
-    	JSONObject jsonObject=search_metadata_from_isogeo(query, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset);
+    	
+    	JSONObject jsonObject=search_metadata_from_isogeo(keywords_criteria, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset);
 		JSONArray jsonResult= (JSONArray) jsonObject.get("results");
+		//getting the srs from metadat => tags
+		String str_tags = jsonObject.get("tags").toString();
+		JSONObject jsonTags;
+		try {
+			jsonTags = (JSONObject)new JSONParser().parse(str_tags);
+			
+			Set<String> keys = jsonTags.keySet();
+			Iterator i=keys.iterator(); // on crée un Iterator pour parcourir notre HashSet
+			while(i.hasNext()) // tant qu'on a un suivant
+			{
+				
+				String cle = (String) i.next();
+				String val = (String) jsonTags.get(String.valueOf(cle));
+			    if(cle.contains("coordinate-system"))
+			    	{
+			    		cle=cle.substring(cle.lastIndexOf(":") + 1);
+			    		System.out.println("cle=" + cle + ", valeur=" + val);
+			    		srs="EPSG:"+cle;
+			    	}
+			    
+			}
 		System.out.println("voici results : "+jsonResult);
-		for(int i=0; i<jsonResult.size(); i++)
+		for(int j=0; j<jsonResult.size(); j++)
 			{
 			//getting proproties from isogeo response
 			JSONObject jsonObject2;
 			try {
-				jsonObject2 = (JSONObject) new JSONParser().parse(jsonResult.get(i).toString());
-				JSONArray conditions= (JSONArray) jsonObject2.get("conditions");
+				jsonObject2 = (JSONObject) new JSONParser().parse(jsonResult.get(j).toString());
 				
-				JSONObject condition0 = (JSONObject) new JSONParser().parse(conditions.get(0).toString());
-				
-				JSONObject licence = (JSONObject) new JSONParser().parse(condition0.get("license").toString());
-				 
-				title=jsonObject2.get("title").toString();
+				name=jsonObject2.get("name").toString();
 				created=jsonObject2.get("_created").toString();
 				modified=jsonObject2.get("_modified").toString();
 				idisogeo=jsonObject2.get("_id").toString();
-				license=licence.get("name").toString();
-				//bug to resolve later...
-				if(jsonObject2.get("_deleted")!=null)
-					deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());
-				
-				gross_metadata.add(new MetaData(title,license,created,modified,deleted,idisogeo));
-
-				System.out.println(gross_metadata.get(i).isChanged());
+				geometryType=jsonObject2.get("geometry").toString();
+				System.out.println(geometryType);
+				//testing if meta data has conditions
+				JSONArray conditions= (JSONArray) jsonObject2.get("conditions");
+				if(license_criteria==true) //
+				{//add only metadata that has a license
+					if(conditions!=null)
+					{
+						JSONObject condition0 = (JSONObject) new JSONParser().parse(conditions.get(0).toString());
+						JSONObject licence = (JSONObject) new JSONParser().parse(condition0.get("license").toString());
+						license=licence.get("name").toString();
+						//bug to resolve later...
+						if(jsonObject2.get("_deleted")!=null)
+							deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());						
+						gross_metadata.add(new MetaData(name,license,created,modified,deleted,idisogeo,srs,geometryType));
+	
+					}
+					
+					
+				}
+				else //add a metadata enven it has not a license
+					//bug to resolve later...
+					if(jsonObject2.get("_deleted")!=null)
+						deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());
+					
+					gross_metadata.add(new MetaData(name,"none",created,modified,deleted,idisogeo,srs,geometryType));
+	
+				System.out.println(gross_metadata.get(j).isChanged());
 				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				try {
+					MsgLog.write(e.getMessage());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}							
 			
+			}
+		}catch (Exception e)
+			{
+				try {
+					MsgLog.write(e.getMessage());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			return true;
 	
@@ -325,6 +427,13 @@ public  class IsogeoController {
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							try {
+								MsgLog.write(e.getMessage());
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							
 						} 
 										
 						return null;					
@@ -346,7 +455,7 @@ public  class IsogeoController {
         	dao.save(temList.get(i));
         }
         
-    	//1) search metadata that verify criteria (keywords, owner)
+       //1) search metadata that verify criteria (keywords, owner)
     	if(!initializeGrossMetaData("", "conditions", "", "", "", "", "", "3", 0))
     		// query, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset
     		// subResources fait appel au paramètre "_include" de la recherche url qui permet de récupérer les 

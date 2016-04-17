@@ -79,13 +79,6 @@
           <!--formulaire général pour récupérer tous les paramètres-->
           <form id="form" name="formGeneral" class="form-horizontal" action="webapi/myresource/parameters/" method="post">
 
-           <!--bouton d'envoi-->
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Enregistrer les préférences</button>
-              </div>
-            </div>
-
            <!--Base de données source-->
            <h1 id="titreBDD" class="page-header" style="margin-top:0;" onclick="toggle_div(this,'formBDD');">Base de données source</h1>
 
@@ -183,13 +176,6 @@
                 <input type="text" class="form-control" name="secretI" placeholder="secret Isogeo" value="jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd">
               </div>
             </div>
-            <!--groupe de travail-->
-            <div class="form-group">
-              <label for="groupeTI" class="col-sm-2 control-label">Groupe de travail</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" name="groupeTI" placeholder="groupe de travail Isogeo">
-              </div>
-            </div>
 		</div>
 
           <!--téléversement-->
@@ -205,6 +191,14 @@
               </div>
             </div>
            </div>
+
+           <!--bouton d'envoi-->
+            <div class="form-group">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-default">Enregistrer les paramétrages</button>
+              </div>
+            </div>
+
          </form>
 
         </div>
