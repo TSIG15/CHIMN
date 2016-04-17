@@ -395,7 +395,15 @@ public class PublisherController {
     			
     			 //test publishing a layer
     		   //if(layersName.get(i).equals("coursdo"))
-    			  publishDBLayer = publisher.publishDBLayer(workspaceName,dataStoreName,layersName.get(i),layers.get(i).getSrs(),"line");
+    			String style="";
+    			  if(layers.get(i).getGeometrytype().equals("LineString"))
+    				  style="line";
+    			  if(layers.get(i).getGeometrytype().equals("Polygon"))
+    				  style="polygon";
+    			  if(layers.get(i).getGeometrytype().equals("Point"))
+    				  style="point";
+    			  
+    				  publishDBLayer = publisher.publishDBLayer(workspaceName,dataStoreName,layersName.get(i),layers.get(i).getSrs(),"line");
     			  if(publishDBLayer)
     				  System.out.println(layersName.get(i)+"was successfully published :)");
 				else
