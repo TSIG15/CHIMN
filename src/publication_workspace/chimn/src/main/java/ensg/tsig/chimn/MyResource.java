@@ -249,7 +249,6 @@ public class MyResource {
     }
 
     
-    
 	/*@GET
     @Path ("/data/")
     @Produces(MediaType.TEXT_PLAIN)

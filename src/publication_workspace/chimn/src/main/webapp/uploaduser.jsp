@@ -61,19 +61,27 @@
     </nav>
     <!--fin navbar-->
 
+
+    <!-- sidebar-->
+      <div id="navbarSidebar" class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li class="active"><a href="#">Téléchargement et web services<span class="sr-only">(current)</span></a></li>
+          <li><a href="index.jsp">Retour à l'accueil</a></li>
+        </ul>
+      </div>
+
 <!--- HTML : PAGE DE TELECHARGEMENT DE DONNEES POUR L UTILISATEUR : Choix du format et du SRS -->
 <div class="container-fluid">
 <div class="row">
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main index">
 
-
-<div class="col-sm-9 col-sm-offset-3 col-md-7 col-md-offset-2 main">
-<h1 class="page-header" style="margin-top:0;" onclick="(this,'televersements');">Télécharger la donnée titledata</h1> <!-- Ajouter une variable pour récupérer title donnee-->
-
+<div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1">
+<h1 class="page-header" style="margin-top:0;">Télécharger la donnée</h1> <!-- Ajouter une variable pour récupérer title donnee-->
+<h3 style="font-style:italic;">titledata</h3>
 <!--téléversement-->
 <div id="televersements">
 
-    <h3 class="sub-header">Choisir un format :</h3>
+<h3 class="sub-header">Choisir un format</h3>
     <!--<h5 style="font-style:italic;">Formats vecteur</h5>-->
 
     <!-- formulaire des formats vecteurs-->
@@ -86,7 +94,7 @@
     <!--fin formulaire-->
 
     <!--formulaire des SRS-->
-<h3 class="sub-header">Choisir un système de coordonnées :</h3>
+<h3 class="sub-header">Choisir un système de coordonnées</h3>
 <form id="SRSchoice">
 <label class="radio-inline"><input type="radio" name="optradio" id="2154" value="2154">Lambert 93</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="3857" value="3857">Web Mercator</label>
@@ -96,16 +104,35 @@
 </div>
 </br>
 
+<!-- bouton de téléchargement-->
 <button id="tlvs" type="submit" class="btn btn-primary btn-block"
   style="background-color:#ADCA87;border-color:#ADCA87;">TÉLÉCHARGER</button>
     <p>Donnée téléchargée <span id="clicks">0</span> fois.</p>
-    <a href="http://ZOE/publication">Lien de publication</a>
+</div>
 
-<!--fin téléversements-->
+<!--- HTML : WEBSERVICES -->
+<div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1">
+<h1 class="page-header" style="margin-top:0px;">Web Services</h1>
+    <ul>
+      <li class="webserv"><a href="http://ZOE/chimn/publication/wms/">WMS : http://ZOE/chimn/publication/wms/</a></li>
+      <li class="webserv"><a href="http://ZOE/chimn/publication/wms/">WFS : http://ZOE/chimn/publication/wfs/</a></li>
+      <li class="webserv"><a href="http://ZOE/chimn/publication/wms/">WMTS : http://ZOE/chimn/publication/wmts/</a></li>
+    </ul>
 
+<!--- HTML : EXTRACTION DYNAMIQUE -->
+<h1 class="page-header">Extraction dynamique</h1>
+<p style="text-align:justify;">La donnée que vous souhaitez télécharger n'est pas disponible aux formats et
+  SRS de votre choix ? <br/>Commandez votre propre donnée.<br/><br/></p>
+    <button type="submit" class="btn btn-primary btn-block"
+      style="background-color:#ADCA87;border-color:#ADCA87;">COMMANDER</button>
 </div>
 </div>
 </div>
+</div>
+
+
+
+
 
 
 <!-- Bootstrap core JavaScript

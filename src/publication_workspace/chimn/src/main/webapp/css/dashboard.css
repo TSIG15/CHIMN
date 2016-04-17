@@ -17,6 +17,17 @@ body {
  /*
  general links
  */
+
+ /*
+ for webservice on uploaduser.jsp
+ */
+
+.webserv > a:hover,
+.webserv > a:focus {
+    color: #5C9610;
+    text-decoration: none;
+  }
+
  a {
      color: #000;
      text-decoration: none;
@@ -191,10 +202,12 @@ special sidebar for users.jsp
     padding-right: 40px;
     padding-left: 40px;
   }
+  .page-header {
+    margin-top: 50px;
+  }
 }
-.main .page-header {
-  margin-top: 50px;
-}
+
+
 
 /*
 crée un style différent du bouton de validation des formulaire

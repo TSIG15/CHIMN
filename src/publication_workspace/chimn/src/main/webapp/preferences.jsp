@@ -68,9 +68,6 @@
             <li><a href="parametrages.jsp">Paramétrages</a></li>
             <li class="active"><a href="#">Préférences<span class="sr-only">(current)</span></a></li>
             <li><a href="index.jsp">Déconnexion</a></li>
-            <li>
-               <!--<button style="margin-left:8px;width:188px;font-size:12px;" type="submit" class="btn btn-default">Enregistrer les préferences</button>-->
-            </li>
               </div>
           </ul>
         </div>

@@ -68,9 +68,6 @@
             <li class="active"><a href="#">Paramétrages<span class="sr-only">(current)</span></a></li>
             <li><a href="preferences.jsp">Préférences</a></li>
             <li><a href="index.jsp">Déconnexion</a></li>
-            <li>
-               <!--<button style="margin-left:8px;width:188px;font-size:12px;" type="submit" class="btn btn-default">Enregistrer les préferences</button>-->
-            </li>
           </ul>
         </div>
 
@@ -119,6 +116,13 @@
                 <input type="password" class="form-control" name="passwordBDD" placeholder="ex : ********" value="postgres">
               </div>
             </div>
+            <!--test de connexion-->
+             <div class="form-group">
+               <label class="col-sm-2 control-label">Tester la connexion</label>
+               <div class="col-sm-10">
+                 <button type="submit" class="btn btn-default">Tester</button>
+               </div>
+             </div>
            </div>
 
           <!--Geoserver-->
@@ -154,6 +158,13 @@
                 <input type="password" class="form-control" name="passwordGS" placeholder="ex : ********" value="geoserver">
               </div>
             </div>
+            <!--test de connexion-->
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Tester la connexion</label>
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-default">Tester</button>
+              </div>
+            </div>
            </div>
 
 
@@ -176,6 +187,14 @@
                 <input type="text" class="form-control" name="secretI" placeholder="secret Isogeo" value="jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd">
               </div>
             </div>
+
+            <!--test de connexion-->
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Tester la connexion</label>
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-default">Tester</button>
+              </div>
+            </div>
 		</div>
 
           <!--téléversement-->
@@ -187,14 +206,15 @@
             <div class="form-group">
               <label for="urlSD" class="col-sm-2 control-label">Serveur distant</label>
               <div class="col-sm-10">
-                <input type="url" class="form-control" name="urlSD" placeholder="http://localhost:8888/">
+                <input type="text" class="form-control" name="urlSD" placeholder="http://localhost:8080/">
               </div>
             </div>
            </div>
 
+
            <!--bouton d'envoi-->
             <div class="form-group">
-              <div class="col-sm-10">
+              <div class="col-sm-10" style="margin-top:30px;">
                 <button type="submit" class="btn btn-default">Enregistrer les paramétrages</button>
               </div>
             </div>

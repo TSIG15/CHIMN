@@ -16,7 +16,7 @@ function toggle_div (bouton, id) {
 }
 /*
 * Ecoutons l'évènement click() du bouton auth
-*/
+
 $("#auth").click(function(){
 
 var ident = $("#login").val();
@@ -33,11 +33,11 @@ $.ajax({
   'data' : {"username": ident,"password" : pwd}
 
 //The response from the server
-  
+
   }).done(function(data) {
 		alert(data);
 	});;
-});
+});*/
 
 function saveCriteria()
 {
@@ -74,7 +74,6 @@ $.ajax({
   complete : function(success) {
   //You can use any jQuery/JavaScript here!!!
 
-	  //alert(success.responseText);
 	if(success.responseText == "success") {
         window.location.href="parametrages.jsp";
       }
@@ -116,11 +115,11 @@ $.ajax({
 
   $("#tlvs").click(function(){
 
+    //alert (tlurl);
 
-    alert (tlurl);
-
-    clicks += 1;
-    document.getElementById("clicks").innerHTML = clicks;
+    /*compte le nombre de clic sur télécharger*/
+  clicks += 1;
+  document.getElementById("clicks").innerHTML = clicks;
 
   FormatChoice = "vide";
   srsChoice = "vide";
@@ -159,13 +158,29 @@ $.ajax({
 
 
   if (FormatChoice !=="vide" && srsChoice !=="vide"){
-      var result = tlurl + FormatChoice + "/" + "EPSG" + srsChoice + "/" + titledata + ".zip";
+      var result = tlurl + FormatChoice + "/EPSG" + srsChoice + "/" + titledata + ".zip";
       /*url pour le téléversement*/
-      return result;
+     
+      window.location.href=result;
   }
   else if (FormatChoice =="vide" && srsChoice =="vide"){
       alert("Veuillez selectionner un format et un système de coordonnées")
   }
+});
 
 
-})
+
+/*window.onload = recupTitle;
+function recupTitle(){
+
+  /*var frame = document.getElementById("isogeocatalog");
+  var frame2 = frame.contentDocument.innerHTML;
+  alert(frame2);
+
+  var CheminComplet = document.location.href;
+  var CheminRepertoire = CheminComplet.substring( 0 ,CheminComplet.lastIndexOf( "/" ) );
+  var NomDuFichier = CheminComplet.substring(CheminComplet.lastIndexOf( "/" )+1 );
+  alert ("NomDuFichier : "+NomDuFichier+" "+"CheminRepertoire : "+CheminRepertoire+ " "+"CheminComplet : "+
+  CheminComplet);
+
+}*/
