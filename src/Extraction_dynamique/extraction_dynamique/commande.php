@@ -40,13 +40,15 @@ $name=$json_data['name'];
 $mail=$json_data['mail'];
 $srs=$json_data['srs'];
 $format=$json_data['format'];
+$date=$json_data['date'];
+$heure=$json_data['heure'];
 
 $point1lat=$json_data['pointnorthlat'];
 $point1lng=$json_data['pointnorthlng'];
 $point2lat=$json_data['pointsouthlat'];
 $point2lng=$json_data['pointsouthlng'];
 
-$query ="INSERT INTO commande(nameuser,email,srs,format,point1lat,point1lng,point2lat,point2lng) VALUES('$name','$mail','$srs','$format','$point1lat','$point1lng','$point2lat','$point2lng');"; 
+$query ="INSERT INTO commande(nameuser,email,srs,format,point1lat,point1lng,point2lat,point2lng,datecmd,heurecmd) VALUES('$name','$mail','$srs','$format','$point1lat','$point1lng','$point2lat','$point2lng','$date','$heure');"; 
 
     pg_query($dbconn, $query);
 	

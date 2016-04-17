@@ -9,6 +9,23 @@
 	var southEastlng ;
 window.onload=function Commander()
 			{
+		
+			var maintenant=new Date();
+
+				j = maintenant.getDate();
+				m = maintenant.getMonth()+1;
+				an = maintenant.getFullYear();
+				h = maintenant.getHours();
+				min = maintenant.getMinutes();
+				sec = maintenant.getSeconds();
+			
+//document.getElementById("date").innerHTML = "j+"/"+m+"/"+an"; 
+                                    // '<p>'+a+'/'+m+'/'+j+'</p>' ;
+document.getElementById('date').value =  an+ "/" +m+ "/" +j  ;
+document.getElementById('heure').value =  h+ ":" +min+ ":" +sec  ;
+
+		  
+		
 			
 	var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 			osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -145,13 +162,14 @@ window.onload=function Commander()
 			
 			
 function cmd(ev) {
-			
-if ((document.getElementById('srs').value == "")  && (document.getElementById('formatsortie').value == "") && (document.getElementById('username').value == "") && (document.getElementById('usermail').value == ""))   
+/* 	var srrs = document.getElementByID('srs').value;
+    var format = document.getElementByID('formatsortie').value;
+    srrs=false; format=false; alerte="";
+if (ev.srrs.value)   
 { 
-alert('Veuillez remplir tout les champs');
-return false;
+alerte += "Indiquer votre srs \n";  
 }
-else {
+else { */
 
 /* préparer la requête AJAX*/
 			var ajax = new XMLHttpRequest();
@@ -161,7 +179,8 @@ else {
 			var format=document.getElementById('formatsortie').value;
 			var name=document.getElementById('username').value;
 			var mail=document.getElementById('usermail').value;
-			
+			var datecmd=document.getElementById('date').value;
+			var heurecmd=document.getElementById('heure').value;
 			
 			
 			/*données GET éventuelles de la requête AJAX*/
@@ -170,6 +189,8 @@ else {
 				format: format,
 				name: name,
 				mail: mail,
+				date:datecmd,
+				heure:heurecmd,
 				pointnorthlat: northWestlat,
 				pointnorthlng: northWestlng,
 				pointsouthlat: southEastlat,
@@ -196,7 +217,7 @@ else {
 			// envoi de la requête
 			ajax.send();
 
-}
+
 return true;
 }			
 
