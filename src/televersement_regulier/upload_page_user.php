@@ -35,6 +35,15 @@ function cheminFinal() {
     else if (document.getElementById('kml').checked) {
         var FormatChoice = 'kml';
     }
+    else if (document.getElementById('geotiff').checked) {
+        var FormatChoice = 'geotiff';
+    }
+    else if (document.getElementById('jpeg').checked) {
+        var FormatChoice = 'jpeg';
+    }
+    else if (document.getElementById('png').checked) {
+        var FormatChoice = 'png';
+    }
     else if (FormatChoice == "vide" && srsChoice !== "vide")
     {
         alert("Veuillez selectionner un format")
@@ -48,6 +57,9 @@ function cheminFinal() {
     }
     else if (document.getElementById('32631').checked) {
         var srsChoice = '32631';
+    }
+    else if (document.getElementById('4326').checked) {
+        var srsChoice = '4326';
     }
     else if (srsChoice =="vide" && FormatChoice !== "vide")
     {
@@ -78,7 +90,7 @@ function cheminFinal() {
 <div id="televersements">
 
     <h3 class="sub-header">Choisir un format :</h3>
-    <!--<h5 style="font-style:italic;">Formats vecteur</h5>-->
+    <h5 style="font-style:italic;">Formats vecteur</h5>
 
     <!-- formulaire des formats vecteurs-->
 <form id="formatchoice">
@@ -86,6 +98,10 @@ function cheminFinal() {
 <label class="radio-inline"><input type="radio" name="optradio" id="dxf" value="dxf">DXF (AutoCad)</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="gml" value="gml">GML</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="kml" value="kml">KML (Google)</label>
+    <h5 style="font-style:italic;">Formats vecteur</h5>
+<label class="radio-inline"><input type="radio" name="optradio" id="geotiff" value="geotiff">GEOTIFF</label>
+<label class="radio-inline"><input type="radio" name="optradio" id="jpeg" value="png">JPEG</label>
+<label class="radio-inline"><input type="radio" name="optradio" id="png" value="png">PNG</label>
 </form>
     <!--fin formulaire-->
 
@@ -94,7 +110,8 @@ function cheminFinal() {
 <form id="SRSchoice">
 <label class="radio-inline"><input type="radio" name="optradio" id="2154" value="2154">Lambert 93</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="3857" value="3857">Web Mercator</label>
-<label class="radio-inline"><input type="radio" name="optradio" id="32631" value="32631">WGS 84</label>
+<label class="radio-inline"><input type="radio" name="optradio" id="32631" value="32631">WGS 84 (32631)</label>
+<label class="radio-inline"><input type="radio" name="optradio" id="4326" value="4326">WGS 84 (4326)</label>
 </form>
     <!--fin formulaire-->
 </div>

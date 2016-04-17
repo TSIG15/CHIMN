@@ -15,14 +15,14 @@ import java.text.*;
  import java.util.*;
 
      public class MsgLog {
-     protected static String defaultLogFile = Paths.get("").toAbsolutePath().toString()+"\\chimnlog.log";
+     protected static String defaultLogFile  = System.getenv("CATALINA_HOME")+"\\logs\\chimnlog.log";
      
          public static void write(String s) throws IOException {
          write(defaultLogFile, s);
      }
     
          public static void write(String f, String s) throws IOException {
-        	 System.out.println("gdkazgefkagezfkgaze**********************************"+System.getProperty("user.dir"));
+        	// System.out.println("**********************************"+defaultLogFile+"***********************");
          TimeZone tz = TimeZone.getTimeZone("EST"); // or PST, MID, etc ...
          Date now = new Date();
          DateFormat df = new SimpleDateFormat ("yyyy.mm.dd hh:mm:ss ");

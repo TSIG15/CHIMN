@@ -28,17 +28,20 @@ import ensg.tsig.chimn.controllers.PublisherController;
 import ensg.tsig.chimn.dao.ParametersDao;
 import ensg.tsig.chimn.dao.PreferenceFormatDao;
 import ensg.tsig.chimn.dao.PreferenceSRSDao;
+import ensg.tsig.chimn.dao.PreferenceServiceDao;
 import ensg.tsig.chimn.entities.Parameters;
 import ensg.tsig.chimn.entities.PreferenceFormat;
 import ensg.tsig.chimn.entities.PreferenceSRS;
+<<<<<<< HEAD
+import ensg.tsig.chimn.entities.PreferenceService;
+=======
 import ensg.tsig.chimn.utils.MsgLog;
+>>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
 
 /**
  * Root resource (exposed at "myresource" path)
  */
 @Path("myresource")
-@Stateful
-
 public class MyResource {
 
     /**
@@ -48,7 +51,7 @@ public class MyResource {
      * @return String that will be returned as a text/plain response.
      */
 	
-	@EJB
+	
 	private IsogeoController isogeo;
 	private PublisherController publisher;
 	
@@ -98,57 +101,64 @@ public class MyResource {
 		}
 	    	//initialize attributes for the current instance
 	    	initializeIsogeo();
-	    	//initializePublisher();
+	    	initializePublisher();
 	    	
 	    	//test updating metadata in chimn database
-		    if(isogeo!=null)
+		    /*if(isogeo!=null)
 		    	{
 		    		if(!isogeo.setHistoricalMetaData())
 		    		   return "error updating metadata :/ ";
 		    		System.out.println("Hitorical was updated successfully :)");
-		    	}		    
+		    	}	*/   
 
 		 // publish OGC services
 		    if(publisher!=null)
-		    {
-		    	//publisher.publish();
+		    {	//clean workspace: remove layers which are not asked by administrator
+		    	publisher.cleanWorkspace();
+		    	publisher.publish();
 		    	System.out.println("Services were published successfully :)"); 
 		    }
 		    //run python
 
-		   /* String cmd = "python D:\\3eme_ENSG\\projet_industriel\\src\\publication_workspace\\chimn\\src\\main\\java\\ensg\\tsig\\chimn\\helloworld.py  ";
-		    String s = null;
-		    try {
-		    	Process p = Runtime.getRuntime().exec(cmd);
-		        
-		        BufferedReader stdInput = new BufferedReader(new
-		             InputStreamReader(p.getInputStream()));
-
-		        BufferedReader stdError = new BufferedReader(new
-		             InputStreamReader(p.getErrorStream()));
-
-		        // read the output from the command
-		        System.out.println("Here is the standard output of the command:\n");
-		        while ((s = stdInput.readLine()) != null) {
-		            System.out.println(s);
-		        }
-		         
-		        // read any errors from the attempted command
-		        System.out.println("Here is the standard error of the command (if any):\n");
-		        while ((s = stdError.readLine()) != null) {
-		            System.out.println(s);
-		        }
-		         
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+		  // runPythonScript("D:\\3eme_ENSG\\projet_industriel\\src\\publication_workspace\\chimn\\src\\main\\java\\ensg\\tsig\\chimn\\helloworld.py")
 		    
 
 		    return "the end of get run!";
 	    }
 
-	
+	public void runPythonScript(String path)
+	{
+		String cmd = "python "+path; 
+	    String s = null;
+	    String errors="/*********Python Errors*******/";
+	    try {
+	    	Process p = Runtime.getRuntime().exec(cmd);
+	        
+	        BufferedReader stdInput = new BufferedReader(new
+	             InputStreamReader(p.getInputStream()));
+
+	        BufferedReader stdError = new BufferedReader(new
+	             InputStreamReader(p.getErrorStream()));
+
+	        // read the output from the command
+	        System.out.println("Here is the standard output of the command:\n");
+	        while ((s = stdInput.readLine()) != null) {
+	            System.out.println(s);
+	        }
+	         
+	        // read any errors from the attempted command
+	        System.out.println("Here is the standard error of the command (if any):\n");
+	        
+	        while ((s = stdError.readLine()) != null) {
+	            
+	        	errors+=s;
+	        }
+	         
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	//method post to get the parameters
     @POST
     @Path("/parameters/")
@@ -330,6 +340,7 @@ public class MyResource {
     public String srsCheckedToDB(
     		@FormParam("WebMercator") String webMVal ,
     		@FormParam("l93") String lambertVal,
+    		@FormParam("wgs84UTM") String wgsUTMVal,
     		@FormParam("wgs84") String wgsVal
     		){
     	
@@ -340,26 +351,115 @@ public class MyResource {
     	PreferenceSRSDao dao0 = context.getBean(PreferenceSRSDao.class);
     	PreferenceSRSDao dao1 = context.getBean(PreferenceSRSDao.class);
     	PreferenceSRSDao dao2 = context.getBean(PreferenceSRSDao.class);
+    	PreferenceSRSDao dao3 = context.getBean(PreferenceSRSDao.class);
     	
     	
     	List<PreferenceSRS> listwebM = dao0.findByEpsg("3857");
     	List<PreferenceSRS> listlam = dao1.findByEpsg("2154");
-    	List<PreferenceSRS> listwgs = dao2.findByEpsg("32631");
+    	List<PreferenceSRS> listwgsUTM = dao2.findByEpsg("32631");
+    	List<PreferenceSRS> listwgs = dao2.findByEpsg("4326");
     	
     	
     	if(listwebM!=null) listwebM.get(0).setActivatesrs(Boolean.valueOf(webMVal));
     	if(listlam!=null) listlam.get(0).setActivatesrs(Boolean.valueOf(lambertVal));
+    	if(listwgsUTM!=null) listwgsUTM.get(0).setActivatesrs(Boolean.valueOf(wgsUTMVal));
     	if(listwgs!=null) listwgs.get(0).setActivatesrs(Boolean.valueOf(wgsVal));
+    	
     	
     	dao0.save(listwebM.get(0));
     	dao1.save(listlam.get(0));
+<<<<<<< HEAD
+    	dao2.save(listwgsUTM.get(0));
+    	dao3.save(listwgs.get(0));
+=======
     	dao2.save(listwgs.get(0));
+>>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
     	
     	context.close();
     	
     	return null;
     }
     
+<<<<<<< HEAD
+    
+    @POST
+    @Path("/services/")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String serviceCheckedToDB(
+    		@FormParam("wfs") String wfsVal ,
+    		@FormParam("wms") String wmsVal,
+    		@FormParam("wmts") String wmtsVal,
+    		@FormParam("style") String styVal
+    		) {
+    	
+    	ClassPathXmlApplicationContext contexti = new ClassPathXmlApplicationContext(
+                "applicationContext.xml");
+    	
+    	PreferenceServiceDao dao0 = contexti.getBean(PreferenceServiceDao.class);
+    	PreferenceServiceDao dao1 = contexti.getBean(PreferenceServiceDao.class);
+    	PreferenceServiceDao dao2 = contexti.getBean(PreferenceServiceDao.class);
+    	
+    	
+    	List<PreferenceService> listwfs = dao0.findByNamesv("wfs");
+    	List<PreferenceService> listwms = dao1.findByNamesv("wms");
+    	List<PreferenceService> listwmts = dao2.findByNamesv("wmts");
+    	
+    	
+    	if(listwfs!=null) listwfs.get(0).setActivated(Boolean.valueOf(wfsVal));
+    	if(listwms!=null) listwms.get(0).setActivated(Boolean.valueOf(wmsVal));
+    	if(listwmts!=null) listwmts.get(0).setActivated(Boolean.valueOf(wmtsVal));
+    	
+    	
+    	dao0.save(listwfs.get(0));
+    	dao1.save(listwms.get(0));
+    	dao2.save(listwmts.get(0));
+    	
+    	/*contexti.close();*/
+    	
+    	// gestion du style
+    	
+    /*	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml");*/
+    	
+    	
+    	PreferenceServiceDao dao3 = contexti.getBean(PreferenceServiceDao.class);
+    	List<PreferenceService> liststy = dao3.findByActivated(Boolean.valueOf("TRUE"));
+    	if(liststy!=null) 
+    		{ int i=0; 
+    		for (i=0; i < liststy.size(); i++)
+    			{
+    			liststy.get(i).setStyle(styVal);
+    			dao3.save(liststy.get(i));
+    			}
+    		}
+    	
+    	else
+    	{	int i=0;
+    		for (i=0; i < 3; i++)
+			{
+			liststy.get(i).setStyle("");
+			dao3.save(liststy.get(i));
+			}
+		}
+    	
+    	contexti.close();
+    	
+    	return null;
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+=======
     @GET
     @Path ("/televersement/")
     @Produces(MediaType.TEXT_PLAIN)
@@ -383,5 +483,6 @@ public class MyResource {
     }
     
     
+>>>>>>> 66aff0afbc7cf0d3c30974f78843a6d4476783cb
  }
 
