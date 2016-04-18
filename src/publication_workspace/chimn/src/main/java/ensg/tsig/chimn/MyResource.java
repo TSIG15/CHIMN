@@ -25,10 +25,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ensg.tsig.chimn.controllers.IsogeoController;
 import ensg.tsig.chimn.controllers.PublisherController;
+import ensg.tsig.chimn.dao.CriteriaDao;
 import ensg.tsig.chimn.dao.ParametersDao;
 import ensg.tsig.chimn.dao.PreferenceFormatDao;
 import ensg.tsig.chimn.dao.PreferenceSRSDao;
 import ensg.tsig.chimn.dao.PreferenceServiceDao;
+import ensg.tsig.chimn.entities.Criteria;
 import ensg.tsig.chimn.entities.Parameters;
 import ensg.tsig.chimn.entities.PreferenceFormat;
 import ensg.tsig.chimn.entities.PreferenceSRS;
@@ -280,6 +282,7 @@ public class MyResource {
     		@FormParam("shp") String shpVal ,
     		@FormParam("dxf") String dxfVal,
     		@FormParam("gml") String gmlVal,
+    		@FormParam("kml") String kmlVal,
     		@FormParam("geotiff") String geotiffVal,
     		@FormParam("png") String pngVal,
     		@FormParam("jpeg") String jpegVal
@@ -304,7 +307,7 @@ public class MyResource {
     	PreferenceFormatDao dao3 = context.getBean(PreferenceFormatDao.class);
     	PreferenceFormatDao dao4 = context.getBean(PreferenceFormatDao.class);
     	PreferenceFormatDao dao5 = context.getBean(PreferenceFormatDao.class);
-    	
+    	PreferenceFormatDao dao6 = context.getBean(PreferenceFormatDao.class);
     	
     	List<PreferenceFormat> listshp = dao0.findByNameformat("shp");   
     	List<PreferenceFormat> listdxf = dao1.findByNameformat("dxf");
@@ -312,6 +315,7 @@ public class MyResource {
     	List<PreferenceFormat> listgeotiff = dao3.findByNameformat("geotiff");
     	List<PreferenceFormat> listpng = dao4.findByNameformat("png");
     	List<PreferenceFormat> listjpeg = dao5.findByNameformat("jpeg");
+    	List<PreferenceFormat> listkml = dao6.findByNameformat("kml");
     	
     	
     	if(listdxf!=null) listshp.get(0).setActivateformat(Boolean.valueOf(shpVal));
@@ -320,6 +324,7 @@ public class MyResource {
     	if(listgeotiff!=null) listgeotiff.get(0).setActivateformat(Boolean.valueOf(geotiffVal));
     	if(listshp!=null) listpng.get(0).setActivateformat(Boolean.valueOf(pngVal));
     	if(listjpeg!=null) listjpeg.get(0).setActivateformat(Boolean.valueOf(jpegVal));
+    	if(listkml!=null) listkml.get(0).setActivateformat(Boolean.valueOf(kmlVal));
     	
     	
     	dao0.save(listshp.get(0));
@@ -328,6 +333,7 @@ public class MyResource {
     	dao3.save(listgeotiff.get(0));
     	dao4.save(listpng.get(0));
     	dao5.save(listjpeg.get(0));
+    	dao6.save(listkml.get(0));
     	
     	context.close();
     	return null;
@@ -434,7 +440,7 @@ public class MyResource {
     	{	int i=0;
     		for (i=0; i < 3; i++)
 			{
-			liststy.get(i).setStyle("");
+			liststy.get(i).setStyle(" ");
 			dao3.save(liststy.get(i));
 			}
 		}
@@ -466,6 +472,36 @@ public class MyResource {
     	context.close(); /*ferme connexion bdd*/
 
 		return tlurl;
+    }
+    
+    @POST
+    @Path("/critere/")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String criteresToDB(
+        @FormParam("license") String licenseVal, 
+        @FormParam("keyword") String keywordVal,
+        @FormParam("periodicity") String periodicityVal
+        ) {
+      
+      Criteria myCrit = new Criteria();
+      
+      myCrit.setLicense(Boolean.valueOf(licenseVal));
+      myCrit.setKeyword(keywordVal);
+      myCrit.setPeriodicity(Integer.valueOf(periodicityVal));
+      
+      
+      ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml"); /*ouvre la connexion bdd*/
+      
+      CriteriaDao dao = context.getBean(CriteriaDao.class);/* dao permet transaction CRUD*/
+      dao.deleteAll(); /*supprime les autres entrées de la table*/
+      dao.save(myCrit); /*acte la transaction*/
+      
+      context.close(); /*ferme connexion bdd*/
+      
+    return null;
+      
     }
     
 

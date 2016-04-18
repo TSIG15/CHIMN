@@ -99,6 +99,9 @@
           <label class="checkbox-inline">
             <input type="checkbox" name="gml"> gml
           </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="kml"> kml
+          </label>
 
 		<!-- formulaire des formats raster-->
           <h5 style="font-style:italic;">Formats raster</h5>
@@ -204,7 +207,7 @@
 
           <!--formulaire Traitements -->
 
-         <form name="formTrait" class="form-horizontal" action=""><!-- appel de la resource java dans action -->
+         <form id = critere-form name="formTrait" class="form-horizontal" action=""><!-- appel de la resource java dans action -->
 
             <h3 class="sub-header">Critères d'éligibilité</h3>
 
@@ -215,13 +218,13 @@
             <h5>Licence</h5>
             <div class="radio">
               <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="OUI">
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="TRUE">
                   OUI
                 </label>
             </div>
             <div class="radio">
               <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios2" value="NON">
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="FALSE">
                   NON
               </label>
             </div>
@@ -238,7 +241,7 @@
               <option>6</option>-->
             </select>
 
-			<input style="margin-top:10px;" type="text" class="form-control" id="keywords" placeholder="mots clés">
+			<input style="margin-top:10px;" type="text" class="form-control" id="keywords" name="keywordSelect" placeholder="mots clés">
             <!--propriétaire : inclus dans les tags-->
 
             <!--périodicité-->
@@ -296,6 +299,7 @@
      	        		shp: $('[name="shp"]').prop('checked'),
      	        		dxf: $('[name="dxf"]').prop('checked'),
      	        		gml: $('[name="gml"]').prop('checked'),
+     	        		kml: $('[name="kml"]').prop('checked'),
      	        		png: $('[name="png"]').prop('checked'),
      	        		geotiff: $('[name="geotiff"]').prop('checked'),
      	        		jpeg: $('[name="jpeg"]').prop('checked')
@@ -345,6 +349,31 @@
         			console.log(data);
         		});
         	});
+        	
+        	
+        	
+        	  $('#critere-form').submit(function(e) {
+                  e.preventDefault();
+
+                  $.ajax({
+                    'url' : '/chimn/webapi/myresource/critere',
+                    'type' : 'POST',
+                  'data' : {
+                        license: $('[name="optionsRadios"]:checked').val(),
+                        keyword: $('[name="keywordSelect"]').val(),
+                        periodicity:$('[name="periodicite"]').val()       
+                        
+                      }
+                  })
+                  .done(function(data) {
+                    console.log(data);
+                  });
+                });
+                
+        	
+        	
+        	
+        	
         </script>
 
            </body>
