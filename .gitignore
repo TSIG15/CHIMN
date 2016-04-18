@@ -15,8 +15,8 @@ local.properties
 .classpath
 .settings/
 .loadpath
-Servers
-applicationContext.xml
+src\publication_workspace\Servers
+src\publication_workspace\chimn\src\main\resources\applicationContext.xml
 # External tool builders
 .externalToolBuilders/
 
