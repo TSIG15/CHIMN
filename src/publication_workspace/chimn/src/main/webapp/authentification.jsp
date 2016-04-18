@@ -80,13 +80,13 @@
                 <div class="form-group">
                   <label for="login" class="col-sm-4 control-label">Identifiant</label>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control" id="login" name ="username" placeholder="ex : toto">
+                    <input type="text" class="form-control" id="login" name ="usern" placeholder="ex : toto">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="mdp" class="col-sm-4 control-label">Mot de passe</label>
                   <div class="col-sm-7">
-                    <input type="password" class="form-control" id="mdp" name="password" placeholder="ex : ********">
+                    <input type="password" class="form-control" id="mdp" name="passw" placeholder="ex : ********">
                   </div>
                 </div>
 
@@ -132,5 +132,6 @@
       <script src="js/ie10-viewport-bug-workaround.js"></script>
       <!-- script maison-->
       <script src="js/scripts_divers.js"></script>
+      <script src="js/script_authentification.js"></script>
     </body>
   </html>

@@ -89,7 +89,14 @@
 <label class="radio-inline"><input type="radio" name="optradio" id="shp" value="shp">Shapefile (ESRI)</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="dxf" value="dxf">DXF (AutoCad)</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="gml" value="gml">GML</label>
-<label class="radio-inline"><input type="radio" name="optradio" id="kml" value="kml">KML (Google)</label>
+<label class="radio-inline" style="margin-left:0px;"><input type="radio" name="optradio" id="kml" value="kml">KML (Google)</label>
+
+<h5 style="font-style:italic;">Formats vecteur</h5>
+
+<label class="radio-inline"><input type="radio" name="optradio" id="geotiff" value="geotiff">GEOTIFF</label>
+<label class="radio-inline"><input type="radio" name="optradio" id="jpeg" value="png">JPEG</label>
+<label class="radio-inline"><input type="radio" name="optradio" id="png" value="png">PNG</label>
+
 </form>
     <!--fin formulaire-->
 
@@ -98,7 +105,8 @@
 <form id="SRSchoice">
 <label class="radio-inline"><input type="radio" name="optradio" id="2154" value="2154">Lambert 93</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="3857" value="3857">Web Mercator</label>
-<label class="radio-inline"><input type="radio" name="optradio" id="32631" value="32631">WGS 84</label>
+<label class="radio-inline"><input type="radio" name="optradio" id="32631" value="32631">WGS 84 (32631)</label>
+<label class="radio-inline" style="margin-left:0px;"><input type="radio" name="optradio" id="4326" value="4326">WGS 84 (4326)</label>
 </form>
     <!--fin formulaire-->
 </div>
@@ -131,10 +139,6 @@
 </div>
 
 
-
-
-
-
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -147,5 +151,6 @@
     <script src="js/ie10-viewport-bug-workaround.js"></script>
     <!-- script maison-->
     <script src="js/scripts_divers.js"></script>
+    <script src="js/script_televersement.js"></script>
   </body>
 </html>

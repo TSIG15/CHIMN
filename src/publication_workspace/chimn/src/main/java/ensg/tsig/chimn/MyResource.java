@@ -220,7 +220,7 @@ public class MyResource {
     	initializeIsogeo();
     	if(isogeo==null) return null;
 
-    	if( isogeo.initializeKeyWords(q))
+    	if(isogeo.initializeKeyWords(q))
     		{
     			JSONObject j=new JSONObject();
     			j.putAll(isogeo.getKeywords());
@@ -237,12 +237,12 @@ public class MyResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public String postAuthentification (
-    		@FormParam("username") String login,
-    		@FormParam("password") String mdp)
+    		@FormParam("usern") String login,
+    		@FormParam("passw") String mdp)
     			     
     {   	
     	String loginAdmin = "admin";
-    	String mdpAdmin = "MaDdPmin";
+    	String mdpAdmin = "admin";
     	String success = "success";
     	String failure = "failure";
     	
@@ -469,5 +469,22 @@ public class MyResource {
     }
     
 
+    @GET
+    @Path("/json/")
+    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getJson()
+    {
+
+    			JSONObject j = new JSONObject();
+    			j.put("_id", "identifiant");//id=i
+    			j.put("abstract", "resume");//abstract=i
+    			j.put("name", "nom");//name=i
+
+    			System.out.println(j);
+    			
+    			return j;
+    
+    }
  }
 
