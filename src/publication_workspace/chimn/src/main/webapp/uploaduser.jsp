@@ -77,28 +77,23 @@
 
 <div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1">
 <h1 class="page-header" style="margin-top:0;">Télécharger la donnée</h1> <!-- Ajouter une variable pour récupérer title donnee-->
-<h3 style="font-style:italic;">titledata</h3>
-<!--téléversement-->
-<div id="televersements">
+<h3 style="font-style:italic;margin-bottom:25px;color:#5C9610" id="titledata"></h3>
 
+
+    <!--formulaire des formats-->
 <h3 class="sub-header">Choisir un format</h3>
-    <!--<h5 style="font-style:italic;">Formats vecteur</h5>-->
-
-    <!-- formulaire des formats vecteurs-->
 <form id="formatchoice">
 <label class="radio-inline"><input type="radio" name="optradio" id="shp" value="shp">Shapefile (ESRI)</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="dxf" value="dxf">DXF (AutoCad)</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="gml" value="gml">GML</label>
-<label class="radio-inline" style="margin-left:0px;"><input type="radio" name="optradio" id="kml" value="kml">KML (Google)</label>
+<label class="radio-inline" style="margin-left:0px;"><input type="radio" name="optradio" id="kmlg" value="kml">KML (Google)</label>
 
-<h5 style="font-style:italic;">Formats vecteur</h5>
-
+<h5 style="font-style:italic;font-weight:bold;">Formats vecteur</h5>
 <label class="radio-inline"><input type="radio" name="optradio" id="geotiff" value="geotiff">GEOTIFF</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="jpeg" value="png">JPEG</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="png" value="png">PNG</label>
-
 </form>
-    <!--fin formulaire-->
+  <!--fin formulaire-->
 
     <!--formulaire des SRS-->
 <h3 class="sub-header">Choisir un système de coordonnées</h3>
@@ -109,7 +104,6 @@
 <label class="radio-inline" style="margin-left:0px;"><input type="radio" name="optradio" id="4326" value="4326">WGS 84 (4326)</label>
 </form>
     <!--fin formulaire-->
-</div>
 </br>
 
 <!-- bouton de téléchargement-->
@@ -121,17 +115,38 @@
 <!--- HTML : WEBSERVICES -->
 <div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1">
 <h1 class="page-header" style="margin-top:0px;">Web Services</h1>
-    <ul>
-      <li class="webserv"><a href="http://ZOE/chimn/publication/wms/">WMS : http://ZOE/chimn/publication/wms/</a></li>
-      <li class="webserv"><a href="http://ZOE/chimn/publication/wms/">WFS : http://ZOE/chimn/publication/wfs/</a></li>
-      <li class="webserv"><a href="http://ZOE/chimn/publication/wms/">WMTS : http://ZOE/chimn/publication/wmts/</a></li>
-    </ul>
+
+<!--liens de publication-->
+<h3 class="sub-header">Choisir un format</h3>
+<form id="formatweb">
+<label class="checkbox-inline"><input type="checkbox" name="csv" id="csv" value="csv">csv</label>
+<label class="checkbox-inline"><input type="checkbox" name="kmlweb" id="kml" value="kmlweb">kml</label>
+<label class="checkbox-inline"><input type="checkbox" name="shape-zip" id="shape-zip" value="shape-zip">shape-zip</label>
+<label class="checkbox-inline"><input type="checkbox" name="json" id="json" value="json">json</label>
+<label class="checkbox-inline"><input type="checkbox" name="gml2" id="gml2" value="gml2">gml2</label>
+<label class="checkbox-inline"><input type="checkbox" name="gml3" id="gml3" value="gml3">gml3</label>
+</form>
+<!--bouton-->
+<br/>
+
+  <button id="liensWeb" type="submit" class="btn btn-primary btn-block"
+        style="background-color:#ADCA87;border-color:#ADCA87;">AFFICHER LES LIENS</button>
+
+<br/>
+<!--écriture des liens-->
+<div class="webserv">
+      <p class="webserv" id="wmsweb"></p>
+      <p class="webserv" id="wmtsweb"></p>
+      <p class="webserv" id="wfsweb"></p>
+</div>
+
+
 
 <!--- HTML : EXTRACTION DYNAMIQUE -->
 <h1 class="page-header">Extraction dynamique</h1>
 <p style="text-align:justify;">La donnée que vous souhaitez télécharger n'est pas disponible aux formats et
   SRS de votre choix ? <br/>Commandez votre propre donnée.<br/><br/></p>
-    <button type="submit" class="btn btn-primary btn-block"
+<button type="submit" class="btn btn-primary btn-block"
       style="background-color:#ADCA87;border-color:#ADCA87;">COMMANDER</button>
 </div>
 </div>

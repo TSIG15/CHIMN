@@ -505,22 +505,5 @@ public class MyResource {
     }
     
 
-    @GET
-    @Path("/json/")
-    //@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject getJson()
-    {
-
-    			JSONObject j = new JSONObject();
-    			j.put("_id", "identifiant");//id=i
-    			j.put("abstract", "resume");//abstract=i
-    			j.put("name", "nom");//name=i
-
-    			System.out.println(j);
-    			
-    			return j;
-    
-    }
  }
 

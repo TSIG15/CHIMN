@@ -125,7 +125,7 @@
            </form>
 
         <!--formulaire SRS -->
-         <form id="srs-form"name="formSRS" class="form-horizontal" action="" method=""><!-- appel de la resource java dans action -->
+         <form id="srs-form" name="formSRS" class="form-horizontal" action="" method=""><!-- appel de la resource java dans action -->
 
           <h3 class="sub-header">Systèmes de coordonnées</h3>
 

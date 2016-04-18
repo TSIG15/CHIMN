@@ -21,20 +21,16 @@
 
     var title = document.location.search;
     var titledata = title.substring(title.lastIndexOf("=")+1);
-    var titleweb = title.substring(title.lastIndexOf(".")+1);
+    document.getElementById("titledata").innerHTML = titledata;
     var tlurl;
     var result;
     var FormatChoice;
     var srsChoice;
     var clicks = 0;
 
-
     $("#tlvs").click(function(){
 
-      //alert (tlurl);
-    /*récupère le nom de la donnée dans l'url pour le téléchargement*/
-
-    alert(tlurl + titleweb);
+    //alert(titledata);
 
     /*compte le nombre de clic sur télécharger*/
     clicks += 1;
@@ -52,7 +48,7 @@
     else if (document.getElementById('gml').checked) {
         var FormatChoice = 'gml';
     }
-    else if (document.getElementById('kml').checked) {
+    else if (document.getElementById('kmlg').checked) {
         var FormatChoice = 'kml';
     }
     else if (FormatChoice == "vide" && srsChoice !== "vide")
@@ -80,10 +76,38 @@
         var result = tlurl + FormatChoice + "/EPSG" + srsChoice + "/" + titledata + ".zip";
 
         /*url pour le téléversement*/
-
         window.location.href=result;
     }
     else if (FormatChoice =="vide" && srsChoice =="vide"){
         alert("Veuillez selectionner un format et un système de coordonnées")
     }
   });
+
+
+
+/* variables pour les liens des webservices*/
+    var wmts = document.location.origin+"/geoserver/gwc/service/wmts?request=GetCapabilities";
+    //document.getElementById("wmts").innerHTML = wmts;
+    var wms = document.location.origin+"/geoserver/chimn_workspace/wms?service=WMS&version=1.1.0&request=GetMap&layers=chimn_workspace:"+title.substring(title.lastIndexOf(".")+1);
+    //document.getElementById("wms").innerHTML = wms;
+    var wfs = document.location.origin+"chimn_workspace/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=chimn_workspace:"+title.substring(title.lastIndexOf(".")+1)+"&outputFormat=";
+    var format;
+
+/*pour afficher les liens webservices*/
+$("#liensWeb").click(function(){
+
+        $("#wmsweb").empty();
+        $("#wmtsweb").empty();
+        $("#wfsweb").empty();
+
+        $("<a href="+wms+">"+wms+"</a><br/>").appendTo("#wmsweb");/*style="+"list-style-type:"+"square;"*/
+        $("<a href="+wmts+">"+wmts+"</a><br/>").appendTo("#wmtsweb");
+
+        $("input[type='checkbox']:checked").each(function() {
+
+                  format = $(this).attr('id');
+
+                   $("<a href="+wfs+format+">"+wfs+format+"</a><br/>").appendTo("#wfsweb");
+
+                  });
+})

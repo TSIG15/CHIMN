@@ -21,11 +21,17 @@ body {
  /*
  for webservice on uploaduser.jsp
  */
+.webserv {
+  list-style: none;
+  padding-left: 0px;
+  word-wrap: break-word;
+}
 
 .webserv > a:hover,
 .webserv > a:focus {
     color: #5C9610;
     text-decoration: none;
+    word-wrap: break-word;
   }
 
  a {
