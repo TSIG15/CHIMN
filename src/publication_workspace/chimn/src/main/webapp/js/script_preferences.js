@@ -59,4 +59,22 @@
     .done(function(data) {
       console.log(data);
     });
-  })
+  });
+  
+  
+  $('#critere-form').submit(function(e) {
+      e.preventDefault();
+      $.ajax({
+        'url' : '/chimn/webapi/myresource/critere',
+        'type' : 'POST',
+      'data' : {
+            license: $('[name="optionsRadios"]:checked').val(),
+            keyword: $('[name="keywordSelect"]').val(),
+            periodicity:$('[name="periodicite"]').val()       
+            
+          }
+      })
+      .done(function(data) {
+        console.log(data);
+      });
+    })
