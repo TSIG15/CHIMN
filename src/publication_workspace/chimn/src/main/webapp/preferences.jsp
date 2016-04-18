@@ -207,7 +207,7 @@
 
           <!--formulaire Traitements -->
 
-         <form id = critere-form name="formTrait" class="form-horizontal" action=""><!-- appel de la resource java dans action -->
+         <form id ="critere-form" name="formTrait" class="form-horizontal" action=""><!-- appel de la resource java dans action -->
 
             <h3 class="sub-header">Critères d'éligibilité</h3>
 
@@ -273,7 +273,7 @@
           </div>
         </div>
       </div>
-    </div>
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
