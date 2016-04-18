@@ -46,7 +46,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-@Stateful
+
 
 public  class IsogeoController {
 
@@ -96,7 +96,7 @@ public  class IsogeoController {
 					client.getConnectionManager().getSchemeRegistry().register(new Scheme("https", 443, sf));
 					//setting proxy to be intercepted by fiddler
 					HttpHost proxy = new HttpHost("localhost", 8888);
-					client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+					client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
 
 					
 			    	HttpPost post = new HttpPost(authURL);
@@ -350,7 +350,7 @@ public  class IsogeoController {
 					
 						deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());
 						
-					gross_metadata.add(new MetaData(name,"none",created,modified,deleted,idisogeo,srs,geometryType));
+						gross_metadata.add(new MetaData(name,"none",created,modified,deleted,idisogeo,srs,geometryType));
 						
 			}
 				
