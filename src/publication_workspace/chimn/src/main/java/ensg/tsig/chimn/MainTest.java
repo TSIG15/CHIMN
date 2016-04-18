@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 import ensg.tsig.chimn.controllers.IsogeoController;
 import ensg.tsig.chimn.controllers.PublisherController;
@@ -18,17 +20,29 @@ import ensg.tsig.chimn.controllers.PublisherController;
  */
 public class MainTest {
 	public static void main(String[] args) {
-		Path currentRelativePath = Paths.get("");
+		/*****testing path for logs
+		 
+		 
 		String st = System.getenv("CATALINA_HOME");
-		       System.out.println("Current relative path is: " + st);
+		       System.out.println("Current relative path is: " + st);*/
 		
+		String schema,name,title;
+		title="france.communes123";
 		
+		schema=title.substring(0,title.indexOf("."));
+		System.out.println(title);
+		System.out.println("schema "+schema);
+		name=title.substring(title.lastIndexOf(".") + 1);
+		System.out.println("name: "+name);
+		Map<String,String> layersName = new HashMap<String,String>();
+		layersName.put(name, schema);
+		System.out.println(layersName.get(name));
 		////Test IsoGeo
-    IsogeoController isogeo=new IsogeoController("projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0","jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd");
+    /*IsogeoController isogeo=new IsogeoController("projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0","jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd");
     System.out.println("credential encoded: "+isogeo.getCredentialsEncoded());
     isogeo.getToken();
     System.out.println("token type : "+isogeo.getToken_type());
-    System.out.println("token access : "+isogeo.getAccess_token());
+    System.out.println("token access : "+isogeo.getAccess_token());*/
     
     //test updating metadata in chimn database
     
@@ -60,32 +74,6 @@ public class MainTest {
     //test getting keywords
     
     //isogeo.initializeKeyWords("");
-    String cmd = "python D:\\3eme_ENSG\\projet_industriel\\src\\publication_workspace\\chimn\\src\\main\\java\\ensg\\tsig\\chimn\\helloworld.py  ";
-    String s = null;
-    try {
-    	Process p = Runtime.getRuntime().exec(cmd);
-        
-        BufferedReader stdInput = new BufferedReader(new
-             InputStreamReader(p.getInputStream()));
 
-        BufferedReader stdError = new BufferedReader(new
-             InputStreamReader(p.getErrorStream()));
-
-        // read the output from the command
-        System.out.println("Here is the standard output of the command:\n");
-        while ((s = stdInput.readLine()) != null) {
-            System.out.println(s);
-        }
-         
-        // read any errors from the attempted command
-        System.out.println("Here is the standard error of the command (if any):\n");
-        while ((s = stdError.readLine()) != null) {
-            System.out.println(s);
-        }
-         
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
    }
 }

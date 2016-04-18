@@ -106,12 +106,13 @@ public class MyResource {
 	    	initializePublisher();
 	    	
 	    	//test updating metadata in chimn database
-		    /*if(isogeo!=null)
+		    
+	    	if(isogeo!=null)
 		    	{
 		    		if(!isogeo.setHistoricalMetaData())
 		    		   return "error updating metadata :/ ";
 		    		System.out.println("Hitorical was updated successfully :)");
-		    	}	*/   
+		    	}	   
 
 		 // publish OGC services
 		    if(publisher!=null)
@@ -225,6 +226,7 @@ public class MyResource {
     	if( isogeo.initializeKeyWords(q))
     		{
     			JSONObject j=new JSONObject();
+    			
     			j.putAll(isogeo.getKeywords());
     			return j;
     		}

@@ -23,9 +23,9 @@ import java.text.*;
     
          public static void write(String f, String s) throws IOException {
         	// System.out.println("**********************************"+defaultLogFile+"***********************");
-         TimeZone tz = TimeZone.getTimeZone("EST"); // or PST, MID, etc ...
+         TimeZone tz = TimeZone.getTimeZone("Europe/Paris"); // or PST, MID, etc ...
          Date now = new Date();
-         DateFormat df = new SimpleDateFormat ("yyyy.mm.dd hh:mm:ss ");
+         DateFormat df = new SimpleDateFormat ("dd.MM.yyyy HH:mm:ss ");
          df.setTimeZone(tz);
          String currentTime = df.format(now);
         

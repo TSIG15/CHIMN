@@ -42,8 +42,8 @@ public class PublisherController {
 	private GeoServerRESTReader reader;
 	private GeoServerRESTPublisher publisher;
 	private final String workspaceName ="chimn_workspace";
-	private String dataStoreName;
-	private List<String> layersName;
+	private List<String> dataStoreName=new ArrayList<String>();
+	private Map<String,String> layersName = new HashMap<String,String>();
 	private List<String> urls_services=new ArrayList<String>() ;
 	private Map<Integer,String> mapLayersUrl = new HashMap<Integer,String>();
 	private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(GeoServerRESTPublisher.class);
@@ -137,9 +137,14 @@ public class PublisherController {
          		}
          		
          		
-         		//now let's check if the associated datastore already exists  !
+         		/***************Add postgis schema as different datastores : deprecated***************/
+         		List<String> schemas=new ArrayList<String>();
+         		schemas.add("france");
+         		schemas.add("idf_data");
          		
- 				if(reader.getDatastore(workspaceName, parameters.getDbname())!=null)
+         		//now let's check if the associated datastore already exists  !
+         		for(int i=0;i<schemas.size();i++)
+ 				if(reader.getDatastore(workspaceName, schemas.get(i))!=null)
  					{
  					
  					System.out.print(parameters.getDbname()+" already exists !");
@@ -150,17 +155,18 @@ public class PublisherController {
     					e1.printStackTrace();
     				}
  					
- 					dataStoreName=parameters.getDbname();
+ 					dataStoreName.add(schemas.get(i));
  					}
  				else
  				{
  					//create a new postgis data store
- 	            	GSPostGISDatastoreEncoder storeencoder=new GSPostGISDatastoreEncoder(parameters.getDbname());
+ 	            	GSPostGISDatastoreEncoder storeencoder=new GSPostGISDatastoreEncoder(schemas.get(i));
  	            	storeencoder.setDatabase(parameters.getDbname());
  	            	storeencoder.setPort(Integer.parseInt(parameters.getDbport()));
  	            	storeencoder.setHost(parameters.getDbhote());
  	            	storeencoder.setUser(parameters.getDbuser());
  	            	storeencoder.setPassword(parameters.getDbpsw());
+ 	            	storeencoder.setSchema(schemas.get(i));
  	            	boolean storecreated=createPostGISDatastore(workspaceName,storeencoder);
  	            	if (storecreated) 
  	            		{
@@ -171,7 +177,7 @@ public class PublisherController {
  	    					// TODO Auto-generated catch block
  	    					e1.printStackTrace();
  	    				}
- 	            		dataStoreName="Chimn_datastore"+parameters.getDbname();
+ 	            		dataStoreName.add(schemas.get(i));
  	            		}
  	            	else 
  	            		{
@@ -303,10 +309,13 @@ public class PublisherController {
     	List<MetaData> layersToRemove=dao.findByAsked(false);
     	//for each layer : check if it exists and then remove it!!
     	String title;
+    	String schema,name;
     	for(int i=0; i<layersToRemove.size();i++)
     		{
     			title=layersToRemove.get(i).getName();
-    			unpublishFeatureType(workspaceName,dataStoreName,title.substring(title.lastIndexOf(".") + 1));
+    			schema=title.substring(0,title.indexOf("."));
+    			name=title.substring(title.lastIndexOf(".") + 1);
+    			unpublishFeatureType(workspaceName,schema,name); //as we the schema's name is the same as the datastorename ==> should be replaced in the next version
     		}
     	context.close();
     	return true;
@@ -379,7 +388,7 @@ public class PublisherController {
     	MetaDataDao dao = context.getBean(MetaDataDao.class);
     	List<MetaData> layers=dao.findByAskedAndChanged(true, true);
     	
-    	layersName=new ArrayList<String>();
+    
     	
     	String title;
     	boolean publishDBLayer;
@@ -389,9 +398,13 @@ public class PublisherController {
     			
     			
     			title=layers.get(i).getName();
-    			//get only table's name
-    			layersName.add(title.substring(title.lastIndexOf(".") + 1));
-    			System.out.println(title.substring(title.lastIndexOf(".") + 1));
+    			//get only table's name : noooo
+    			String tableName=title.substring(title.lastIndexOf(".") + 1);
+    			String schemaName=title.substring(0,title.indexOf("."));
+    			layersName.put(tableName,schemaName);
+    		
+    			//layersName.add(title);
+    			
     			
     			 //test publishing a layer
     		   //if(layersName.get(i).equals("coursdo"))
@@ -403,9 +416,9 @@ public class PublisherController {
     			  if(layers.get(i).getGeometrytype().equals("Point"))
     				  style="point";
     			  
-    				  publishDBLayer = publisher.publishDBLayer(workspaceName,dataStoreName,layersName.get(i),layers.get(i).getSrs(),"line");
+    				  publishDBLayer = publisher.publishDBLayer(workspaceName,schemaName,tableName,layers.get(i).getSrs(),"line");
     			  if(publishDBLayer)
-    				  System.out.println(layersName.get(i)+"was successfully published :)");
+    				  System.out.println(layersName.get(i)+" was successfully published :)");
 				else
 					try {
 						MsgLog.write("An error has occured while publishing "+layersName.get(i));

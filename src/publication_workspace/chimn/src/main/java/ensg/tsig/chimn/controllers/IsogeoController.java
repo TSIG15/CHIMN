@@ -337,6 +337,7 @@ public  class IsogeoController {
 						if(jsonObject2.get("_deleted")!=null)
 							deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());						
 						gross_metadata.add(new MetaData(name,license,created,modified,deleted,idisogeo,srs,geometryType));
+						
 	
 					}
 					
@@ -344,12 +345,15 @@ public  class IsogeoController {
 				}
 				else //add a metadata enven it has not a license
 					//bug to resolve later...
+					{
 					if(jsonObject2.get("_deleted")!=null)
-						deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());
 					
+						deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());
+						
 					gross_metadata.add(new MetaData(name,"none",created,modified,deleted,idisogeo,srs,geometryType));
-	
-				System.out.println(gross_metadata.get(j).isChanged());
+						
+			}
+				
 				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
