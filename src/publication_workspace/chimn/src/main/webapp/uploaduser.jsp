@@ -146,10 +146,10 @@
 <p>La donnée que vous souhaitez télécharger n'est pas disponible aux formats et
   SRS de votre choix ?<br/><br/>Vous avez un compte utilisateur ?<br/><br/>Vous pouvez commandez votre propre donnée en vous connectant avec votre compte.<br/><br/></p>
 
-	<button class="btn btn-primary btn-block"
+	<div class="btn btn-primary btn-block"
 	style="background-color:#ADCA87;border-color:#ADCA87;">
 	<a href="authentification.jsp" style="color:#fff;">SE CONNECTER ET COMMANDER</a>
-	</button>
+	</div>
 </div>
 </div>
 </div>
