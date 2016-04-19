@@ -241,25 +241,39 @@ public class MyResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public String postAuthentification (
-    		@FormParam("usern") String login,
-    		@FormParam("passw") String mdp)
+    		@FormParam("ident") String login,
+    		@FormParam("pwd") String mdp)
     			     
     {   	
     	String loginAdmin = "admin";
     	String mdpAdmin = "admin";
-    	String success = "success";
+    	String loginUser = "user";
+    	String mdpUser = "user";
+
+    	String successAdmin = "successAdmin";
+    	String successUser = "successUser";
     	String failure = "failure";
     	
     	System.out.println(login.equals(loginAdmin)); 
     	System.out.println(mdp.equals(mdpAdmin)); 
+    	System.out.println(login.equals(loginUser)); 
+    	System.out.println(mdp.equals(mdpUser)); 
     	
-    	int logInt = (login.equals(loginAdmin)) ? 1 : 0;
-    	int mdpInt = (mdp.equals(mdpAdmin)) ? 1 : 0;
+    	int logAdminInt = (login.equals(loginAdmin)) ? 1 : 0;
+    	int mdpAdminInt = (mdp.equals(mdpAdmin)) ? 1 : 0;
+    	int logUserInt = (login.equals(loginUser)) ? 1 : 0;
+    	int mdpUserInt = (mdp.equals(mdpUser)) ? 1 : 0;
     	
-    	if((logInt==1) && (mdpInt==1))
-    		return success;
+    	if((logAdminInt==1) && (mdpAdminInt==1))
+    		return successAdmin;
+    		//System.out.println(successAdmin);
+    	else if ((logUserInt==1) && (mdpUserInt==1))
+    		return successUser;
+    		//System.out.println(successUser);
     	else
     		return failure;
+    		//System.out.println(failure);
+    	
     }
 
     

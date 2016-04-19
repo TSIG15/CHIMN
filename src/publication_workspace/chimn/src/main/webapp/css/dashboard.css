@@ -59,7 +59,7 @@ body {
 
 /*
 barre de recherche utilisateur
-*/
+
 
 .rechercheUser {
   margin-top:6em;
@@ -68,7 +68,7 @@ barre de recherche utilisateur
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
-}
+}*/
 
 /*
 boutons des préférences
@@ -87,6 +87,91 @@ PAGE ACCUEIL
   margin-left: 28%;
 }
 }
+
+/*taille de la carte selon écran*/
+@media (min-width : 320px) and (max-width: 450px) {
+
+  #map{
+    margin-left:10%;
+    margin-right:5%;
+    width:300px;
+    height:200px;
+    border:6px solid #000;
+  }
+}
+
+@media (min-width : 451px) and (max-width: 600px) {
+
+  #map{
+    margin:auto;/*margin-left:12%;*/
+    width:350px;
+    height:250px;
+    border:6px solid #000;
+  }
+}
+
+
+@media (min-width : 601px) and (max-width: 700px) {
+
+  #map{
+    margin:auto;/*margin-left:15%;*/
+    width:400px;
+    height:300px;
+    border:6px solid #000;
+  }
+}
+
+@media (min-width : 701px) and (max-width: 767px){
+
+  #map{
+    margin:auto;/*margin-left:15%;*/
+    width:450px;
+    height:350px;
+    border:6px solid #000;
+  }
+}
+
+@media (min-width : 768px) and (max-width: 850px){
+
+  #map{
+    margin:auto;/*margin-left:3%;*/
+    width:500px;
+    height:400px;
+    border:6px solid #000;
+  }
+}
+
+@media (min-width : 851px) and (max-width: 900px){
+
+  #map{
+    margin:auto;/*margin-left:3%;*/
+    width:550px;
+    height:420px;
+    border:6px solid #000;
+  }
+}
+
+
+@media (min-width : 901px) and (max-width: 1020px){
+
+  #map{
+    margin:auto;/*margin-left:8%;*/
+    width:550px;
+    height:420px;
+    border:6px solid #000;
+  }
+}
+
+@media (min-width : 1021px) {
+
+  #map{
+    margin:auto;/*margin-left:15%;*/
+    width:700px;
+    height:500px;
+    border:6px solid #000;
+  }
+}
+
 
 .panel-primary {
   color:#000;
@@ -154,6 +239,7 @@ PAGE ACCUEIL
     border-right: 1px solid #eee;
   }
 }
+
 /*
 special sidebar for users.jsp
 */
@@ -192,7 +278,6 @@ special sidebar for users.jsp
 .nav-sidebar > .active > a:focus {
   background-color: #eee;
   color: #5C9610;
-  /*background-color: #5C9610;/*remplacé par du vert TSIG*/
 }
 
 
@@ -213,18 +298,6 @@ special sidebar for users.jsp
   }
 }
 
-
-
-/*
-crée un style différent du bouton de validation des formulaire
-
-.btn-default:hover {
-    color: #fff;anciennement 333;
-    background-color: #ADCA87;
-    border-color: #adadad;
-}
-*/
-
 /*
 page d'accueil
 */
@@ -236,23 +309,3 @@ page d'accueil
   background-color: #f5f5f5;
   border : 1px solid #eee;
   color:#000;
-
-
-/*
- * Placeholder dashboard ideas
-
-
-.placeholders {
-  margin-bottom: 30px;
-  text-align: center;
-}
-.placeholders h4 {
-  margin-bottom: 0;
-}
-.placeholder {
-  margin-bottom: 20px;
-}
-.placeholder img {
-  display: inline-block;
-  border-radius: 50%;
-} */

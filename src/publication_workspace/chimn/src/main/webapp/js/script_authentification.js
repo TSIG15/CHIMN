@@ -1,31 +1,36 @@
 /* Au click() du bouton id=auth dans authentifcation*/
-console.log();
-$("#auth").click(function(){
 
-var ident = $("#login").val();
-var pwd = $("#mdp").val();
+$("#auth").submit(function(e){
+	 e.preventDefault();
 
 $.ajax({
 //The URL to process the request
-  url : 'webapi/myresource/authentification',
+  'url' : 'webapi/myresource/authentification',
 //The type of request, also known as the "method" in HTML forms
 //Can be 'GET' or 'POST'
-  type : 'POST',
+  'type' : 'POST',
 //Any post-data/get-data parameters
 //This is optional
-  data : {"usern": ident,"passw" : pwd},
+  'data' : {
+	   ident : $('[name="usern"]').val(),
+	   pwd : $('[name="passw"]').val()
+	  }
 
-  dataType: 'text',
+	})
+	.done(function(success) {
+		//alert("vous y etes");
+		console.log(success);
 
-//The response from the server
-  complete : function(success) {
-
-	if(success.responseText == "success") {
+	if(success == "successAdmin") {
+		//alert("Votre identifiant ou votre de mot de passe est correct !");
         window.location.href="parametrages.jsp";
-      }
+      	}
+    else if (success == "successUser") {
+		window.location.href="extractiondynamique.jsp";
+		}
     else {
     	alert("Votre identifiant ou votre de mot de passe est incorrect !");
-    }
-    }
-  });
-})
+    	}
+
+    });
+});
