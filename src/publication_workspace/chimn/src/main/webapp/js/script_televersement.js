@@ -86,11 +86,11 @@
 
 
 /* variables pour les liens des webservices*/
-    var wmts = document.location.origin+"/geoserver/gwc/service/wmts?request=GetCapabilities";
+    var wmts = document.location.hostname+":8082/geoserver/gwc/service/wmts?request=GetCapabilities";
     //document.getElementById("wmts").innerHTML = wmts;
-    var wms = document.location.origin+"/geoserver/chimn_workspace/wms?service=WMS&version=1.1.0&request=GetMap&layers=chimn_workspace:"+title.substring(title.lastIndexOf(".")+1);
+    var wms = document.location.hostname+":8082/geoserver/chimn_workspace/wms?service=WMS&version=1.1.0&request=GetMap&layers=chimn_workspace:"+title.substring(title.lastIndexOf(".")+1);
     //document.getElementById("wms").innerHTML = wms;
-    var wfs = document.location.origin+"chimn_workspace/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=chimn_workspace:"+title.substring(title.lastIndexOf(".")+1)+"&outputFormat=";
+    var wfs = document.location.hostname+":8082/geoserver/chimn_workspace/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=chimn_workspace:"+title.substring(title.lastIndexOf(".")+1)+"&outputFormat=";
     var format;
 
 /*pour afficher les liens webservices*/

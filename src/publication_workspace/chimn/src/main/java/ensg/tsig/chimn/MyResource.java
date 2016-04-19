@@ -185,7 +185,6 @@ public class MyResource {
     		@FormParam("passwordGS") String gspsw,
     		@FormParam("idI") String isid,
     		@FormParam("secretI") String issecret,
-    		@FormParam("groupeTI") String isgroupetravail,
     		@FormParam("urlSD") String tlurl) 
     {
         
@@ -201,7 +200,6 @@ public class MyResource {
     	myParam.setGsuser(gsuser);
     	myParam.setIsid(isid);
     	myParam.setIssecret(issecret);
-    	myParam.setIsgroupetravail(isgroupetravail);
     	myParam.setTlurl(tlurl);
     	
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
@@ -265,26 +263,41 @@ public class MyResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
     public String postAuthentification (
-    		@FormParam("usern") String login,
-    		@FormParam("passw") String mdp)
+    		@FormParam("ident") String login,
+    		@FormParam("pwd") String mdp)
     			     
     {   	
     	String loginAdmin = "admin";
     	String mdpAdmin = "admin";
-    	String success = "success";
+    	String loginUser = "user";
+    	String mdpUser = "user";
+
+    	String successAdmin = "successAdmin";
+    	String successUser = "successUser";
     	String failure = "failure";
     	
     	System.out.println(login.equals(loginAdmin)); 
     	System.out.println(mdp.equals(mdpAdmin)); 
+    	System.out.println(login.equals(loginUser)); 
+    	System.out.println(mdp.equals(mdpUser)); 
     	
-    	int logInt = (login.equals(loginAdmin)) ? 1 : 0;
-    	int mdpInt = (mdp.equals(mdpAdmin)) ? 1 : 0;
+    	int logAdminInt = (login.equals(loginAdmin)) ? 1 : 0;
+    	int mdpAdminInt = (mdp.equals(mdpAdmin)) ? 1 : 0;
+    	int logUserInt = (login.equals(loginUser)) ? 1 : 0;
+    	int mdpUserInt = (mdp.equals(mdpUser)) ? 1 : 0;
     	
-    	if((logInt==1) && (mdpInt==1))
-    		return success;
+    	if((logAdminInt==1) && (mdpAdminInt==1))
+    		return successAdmin;
+    		//System.out.println(successAdmin);
+    	else if ((logUserInt==1) && (mdpUserInt==1))
+    		return successUser;
+    		//System.out.println(successUser);
     	else
     		return failure;
+    		//System.out.println(failure);
+    	
     }
+
 
     
 	@GET
@@ -385,6 +398,7 @@ public class MyResource {
     	dao6.save(listkml.get(0));
     	
     	context.close();
+    	
     	return null;
     }
     
@@ -392,12 +406,13 @@ public class MyResource {
     @Path("/srs/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public String srsCheckedToDB(
+    public PreferenceSRS srsCheckedToDB(
     		@FormParam("WebMercator") String webMVal ,
     		@FormParam("l93") String lambertVal,
     		@FormParam("wgs84UTM") String wgsUTMVal,
     		@FormParam("wgs84") String wgsVal
     		){
+    	
     	
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
@@ -426,7 +441,6 @@ public class MyResource {
     	dao2.save(listwgsUTM.get(0));
     	dao3.save(listwgs.get(0));
 
-    	
     	context.close();
     	
     	return null;

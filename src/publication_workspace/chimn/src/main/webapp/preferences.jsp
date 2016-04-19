@@ -146,7 +146,7 @@
           </label>
 
 
-          <!--bouton d'envoi SRS mais l'appel de la resource java se trouve au niveau de la balise form-->
+          <!-- bouton d'envoi SRS mais l'appel de la resource java se trouve au niveau de la balise form -->
             <div class="form-group">
               <div class="boutonPref col-sm-10">
                 <button type="submit" class="btn btn-default">Enregistrer les SRS</button>
@@ -258,7 +258,7 @@
 
             	<div class="form-group">
               		<div class="boutonPref col-sm-10">
-                		<button class="btn btn-default" id="saveCriteria">Enregistrer les options de traitements</button>
+                		<button class="btn btn-default">Enregistrer les options de traitements</button>
               		</div>
             	</div>
            </form>

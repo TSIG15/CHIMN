@@ -75,7 +75,7 @@
 
 
 
-              <form class="form-horizontal" method="post">
+              <form id="auth" class="form-horizontal" method="post">
 
                 <div class="form-group">
                   <label for="login" class="col-sm-4 control-label">Identifiant</label>
@@ -96,7 +96,7 @@
                   <label for="submit" class="col-sm-4 control-label"></label>
                   <div class="col-sm-1">
 
-                    <button id ="auth" type="submit" class="btn btn-default">Valider</button><!---->
+                    <button type="submit" class="btn btn-default">Valider</button><!---->
 
                   </div>
                 </div>

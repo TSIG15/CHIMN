@@ -75,7 +75,7 @@
 <div class="row">
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main index">
 
-<div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1">
+<div class="col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1" style="word-wrap: break-word;">
 <h1 class="page-header" style="margin-top:0;">Télécharger la donnée</h1> <!-- Ajouter une variable pour récupérer title donnee-->
 <h3 style="font-style:italic;margin-bottom:25px;color:#5C9610" id="titledata"></h3>
 
@@ -88,9 +88,8 @@
 <label class="radio-inline"><input type="radio" name="optradio" id="gml" value="gml">GML</label>
 <label class="radio-inline" style="margin-left:0px;"><input type="radio" name="optradio" id="kmlg" value="kml">KML (Google)</label>
 
-<h5 style="font-style:italic;font-weight:bold;">Formats vecteur</h5>
+<h5 style="font-style:italic;font-weight:bold;">Formats raster</h5>
 <label class="radio-inline"><input type="radio" name="optradio" id="geotiff" value="geotiff">GEOTIFF</label>
-<label class="radio-inline"><input type="radio" name="optradio" id="jpeg" value="png">JPEG</label>
 <label class="radio-inline"><input type="radio" name="optradio" id="png" value="png">PNG</label>
 </form>
   <!--fin formulaire-->
@@ -144,10 +143,13 @@
 
 <!--- HTML : EXTRACTION DYNAMIQUE -->
 <h1 class="page-header">Extraction dynamique</h1>
-<p style="text-align:justify;">La donnée que vous souhaitez télécharger n'est pas disponible aux formats et
-  SRS de votre choix ? <br/>Commandez votre propre donnée.<br/><br/></p>
-<button type="submit" class="btn btn-primary btn-block"
-      style="background-color:#ADCA87;border-color:#ADCA87;">COMMANDER</button>
+<p>La donnée que vous souhaitez télécharger n'est pas disponible aux formats et
+  SRS de votre choix ?<br/><br/>Vous avez un compte utilisateur ?<br/><br/>Vous pouvez commandez votre propre donnée en vous connectant avec votre compte.<br/><br/></p>
+
+	<div class="btn btn-primary btn-block"
+	style="background-color:#ADCA87;border-color:#ADCA87;">
+	<a href="authentification.jsp" style="color:#fff;">SE CONNECTER ET COMMANDER</a>
+	</div>
 </div>
 </div>
 </div>
