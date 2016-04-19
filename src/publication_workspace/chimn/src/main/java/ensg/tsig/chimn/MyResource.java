@@ -179,7 +179,6 @@ public class MyResource {
     		@FormParam("passwordGS") String gspsw,
     		@FormParam("idI") String isid,
     		@FormParam("secretI") String issecret,
-    		@FormParam("groupeTI") String isgroupetravail,
     		@FormParam("urlSD") String tlurl) 
     {
         
@@ -195,7 +194,6 @@ public class MyResource {
     	myParam.setGsuser(gsuser);
     	myParam.setIsid(isid);
     	myParam.setIssecret(issecret);
-    	myParam.setIsgroupetravail(isgroupetravail);
     	myParam.setTlurl(tlurl);
     	
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
@@ -276,19 +274,6 @@ public class MyResource {
     	
     }
 
-    
-	/*@GET
-    @Path ("/data/")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getData(@QueryParam("word") String word)
-    {
-
-    	initializeIsogeo();
-    	if(isogeo==null) return null;
-    	isogeo.search_metadata_from_isogeo(word,"conditions", "", "", "", "", "", "3", 0);
-    	
-    	return null;
-	}*/
 
     @POST
     @Path("/formats/")
@@ -352,6 +337,7 @@ public class MyResource {
     	dao6.save(listkml.get(0));
     	
     	context.close();
+    	
     	return null;
     }
     
@@ -359,12 +345,13 @@ public class MyResource {
     @Path("/srs/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public String srsCheckedToDB(
+    public PreferenceSRS srsCheckedToDB(
     		@FormParam("WebMercator") String webMVal ,
     		@FormParam("l93") String lambertVal,
     		@FormParam("wgs84UTM") String wgsUTMVal,
     		@FormParam("wgs84") String wgsVal
     		){
+    	
     	
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
@@ -393,7 +380,6 @@ public class MyResource {
     	dao2.save(listwgsUTM.get(0));
     	dao3.save(listwgs.get(0));
 
-    	
     	context.close();
     	
     	return null;

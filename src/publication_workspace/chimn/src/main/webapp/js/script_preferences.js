@@ -15,6 +15,7 @@
         }
     })
     .done(function(data) {
+    	alert("Enregistrement effectué avec succès !");
       console.log(data);
     });
   });
@@ -36,7 +37,8 @@
         }
     })
     .done(function(data) {
-      console.log(data);
+    	alert("Enregistrement effectué avec succès !");
+    	console.log(data);
     });
   });
 
@@ -57,6 +59,7 @@
         }
     })
     .done(function(data) {
+    	alert("Enregistrement effectué avec succès !");
       console.log(data);
     });
   });
@@ -75,6 +78,7 @@
           }
       })
       .done(function(data) {
+    	  alert("Enregistrement effectué avec succès !");
         console.log(data);
       });
     })

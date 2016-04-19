@@ -74,7 +74,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
           <!--formulaire général pour récupérer tous les paramètres-->
-          <form id="form" name="formGeneral" class="form-horizontal" action="webapi/myresource/parameters/" method="post">
+          <form id="form" name="formGeneral" class="form-horizontal" action="" method="">
 
            <!--Base de données source-->
            <h1 id="titreBDD" class="page-header" style="margin-top:0;" onclick="toggle_div(this,'formBDD');">Base de données source</h1>
@@ -120,7 +120,7 @@
              <div class="form-group">
                <label class="col-sm-2 control-label">Tester la connexion</label>
                <div class="col-sm-10">
-                 <button type="submit" class="btn btn-default">Tester</button>
+                 <button type="button" class="testconnexion btn btn-default">Tester</button>
                </div>
              </div>
            </div>
@@ -162,7 +162,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Tester la connexion</label>
               <div class="col-sm-10">
-                <button type="submit" class="btn btn-default">Tester</button>
+                <button type="button" class="testconnexion btn btn-default">Tester</button>
               </div>
             </div>
            </div>
@@ -192,7 +192,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Tester la connexion</label>
               <div class="col-sm-10">
-                <button type="submit" class="btn btn-default">Tester</button>
+                <button type="button" class="testconnexion btn btn-default">Tester</button>
               </div>
             </div>
 		</div>
@@ -206,7 +206,7 @@
             <div class="form-group">
               <label for="urlSD" class="col-sm-2 control-label">Serveur distant</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="urlSD" placeholder="http://localhost:8080/">
+                <input type="text" class="form-control" name="urlSD" placeholder="zoe.ensg1.ensg.eu:8081/">
               </div>
             </div>
            </div>
@@ -237,5 +237,6 @@
         <script src="js/ie10-viewport-bug-workaround.js"></script>
         <!-- script maison-->
         <script src="js/scripts_divers.js"></script>
+        <script src="js/script_parametrages.js"></script>
       </body>
     </html>
