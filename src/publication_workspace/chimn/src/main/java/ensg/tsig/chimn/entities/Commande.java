@@ -30,7 +30,7 @@ public class Commande {
 	private String heurecmd;
 	private String titledata;
 	private String lien;
-
+	private boolean processed;
 	
 	public Long getId() {
 		return id;
@@ -48,6 +48,10 @@ public class Commande {
 	 * @param heurecmd
 	 * @param titledata
 	 */
+	public Commande()
+	{
+		
+	}
 	public Commande(String nameuser, String email, String srs, String format, String point1lat, String point1lng,
 			String point2lat, String point2lng, String datecmd, String heurecmd, String titledata) {
 		super();
@@ -137,5 +141,11 @@ public class Commande {
 	}
 	public void setLien(String lien) {
 		this.lien = lien;
+	}
+	public boolean isProcessed() {
+		return processed;
+	}
+	public void setProcessed(boolean processed) {
+		this.processed = processed;
 	}
 }

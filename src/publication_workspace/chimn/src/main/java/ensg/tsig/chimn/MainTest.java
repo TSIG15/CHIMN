@@ -31,12 +31,12 @@ public class MainTest {
 		String st = System.getenv("CATALINA_HOME");
 		       System.out.println("Current relative path is: " + st);*/
 		Configuration configuration = new Configuration()
-			    .domain("sandboxa82ad9f03eff40a494c3b01df4560bea.mailgun.org")
-			    .apiKey("key-b04a449660c8f9b5af6d9fd3cf5b6489")
-			    .from("Test account", "postmaster@sandboxa82ad9f03eff40a494c3b01df4560bea.mailgun.org");
+			    .domain(".mailgun.org")
+			    .apiKey("key-")
+			    .from("Test account", "postmaster@.mailgun.org");
 		
 		MailBuilder.using(configuration)
-	    .to("hanane.eljabiri@gmail.com")
+	    .to("@gmail.com")
 	    .subject("This is the subject")
 	    .text("Hello world!")
 	    .build()

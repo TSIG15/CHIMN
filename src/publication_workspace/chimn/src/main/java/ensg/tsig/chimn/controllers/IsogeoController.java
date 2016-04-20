@@ -99,7 +99,7 @@ public  class IsogeoController {
 					client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,proxy);
 
 					
-			    	HttpPost post = new HttpPost(authURL);
+					HttpPost post = new HttpPost(authURL);
 
 			    	// add header
 			    	post.setHeader("Authorization", "Basic "+credentialsEncoded);

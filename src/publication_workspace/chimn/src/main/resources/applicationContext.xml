@@ -31,7 +31,7 @@
             <value>postgres</value>
         </property>
         <property name="password">
-            <value>dcaigadmin1</value>
+            <value>postgres</value>
         </property>
     </bean>
   

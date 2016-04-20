@@ -80,7 +80,7 @@ document.getElementById('heure').value =  h+ ":" +min+ ":" +sec  ;
 	            southEastlat = layer.getBounds().getSouthEast().lat;
 	            southEastlng = layer.getBounds().getSouthEast().lng;
 
-              alert (
+             /* alert (
                 'point 1 north ouest latitude:  ' + northWestlat +'\n'+
                 'point 1 north ouest longitude: ' + northWestlng +'\n'+
                 'point 2 north east latitude :  ' + northEastlat +'\n'+
@@ -89,7 +89,7 @@ document.getElementById('heure').value =  h+ ":" +min+ ":" +sec  ;
                 'point 3 sud east longitude: ' + southEastlng +'\n'+
 		            'point 4 sud ouest latitude:  ' + southWestlat +'\n'+
                 'point 4 sud ouest longitude: ' + southWestlng
-              );
+              );*/
 
 	            verifier();
 
