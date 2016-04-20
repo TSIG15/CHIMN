@@ -2,13 +2,13 @@
 
     $.ajax({
       //The URL to process the request
-      url : 'webapi/myresource/televersement',
+      'url' : 'webapi/myresource/televersement',
       //The type of request, also known as the "method" in HTML forms
       //Can be 'GET' or 'POST'
-      type : 'GET',
+      'type' : 'GET',
       //Any post-data/get-data parameters
       //This is optional
-      data : {},
+      'data' : {},
 
       //The response from the server
       'success' : function(data) {
@@ -73,8 +73,8 @@
 
 
     if (FormatChoice !=="vide" && srsChoice !=="vide"){
-        var result = tlurl + FormatChoice + "/EPSG" + srsChoice + "/" + titledata + ".zip";
-
+        var result = tlurl + FormatChoice + "/EPSG-" + srsChoice + "/" + titledata + ".zip";
+        alert(result);
         /*url pour le téléversement*/
         window.location.href=result;
     }
@@ -110,4 +110,20 @@ $("#liensWeb").click(function(){
                    $("<a href="+wfs+format+">"+wfs+format+"</a><br/>").appendTo("#wfsweb");
 
                   });
-})
+});
+
+/*pour passer le titre de la variable à la page authentification*/
+$('#authuser').click(function(e) {
+   e.preventDefault();
+
+   $.ajax({
+     'url' : 'authentification.jsp',
+     'type' : 'GET',
+     'data' : {
+    	 	name : titledata
+     }
+   })
+   .done(function(data) {
+         window.location.href="authentification.jsp?name="+titledata;
+   });
+ })

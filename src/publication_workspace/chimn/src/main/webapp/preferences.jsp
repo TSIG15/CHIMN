@@ -130,19 +130,19 @@
           <h3 class="sub-header">Systèmes de coordonnées</h3>
 
           <label class="checkbox-inline">
-            <input type="checkbox" name="WebMercator" value="3857"> WGS84 (Web Mercator)
+            <input type="checkbox" name="WebMercator" value="3857"> WGS84(Web Mercator) : 3857
           </label>
 
           <label class="checkbox-inline">
-            <input type="checkbox" name="wgs84" value="4326"> WGS84
+            <input type="checkbox" name="wgs84" value="4326"> WGS84 : 4326
           </label>
 
           <label class="checkbox-inline">
-            <input type="checkbox" name="l93" value="2154"> RGF93 (LAMBERT 93)
+            <input type="checkbox" name="l93" value="2154"> RGF93(LAMBERT 93) : 2154
           </label>
 
            <label class="checkbox-inline">
-            <input type="checkbox" name="wgs84UTM" value="32631"> WGS84(UTM 31N)
+            <input type="checkbox" name="wgs84UTM" value="32631"> WGS84(UTM 31N) : 32631
           </label>
 
 
@@ -218,7 +218,7 @@
             <h5>Licence</h5>
             <div class="radio">
               <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="TRUE">
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="TRUE" checked>
                   OUI
                 </label>
             </div>
@@ -232,7 +232,7 @@
             <!--mots-clés-->
 
             <h5>Tags</h5><!--fixé en dur à 6 choix pour le moment, il faudra revoir l'html en fonction de la liste récupérée -->
-            <select  class="form-control" name="motscles" id="tags">
+            <select class="form-control" name="motscles" id="tags">
               <!-- <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -241,7 +241,7 @@
               <option>6</option>-->
             </select>
 
-			<input style="margin-top:10px;" type="text" class="form-control" id="keywords" name="keywordSelect" placeholder="mots clés">
+			      <input style="margin-top:10px;" type="text" class="form-control" id="keywords" name="keywordSelect" placeholder="mots clés">
             <!--propriétaire : inclus dans les tags-->
 
             <!--périodicité-->
@@ -258,13 +258,13 @@
 
             	<div class="form-group">
               		<div class="boutonPref col-sm-10">
-                		<button class="btn btn-default">Enregistrer les options de traitements</button>
+                		<button class="btn btn-default" type="submit">Enregistrer les options de traitements</button>
               		</div>
             	</div>
            </form>
 
           <!--traitement immédiat-->
-          <form action="webapi/myresource/run/" method="">
+          <form id="runtraitement" action="" method="">
 
           <h3 class="sub-header">Lancer les traitements immédiatement</h3>
               <button class="btn btn-default" type="submit">Go !</button>

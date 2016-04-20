@@ -3,22 +3,15 @@ package ensg.tsig.chimn;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -36,9 +29,7 @@ import ensg.tsig.chimn.entities.Criteria;
 import ensg.tsig.chimn.entities.Parameters;
 import ensg.tsig.chimn.entities.PreferenceFormat;
 import ensg.tsig.chimn.entities.PreferenceSRS;
-
 import ensg.tsig.chimn.entities.PreferenceService;
-
 import ensg.tsig.chimn.utils.MsgLog;
 
 
@@ -134,6 +125,7 @@ public class MyResource {
 		    return "the end of get run!";
 	    }
 
+	
 	public void runPythonScript(String path)
 	{
 		String cmd = "python "+path; 
@@ -238,25 +230,95 @@ public class MyResource {
     	 return null;
     
     }
+    
+    
+    
+	@GET
+    @Path ("/cmdFormat/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getFormatD()
+    {
+		JSONObject j=new JSONObject();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml"); /*ouvre la connexion bdd*/
+    	
+    	
+    	PreferenceFormatDao dao = context.getBean(PreferenceFormatDao.class);
+    	List<PreferenceFormat> formats = dao.findByActivateformat(true);
+    	
+    	for(int i=0; i<formats.size();i++)
+    		j.put(formats.get(i).getNameformat(), formats.get(i).getNameformat());
+    	
+    	context.close();
+    	
+    	return j;
+	}
+	
+	
+	@GET
+    @Path ("/cmdSrs/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getSrsD()
+    {
+		JSONObject j=new JSONObject();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml"); /*ouvre la connexion bdd*/
+    	
+    	
+    	PreferenceSRSDao dao = context.getBean(PreferenceSRSDao.class);
+    	List<PreferenceSRS> srs=dao.findByActivatesrs(true);
+    	for(int i=0; i<srs.size();i++)
+    		j.put(srs.get(i).getEpsg(), srs.get(i).getNameSRS());
+    	
+    	context.close();
+    	
+    	return j;
+	}
+	
+	
+	
     @POST
     @Path("/saveCmd/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public String postSaveCmd(@FormParam("username") String username,@FormParam("email") String email,@FormParam("datatitle") String datatitle,@FormParam("srs") String srs,@FormParam("format") String format,
-    		@FormParam("point1lat") String point1lat,@FormParam("point1lng") String point1lng,@FormParam("point2lat") String point2lat,@FormParam("point2lng") String point2lng,
-    		@FormParam("datecmd") String datecmd,@FormParam("heurecmd") String heurecmd)
+    public String postSaveCmd(
+    		@FormParam("username") String username,
+    		@FormParam("email") String email,		
+    		@FormParam("srs") String srs,
+    		@FormParam("format") String format,
+    		@FormParam("point1lat") String point1lat,
+    		@FormParam("point1lng") String point1lng,
+    		@FormParam("point2lat") String point2lat,
+    		@FormParam("point2lng") String point2lng,
+    		@FormParam("datecmd") String datecmd,
+    		@FormParam("heurecmd") String heurecmd,
+    		@FormParam("titledata") String titledata)
     {
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
     	
     	
     	CommandeDao dao = context.getBean(CommandeDao.class);
-    	Commande newcmd=new Commande(username,email,srs,format,point1lat,point1lng,point2lat,point2lng,datecmd,heurecmd,datatitle);
+    	Commande newcmd=new Commande(
+    			username,
+    			email,
+    			srs,
+    			format,
+    			point1lat,
+    			point1lng,
+    			point2lat,
+    			point2lng,
+    			datecmd,
+    			heurecmd,
+    			titledata);
     	
     	dao.save(newcmd);
     	return null;
-    
+   
     }
+    
+    
+
     
     @POST
     @Path("/authentification/")
@@ -299,45 +361,6 @@ public class MyResource {
     }
 
 
-    
-	@GET
-    @Path ("/cmdFormat/")
-    @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject getFormatD()
-    {
-		JSONObject j=new JSONObject();
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                "applicationContext.xml"); /*ouvre la connexion bdd*/
-    	
-    	
-    	PreferenceFormatDao dao = context.getBean(PreferenceFormatDao.class);
-    	List<PreferenceFormat> formats=dao.findByActivateformat(true);
-    	for(int i=0; i<formats.size();i++)
-    		j.put(formats.get(i).getNameformat(), formats.get(i).getNameformat());
-    	
-    	context.close();
-    	
-    	return j;
-	}
-	@GET
-    @Path ("/cmdSrs/")
-    @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject getSrsD()
-    {
-		JSONObject j=new JSONObject();
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                "applicationContext.xml"); /*ouvre la connexion bdd*/
-    	
-    	
-    	PreferenceSRSDao dao = context.getBean(PreferenceSRSDao.class);
-    	List<PreferenceSRS> srs=dao.findByActivatesrs(true);
-    	for(int i=0; i<srs.size();i++)
-    		j.put(srs.get(i).getEpsg(), srs.get(i).getNameSRS());
-    	
-    	context.close();
-    	
-    	return j;
-	}
 
     @POST
     @Path("/formats/")

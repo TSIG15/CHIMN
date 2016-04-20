@@ -131,32 +131,32 @@
 	    <div class="form-group">
             <label for="srs" class="col-sm-2 control-label">SRS <span class="obligatoire">*</span></label>
               <div class="col-sm-10">
-                 <SELECT name="srs" class="form-control" id="srs" onchange="verifier(event);" >
-			                <option>  </option>
-		            </SELECT>
+                 <select name="srs" class="form-control" id="srs" name="srs" onchange="verifier(event);">
+			                <!--<option> format de sortie </option>-->
+		            </select>
               </div>
 	      </div>
 
   		<div class="form-group">
                 <label for="formatsortie" class="col-sm-2 control-label">Format de Sortie <span class="obligatoire">*</span></label>
                 <div class="col-sm-10">
-                    <SELECT name="formatsortie"  class="form-control" id="formatsortie" onchange="verifier(event);">
-			                   <option> format de sortie </option>
-		                </SELECT>
+                    <select name="formatsortie"  class="form-control" id="formatsortie" name ="formatsortie" onchange="verifier(event);">
+			                   <!--<option> format de sortie </option>-->
+		                </select>
 		            </div>
       </div>
 
 			<div class="form-group">
                 <label for="date" class="col-sm-2 control-label">Date de Commande </label>
                   <div class="col-sm-10" >
-                    <input type="text" class="form-control" id="date" disabled="disabled">
+                    <input type="text" class="form-control" id="date" name="date" disabled="disabled">
 			            </div>
       </div>
 
       <div class="form-group">
                 <label for="heure" class="col-sm-2 control-label">Heure de Commande </label>
                   <div class="col-sm-10" >
-                    <input type="text" class="form-control" id="heure" disabled="disabled">
+                    <input type="text" class="form-control" id="heure" name="heure" disabled="disabled">
                   </div>
       </div>
 
@@ -165,22 +165,22 @@
       <div class="form-group">
               <label for="username" class="col-sm-2 control-label">Nom <span class="obligatoire">*</span></label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="username" placeholder="ex : jassmin" oninput="verifier(event);">
+                  <input type="text" class="form-control" id="username" name="username" placeholder="ex : jassmin" oninput="verifier(event);">
                 </div>
 	    </div>
 
   		<div class="form-group">
-                <label for="usermail" class="col-sm-2 control-label">E-Mail <span class="obligatoire">*</span></label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="usermail" placeholder="ex : jassmin@gmail.com" oninput="verifier(event);">
-			            </div>
+              <label for="usermail" class="col-sm-2 control-label">E-Mail <span class="obligatoire">*</span></label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="usermail" name="usermail" placeholder="ex : jassmin@gmail.com" oninput="verifier(event);">
+			          </div>
       </div>
 
       <div class="form-group">
           <label class="col-sm-2 control-label"></label>
               <div class="col-sm-10">
            		  <button class="btn btn-default" id="valider" style="width:188px;font-size:12px;"
-                  type="submit" disabled="disabled" onclick="cmd(event);">Valider la commande</button>
+                  type="submit" disabled="disabled">Valider la commande</button>
 				            <p align="left"><span class="obligatoire">*</span> Champ obligatoire </p>
               </div>
       </div>
@@ -205,7 +205,7 @@
       <script src="js/ie10-viewport-bug-workaround.js"></script>
       <!-- script maison-->
       <script src="js/scripts_divers.js"></script>
-      <script src="js/commande.js"></script>
+      <script src="js/script_extractiondynamique.js"></script>
 
     </body>
   </html>

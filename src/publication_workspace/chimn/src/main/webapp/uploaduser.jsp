@@ -142,14 +142,17 @@
 
 
 <!--- HTML : EXTRACTION DYNAMIQUE -->
+
 <h1 class="page-header">Extraction dynamique</h1>
 <p>La donnée que vous souhaitez télécharger n'est pas disponible aux formats et
   SRS de votre choix ?<br/><br/>Vous avez un compte utilisateur ?<br/><br/>Vous pouvez commandez votre propre donnée en vous connectant avec votre compte.<br/><br/></p>
 
-	<div class="btn btn-primary btn-block"
-	style="background-color:#ADCA87;border-color:#ADCA87;">
+	<button id="authuser" class="btn btn-primary btn-block"
+	   style="background-color:#ADCA87;border-color:#ADCA87;" type="submit">
 	<a href="authentification.jsp" style="color:#fff;">SE CONNECTER ET COMMANDER</a>
-	</div>
+  </button>
+
+
 </div>
 </div>
 </div>
@@ -168,6 +171,6 @@
     <script src="js/ie10-viewport-bug-workaround.js"></script>
     <!-- script maison-->
     <script src="js/scripts_divers.js"></script>
-    <script src="js/script_televersement.js"></script>
+    <script src="js/script_uploaduser.js"></script>
   </body>
 </html>

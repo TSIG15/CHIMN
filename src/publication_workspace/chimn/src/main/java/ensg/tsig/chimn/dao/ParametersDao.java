@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import ensg.tsig.chimn.entities.Parameters;;
+import ensg.tsig.chimn.entities.Parameters;
 
 /**
  * @author hanane

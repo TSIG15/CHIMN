@@ -74,15 +74,15 @@
           </div>
 
           <div id="catalog" style="padding-left:15px;padding-right:0px;height:100%" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-         
+
           <!-- open catalog-->
           <iframe id="isogeocatalog" style="height:100%" src="http://open.isogeo.com/s/d107b19c310c44b7954844c369dbd617/Xif-bJGI5P4oRwziFj6EEAunGTcq0"
             name="isogeo" width="100%" height="100%" ></iframe>
-            
+
           </div>
         </div>
       </div>
- 
+
 
   <!-- Bootstrap core JavaScript
   ================================================== -->
@@ -96,6 +96,6 @@
       <script src="js/ie10-viewport-bug-workaround.js"></script>
       <!-- script maison-->
       <script src="js/scripts_divers.js"></script>
-      <script src="js/script_json.js"></script>
+  
     </body>
   </html>

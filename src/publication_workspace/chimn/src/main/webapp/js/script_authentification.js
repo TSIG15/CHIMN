@@ -1,5 +1,7 @@
-/* Au click() du bouton id=auth dans authentifcation*/
+var title = document.location.search;
+var titledata = title.substring(title.lastIndexOf("=")+1);
 
+/* Au click() du bouton id=auth dans authentifcation*/
 $("#auth").submit(function(e){
 	 e.preventDefault();
 
@@ -26,11 +28,27 @@ $.ajax({
         window.location.href="parametrages.jsp";
       	}
     else if (success == "successUser") {
-		window.location.href="extractiondynamique.jsp";
+				window.location.href="extractiondynamique.jsp?name="+titledata;
 		}
     else {
-    	alert("Votre identifiant ou votre de mot de passe est incorrect !");
-    	}
+    		alert("Votre identifiant ou votre de mot de passe est incorrect !");
+    }
 
     });
 });
+
+/*pour passer le titre de la variable à la page authentification*/
+$('#authuser').click(function(e) {
+   e.preventDefault();
+
+   $.ajax({
+     'url' : 'authentification.jsp',
+     'type' : 'GET',
+     'data' : {
+    	 	name : titledata
+     }
+   })
+   .done(function(data) {
+         window.location.href="authentification.jsp?name="+titledata;
+   });
+ })

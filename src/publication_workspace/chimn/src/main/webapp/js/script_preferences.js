@@ -63,8 +63,8 @@
       console.log(data);
     });
   });
-  
-  
+
+
   $('#critere-form').submit(function(e) {
       e.preventDefault();
       $.ajax({
@@ -73,8 +73,8 @@
       'data' : {
             license: $('[name="optionsRadios"]:checked').val(),
             keyword: $('[name="keywordSelect"]').val(),
-            periodicity:$('[name="periodicite"]').val()       
-            
+            periodicity:$('[name="periodicite"]').val()
+
           }
       })
       .done(function(data) {
@@ -82,3 +82,25 @@
         console.log(data);
       });
     })
+
+
+    $('#runtraitement').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+          'url' : 'webapi/myresource/run',
+          'type' : 'GET',
+          'data' : {}
+        })
+        .done(function(data) {
+      	  if(data=="the end of get run!"){
+            alert("Enregistrement effectué avec succès !");
+            console.log(data);
+            }
+          else
+            {
+              alert("Echec : les traitements n'ont pas été lancés !");
+            console.log(data);
+            }
+
+        });
+      })

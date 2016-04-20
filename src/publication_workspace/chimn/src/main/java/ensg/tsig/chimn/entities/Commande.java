@@ -12,7 +12,9 @@ import javax.persistence.Entity;
  *
  */
 @Entity
+
 public class Commande {
+	
 	@Id
     @GeneratedValue
     private Long id;
@@ -27,6 +29,7 @@ public class Commande {
 	private String datecmd;
 	private String heurecmd;
 	private String titledata;
+	private String lien;
 
 	
 	public Long getId() {
@@ -129,6 +132,10 @@ public class Commande {
 	public void setTitledata(String titledata) {
 		this.titledata = titledata;
 	}
-	
-
+	public String getLien() {
+		return lien;
+	}
+	public void setLien(String lien) {
+		this.lien = lien;
+	}
 }
