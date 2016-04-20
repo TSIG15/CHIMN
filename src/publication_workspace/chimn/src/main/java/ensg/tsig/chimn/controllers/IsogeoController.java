@@ -263,6 +263,7 @@ public  class IsogeoController {
 		srs="EPSG:4326"; //default value for srs
 		String keywords_criteria; //to get from database "creteria"
 		boolean license_criteria=false;  //to get from database
+		license="none"; //default value for license
     	boolean deleted=false;
     	//getting criteria from chimn database :keywords and license
     		//0) initiate context for crud operations
@@ -350,7 +351,7 @@ public  class IsogeoController {
 					
 						deleted=Boolean.parseBoolean(jsonObject2.get("_deleted").toString());
 						
-						gross_metadata.add(new MetaData(name,"none",created,modified,deleted,idisogeo,srs,geometryType));
+						gross_metadata.add(new MetaData(name,license,created,modified,deleted,idisogeo,srs,geometryType));
 						
 			}
 				
@@ -460,7 +461,7 @@ public  class IsogeoController {
         }
         
        //1) search metadata that verify criteria (keywords, owner)
-    	if(!initializeGrossMetaData("", "conditions", "", "", "", "", "", "3", 0))
+    	if(!initializeGrossMetaData("", "conditions", "", "", "", "", "", "3000", 0))
     		// query, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset
     		// subResources fait appel au paramètre "_include" de la recherche url qui permet de récupérer les 
     		// sous-ressources d'un ressource. Passer "conditions" revient à écrire dans l'url "?_include=conditions"

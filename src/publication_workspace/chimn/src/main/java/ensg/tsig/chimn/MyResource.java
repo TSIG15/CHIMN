@@ -25,11 +25,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ensg.tsig.chimn.controllers.IsogeoController;
 import ensg.tsig.chimn.controllers.PublisherController;
+import ensg.tsig.chimn.dao.CommandeDao;
 import ensg.tsig.chimn.dao.CriteriaDao;
 import ensg.tsig.chimn.dao.ParametersDao;
 import ensg.tsig.chimn.dao.PreferenceFormatDao;
 import ensg.tsig.chimn.dao.PreferenceSRSDao;
 import ensg.tsig.chimn.dao.PreferenceServiceDao;
+import ensg.tsig.chimn.entities.Commande;
 import ensg.tsig.chimn.entities.Criteria;
 import ensg.tsig.chimn.entities.Parameters;
 import ensg.tsig.chimn.entities.PreferenceFormat;
@@ -113,18 +115,21 @@ public class MyResource {
 		    		   return "error updating metadata :/ ";
 		    		System.out.println("Hitorical was updated successfully :)");
 		    	}	   
+	    	//run python téléversement
 
+			   runPythonScript("C:\\tsig\\TELEVERSEMENT_REG\\main_televersement.py");
+			    
 		 // publish OGC services
 		    if(publisher!=null)
 		    {	//clean workspace: remove layers which are not asked by administrator
-		    	publisher.cleanWorkspace();
 		    	publisher.publish();
 		    	System.out.println("Services were published successfully :)"); 
+		    	publisher.cleanWorkspace();
+		    	
 		    }
-		    //run python
-
-		  // runPythonScript("D:\\3eme_ENSG\\projet_industriel\\src\\publication_workspace\\chimn\\src\\main\\java\\ensg\\tsig\\chimn\\helloworld.py")
 		    
+		   //run python for processing commands
+		   
 
 		    return "the end of get run!";
 	    }
@@ -156,10 +161,11 @@ public class MyResource {
 	            
 	        	errors+=s;
 	        }
-	         
+	         System.out.println(errors);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 	//method post to get the parameters
@@ -232,7 +238,25 @@ public class MyResource {
     	 return null;
     
     }
-
+    @POST
+    @Path("/saveCmd/")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String postSaveCmd(@FormParam("username") String username,@FormParam("email") String email,@FormParam("datatitle") String datatitle,@FormParam("srs") String srs,@FormParam("format") String format,
+    		@FormParam("point1lat") String point1lat,@FormParam("point1lng") String point1lng,@FormParam("point2lat") String point2lat,@FormParam("point2lng") String point2lng,
+    		@FormParam("datecmd") String datecmd,@FormParam("heurecmd") String heurecmd)
+    {
+    	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml"); /*ouvre la connexion bdd*/
+    	
+    	
+    	CommandeDao dao = context.getBean(CommandeDao.class);
+    	Commande newcmd=new Commande(username,email,srs,format,point1lat,point1lng,point2lat,point2lng,datecmd,heurecmd,datatitle);
+    	
+    	dao.save(newcmd);
+    	return null;
+    
+    }
     
     @POST
     @Path("/authentification/")
@@ -275,6 +299,46 @@ public class MyResource {
     }
 
 
+    
+	@GET
+    @Path ("/cmdFormat/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getFormatD()
+    {
+		JSONObject j=new JSONObject();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml"); /*ouvre la connexion bdd*/
+    	
+    	
+    	PreferenceFormatDao dao = context.getBean(PreferenceFormatDao.class);
+    	List<PreferenceFormat> formats=dao.findByActivateformat(true);
+    	for(int i=0; i<formats.size();i++)
+    		j.put(formats.get(i).getNameformat(), formats.get(i).getNameformat());
+    	
+    	context.close();
+    	
+    	return j;
+	}
+	@GET
+    @Path ("/cmdSrs/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject getSrsD()
+    {
+		JSONObject j=new JSONObject();
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml"); /*ouvre la connexion bdd*/
+    	
+    	
+    	PreferenceSRSDao dao = context.getBean(PreferenceSRSDao.class);
+    	List<PreferenceSRS> srs=dao.findByActivatesrs(true);
+    	for(int i=0; i<srs.size();i++)
+    		j.put(srs.get(i).getEpsg(), srs.get(i).getNameSRS());
+    	
+    	context.close();
+    	
+    	return j;
+	}
+
     @POST
     @Path("/formats/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -285,8 +349,7 @@ public class MyResource {
     		@FormParam("gml") String gmlVal,
     		@FormParam("kml") String kmlVal,
     		@FormParam("geotiff") String geotiffVal,
-    		@FormParam("png") String pngVal,
-    		@FormParam("jpeg") String jpegVal
+    		@FormParam("png") String pngVal
     		) {
     	
     	/*PreferenceFormat myShp = new PreferenceFormat();   crée un nouvel objet paramètres
@@ -307,7 +370,7 @@ public class MyResource {
     	PreferenceFormatDao dao2 = context.getBean(PreferenceFormatDao.class);
     	PreferenceFormatDao dao3 = context.getBean(PreferenceFormatDao.class);
     	PreferenceFormatDao dao4 = context.getBean(PreferenceFormatDao.class);
-    	PreferenceFormatDao dao5 = context.getBean(PreferenceFormatDao.class);
+    	
     	PreferenceFormatDao dao6 = context.getBean(PreferenceFormatDao.class);
     	
     	List<PreferenceFormat> listshp = dao0.findByNameformat("shp");   
@@ -315,7 +378,6 @@ public class MyResource {
     	List<PreferenceFormat> listgml = dao2.findByNameformat("gml");
     	List<PreferenceFormat> listgeotiff = dao3.findByNameformat("geotiff");
     	List<PreferenceFormat> listpng = dao4.findByNameformat("png");
-    	List<PreferenceFormat> listjpeg = dao5.findByNameformat("jpeg");
     	List<PreferenceFormat> listkml = dao6.findByNameformat("kml");
     	
     	
@@ -323,8 +385,7 @@ public class MyResource {
     	if(listdxf!=null) listdxf.get(0).setActivateformat(Boolean.valueOf(dxfVal));
     	if(listgml!=null) listgml.get(0).setActivateformat(Boolean.valueOf(gmlVal));
     	if(listgeotiff!=null) listgeotiff.get(0).setActivateformat(Boolean.valueOf(geotiffVal));
-    	if(listshp!=null) listpng.get(0).setActivateformat(Boolean.valueOf(pngVal));
-    	if(listjpeg!=null) listjpeg.get(0).setActivateformat(Boolean.valueOf(jpegVal));
+    	if(listpng!=null) listpng.get(0).setActivateformat(Boolean.valueOf(pngVal));
     	if(listkml!=null) listkml.get(0).setActivateformat(Boolean.valueOf(kmlVal));
     	
     	
@@ -333,7 +394,7 @@ public class MyResource {
     	dao2.save(listgml.get(0));
     	dao3.save(listgeotiff.get(0));
     	dao4.save(listpng.get(0));
-    	dao5.save(listjpeg.get(0));
+    	
     	dao6.save(listkml.get(0));
     	
     	context.close();

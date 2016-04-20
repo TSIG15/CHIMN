@@ -316,6 +316,8 @@ public class PublisherController {
     			schema=title.substring(0,title.indexOf("."));
     			name=title.substring(title.lastIndexOf(".") + 1);
     			unpublishFeatureType(workspaceName,schema,name); //as we the schema's name is the same as the datastorename ==> should be replaced in the next version
+    			layersToRemove.get(i).setActivated(false);
+    			dao.save(layersToRemove.get(i));
     		}
     	context.close();
     	return true;
@@ -386,17 +388,16 @@ public class PublisherController {
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml");
     	MetaDataDao dao = context.getBean(MetaDataDao.class);
+    	MetaDataDao dao2 = context.getBean(MetaDataDao.class); //bug :/
     	List<MetaData> layers=dao.findByAskedAndChanged(true, true);
     	
-    
+    	List<MetaData> passivateLayers=dao2.findByAskedAndChanged(true, false); //deprecated : to be optimized in the next version
+    	
     	
     	String title;
     	boolean publishDBLayer;
     	for(int i=0;i<layers.size();i++)
     		{   
-    			//System.out.println(layers.get(i).isAsked());
-    			
-    			
     			title=layers.get(i).getName();
     			//get only table's name : noooo
     			String tableName=title.substring(title.lastIndexOf(".") + 1);
@@ -418,7 +419,11 @@ public class PublisherController {
     			  
     				  publishDBLayer = publisher.publishDBLayer(workspaceName,schemaName,tableName,layers.get(i).getSrs(),"line");
     			  if(publishDBLayer)
-    				  System.out.println(layersName.get(i)+" was successfully published :)");
+    				  {
+    				  	System.out.println(layersName.get(i)+" was successfully published :)");
+    				  	layers.get(i).setActivated(true);
+    				  	dao.save(layers.get(i));
+    				  }
 				else
 					try {
 						MsgLog.write("An error has occured while publishing "+layersName.get(i));
@@ -427,7 +432,43 @@ public class PublisherController {
 						e.printStackTrace();
 					}
     		}
-    	
+    	for(int i=0;i<passivateLayers.size();i++)
+		{   
+    		if(!passivateLayers.get(i).isActivated()) //for publishing desactivated layers which are not changed but asked
+    		{
+			title=passivateLayers.get(i).getName();
+			//get only table's name : noooo
+			String tableName=title.substring(title.lastIndexOf(".") + 1);
+			String schemaName=title.substring(0,title.indexOf("."));
+			layersName.put(tableName,schemaName);
+		
+			 //test publishing a layer
+		   //if(layersName.get(i).equals("coursdo"))
+			String style="";
+			  if(passivateLayers.get(i).getGeometrytype().equals("LineString"))
+				  style="line";
+			  if(passivateLayers.get(i).getGeometrytype().equals("Polygon"))
+				  style="polygon";
+			  if(passivateLayers.get(i).getGeometrytype().equals("Point"))
+				  style="point";
+			  
+				  publishDBLayer = publisher.publishDBLayer(workspaceName,schemaName,tableName,passivateLayers.get(i).getSrs(),"line");
+			  if(publishDBLayer)
+				  {
+				  	System.out.println(layersName.get(i)+" was successfully published :)");
+				  	passivateLayers.get(i).setActivated(true);
+				  	dao2.save(passivateLayers.get(i));
+				  }
+			else
+				try {
+					MsgLog.write("An error has occured while publishing "+layersName.get(i));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		}
+	
     	context.close();
     	
     }

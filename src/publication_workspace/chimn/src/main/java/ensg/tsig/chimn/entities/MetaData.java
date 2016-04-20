@@ -19,6 +19,7 @@ public class MetaData {
 	    private boolean changed;
 	    private boolean deleted;
 	    private boolean asked;
+	    private boolean activated;
 	    private String idisogeo;
 	    private String geometrytype;
 	    private String srs;
@@ -36,6 +37,7 @@ public class MetaData {
 			this.idisogeo = idisogeo;
 			this.srs=srs;
 			this.geometrytype=geom;
+			this.activated=true;
 		}
 
 		public MetaData() {
@@ -126,6 +128,14 @@ public class MetaData {
 
 		public void setSrs(String srs) {
 			this.srs = srs;
+		}
+
+		public boolean isActivated() {
+			return activated;
+		}
+
+		public void setActivated(boolean activated) {
+			this.activated = activated;
 		}
 	}
 
