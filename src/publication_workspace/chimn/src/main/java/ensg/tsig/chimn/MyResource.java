@@ -167,7 +167,7 @@ public class MyResource {
     @Path("/parameters/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response postParameters(
+    public String postParameters(
     		@FormParam("hoteBDD") String dbhote,
     		@FormParam("portBDD") String dbport,
     		@FormParam("bdd") String dbname,
@@ -200,10 +200,10 @@ public class MyResource {
                 "applicationContext.xml");/*ouvre la connexion bdd*/
     	
     	/*action faites sur la table*/
-    	ParametersDao dao = context.getBean(ParametersDao.class);/* dao permet transaction CRUD*/
+    	ParametersDao dao = context.getBean(ParametersDao.class);/*dao permet transaction CRUD*/
     	dao.deleteAll(); /*supprime les autres entrées de la table*/
     	dao.save(myParam); /*acte la transaction*/
-    	
+   
     	context.close(); /*ferme connexion bdd*/
     	
 		return null;

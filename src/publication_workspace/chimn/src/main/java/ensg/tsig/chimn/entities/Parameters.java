@@ -28,7 +28,6 @@ public class Parameters {
 	private String gspsw;
 	private String isid;
 	private String issecret;
-	private String isgroupetravail;
 	private String tlurl;
 	
 
@@ -103,12 +102,6 @@ public class Parameters {
 	public void setIssecret(String issecret) {
 		this.issecret = issecret;
 	}
-	public String getIsgroupetravail() {
-		return isgroupetravail;
-	}
-	public void setIsgroupetravail(String isgroupetravail) {
-		this.isgroupetravail = isgroupetravail;
-	}
 	public String getTlurl() {
 		return tlurl;
 	}
@@ -120,8 +113,7 @@ public class Parameters {
 	public String toString() {
 		return "Parameters [id=" + id + ", dbhote=" + dbhote + ", dbport=" + dbport + ", dbuser=" + dbuser + ", dbpsw="
 				+ dbpsw + ", dbname=" + dbname + ", gshote=" + gshote + ", gsport=" + gsport + ", gsuser=" + gsuser
-				+ ", gspsw=" + gspsw + ", isid=" + isid + ", issecret=" + issecret + ", isgroupetravail=" + isgroupetravail 
-				+ ",tlurl=" + tlurl +"]";
+				+ ", gspsw=" + gspsw + ", isid=" + isid + ", issecret=" + issecret + ",tlurl=" + tlurl +"]";
 	}
 	
 }
