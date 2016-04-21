@@ -4,9 +4,9 @@
 package ensg.tsig.chimn.entities;
 
 /**
- * @author hanane
- * Http://stackoverflow.com/questions/7776283/use-post-method-of-jersey-rest-and-gets-params-from-url
+ *
  */
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

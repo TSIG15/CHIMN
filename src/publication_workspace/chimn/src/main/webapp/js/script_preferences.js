@@ -1,3 +1,18 @@
+// function showalert(message,alerttype) {
+//
+//   $('#alert_placeholder').replaceWith(
+//     '<button id="alertdiv" type="submit" class="btn btn-default alert-success">Formats enregistrés !</button>'
+//   );
+//
+//   setTimeout(function() { // this will automatically close the alert and remove this if the users doesnt close it in 5 secs
+//     $("#alertdiv").remove();
+//   }, 2000);
+//
+//   $('#appendform').append(
+//     '<button id="alert_placeholder" type="submit" class="btn btn-default">Enregistrer les formats</button>'
+// );
+//
+// };
 
   $('#format-form').submit(function(e) {
     e.preventDefault();
@@ -5,7 +20,7 @@
     $.ajax({
       'url' : '/chimn/webapi/myresource/formats',
       'type' : 'POST',
-    'data' : {
+      'data' : {
           shp: $('[name="shp"]').prop('checked'),
           dxf: $('[name="dxf"]').prop('checked'),
           gml: $('[name="gml"]').prop('checked'),
@@ -15,6 +30,8 @@
         }
     })
     .done(function(data) {
+
+      //showalert("Enregistrement effectué avec succès !", "alert-success");
     	alert("Enregistrement effectué avec succès !");
       console.log(data);
     });
@@ -81,19 +98,19 @@
     	  alert("Enregistrement effectué avec succès !");
         console.log(data);
       });
-    })
+    });
 
 
     $('#runtraitement').submit(function(e) {
         e.preventDefault();
         $.ajax({
-          'url' : 'webapi/myresource/run',
+          'url' : '/chimn/webapi/myresource/run',
           'type' : 'GET',
           'data' : {}
         })
         .done(function(data) {
       	  if(data=="the end of get run!"){
-            alert("Enregistrement effectué avec succès !");
+            alert("Traitement effectué !");
             console.log(data);
             }
           else

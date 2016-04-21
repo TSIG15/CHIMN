@@ -118,9 +118,10 @@
 
            <!--bouton d'envoi des formats mais l'appel de la resource java se trouve au niveau de la balise form -->
             <div class="form-group">
-              <div class="boutonPref col-sm-10">
-                <button type="submit" class="btn btn-default">Enregistrer les formats</button>
+              <div id="appendform" class="boutonPref col-sm-10">
+                <button id="alert_placeholder" type="submit" class="btn btn-default">Enregistrer les formats</button>
               </div>
+
             </div>
            </form>
 
@@ -264,7 +265,7 @@
            </form>
 
           <!--traitement immédiat-->
-          <form id="runtraitement" action="" method="">
+          <form id="runtraitement" action="">
 
           <h3 class="sub-header">Lancer les traitements immédiatement</h3>
               <button class="btn btn-default" type="submit">Go !</button>

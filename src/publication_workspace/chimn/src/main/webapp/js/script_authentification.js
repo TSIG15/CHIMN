@@ -38,7 +38,7 @@ $.ajax({
 });
 
 /*pour passer le titre de la variable à la page authentification*/
-$('#authuser').click(function(e) {
+$(document).ready(function(){
    e.preventDefault();
 
    $.ajax({

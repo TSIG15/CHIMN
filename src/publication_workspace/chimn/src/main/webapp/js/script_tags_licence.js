@@ -40,14 +40,13 @@ $(document).ready(function(){
 	  });
 
 
-
 	  $('select').on('change', function() {
 
 		$('#keywords').val($('#keywords').val() + " "+ this.value);
 		  var newkeywordsTofilterOn= $('#keywords').val();
 		  $.ajax({
 			  //The URL to process the request
-			    'url' : 'webapi/myresource/tags',
+			    'url' : '/chimn/webapi/myresource/tags',
 			  //The type of request, also known as the "method" in HTML forms
 			  //Can be 'GET' or 'POST'
 			    'type' : 'POST',

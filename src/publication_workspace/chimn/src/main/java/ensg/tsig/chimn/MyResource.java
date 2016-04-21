@@ -34,16 +34,33 @@ import ensg.tsig.chimn.utils.MsgLog;
 
 
 /**
- * Root resource (exposed at "myresource" path)
+ * Root resource (exposed at "myresource" path).
+ * 
+ * The public class MyResource contains the methods below :
+ * public void initializeIsogeo()
+ * public void initializePublisher()
+ * public String getRun() 
+ * public void runPythonScript()
+ * public String postParameters()
+ * public JSONObject getTags()
+ * public JSONObject getFormatD()
+ * public JSONObject getSrsD()
+ * public String postSaveCmd()
+ * public String postAuthentification ()
+ * public String formatCheckedToDB()
+ * public PreferenceSRS srsCheckedToDB()
+ * public String serviceCheckedToDB()
+ * public String getTeleversement()
+ * public String criteresToDB()
+ *
  */
 @Path("myresource")
 public class MyResource {
 
     /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
+     * Method handling HTTP GET and POST requests. The returned object will be sent
+     * to the client as "text/plain" or "application_json" media type.
+     * 
      */
 	
 	
@@ -53,6 +70,11 @@ public class MyResource {
 
 	public void initializeIsogeo()
 	{
+		/**This method get isogeo parameters and create a new isogeocontroller from these parameters 
+		 *which are stored in chimn database.
+		 *
+		 */
+		
 		//getting isogeoParameters
  		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml");/*ouvre la connexion bdd*/
@@ -69,8 +91,12 @@ public class MyResource {
 	
 	public void initializePublisher()
 	{
+		/**
+		 * This method create a new publishercontroller and test the connexion to the geo server.
+		 */
+		
 		//Connect to publisher
-    	 publisher=new PublisherController();
+    	publisher=new PublisherController();
     	publisher.initializeParameters();
     	System.out.println(publisher.getParameters().toString());
     	//test connexion to geoserver
@@ -86,6 +112,15 @@ public class MyResource {
 	@Produces( MediaType.TEXT_PLAIN)
 	public String getRun()
 	    {	
+		
+		/** This method initialize attributes for the current instance and test updating metadata in chimn database.
+		 * Then it runs python televersement script and publish OGC services. 
+		 * This method is run thanks to an ajax call GET connected to the button "GO !".
+		 * 
+		 * @return a string message that will be returned as a text/plain media type to the client.
+		 * 		
+		 */
+		
 		try {
 			
 			MsgLog.write("happy run");
@@ -110,7 +145,7 @@ public class MyResource {
 
 			   runPythonScript("C:\\tsig\\TELEVERSEMENT_REG\\main_televersement.py");
 			    
-		 // publish OGC services
+			//publish OGC services
 		    if(publisher!=null)
 		    {	//clean workspace: remove layers which are not asked by administrator
 		    	publisher.publish();
@@ -128,6 +163,11 @@ public class MyResource {
 	
 	public void runPythonScript(String path)
 	{
+		/** This method read the output from the python command and any errors from this attempted command.
+		 *
+		 *@param String path
+		 */
+		
 		String cmd = "python "+path; 
 	    String s = null;
 	    String errors="/*********Python Errors*******/";
@@ -160,6 +200,7 @@ public class MyResource {
 			System.out.println(e.getMessage());
 		}
 	}
+	
 	//method post to get the parameters
     @POST
     @Path("/parameters/")
@@ -180,6 +221,26 @@ public class MyResource {
     		@FormParam("urlSD") String tlurl) 
     {
         
+    	/** This method get parameters entered by administrator from the website and store them in chimn database.
+    	 * This method is run thanks to an ajax call POST connected to a the button "enregistrer les paramètrages".
+    	 *
+    	 * @param dbhote
+    	 * @param dbport
+    	 * @param dbname
+    	 * @param dbuser
+    	 * @param dbpsw
+    	 * @param gshote
+    	 * @param gsport
+    	 * @param gsuser
+    	 * @param gspsw
+    	 * @param isid
+    	 * @param issecret
+    	 * @param tlurl
+    	 * 
+    	 * @return null
+    	 * 
+    	 */
+    	
     	Parameters myParam=new Parameters();/*crée un nouvel objet paramètres*/
     	myParam.setDbhote(dbhote);
     	myParam.setDbport(dbport);
@@ -215,7 +276,13 @@ public class MyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public JSONObject getTags(@FormParam("q") String q)
     {
-
+    		/** This method return a list of tags on metadata from isogeo and show them in preferences page on the website. 
+    		 * It is run automatically by an ajax call GET when document is ready.
+    		 * 
+    		 * @param q 
+    		 * @return JSONObject j in json media type to the client.
+    		 */
+    	
     	initializeIsogeo();
     	if(isogeo==null) return null;
 
@@ -238,6 +305,13 @@ public class MyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public JSONObject getFormatD()
     {
+			/** This method get the formats stored in chimn database (those entered by administrator) in the dynamic
+			 * extraction page on the website. It allows the user to choose between these formats to make his command.
+			 * It runs thanks to an ajax call GET when the document is ready.
+			 * 
+			 * @return JSONObject j in json media type to the client.
+			 */
+		
 		JSONObject j=new JSONObject();
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
@@ -260,7 +334,15 @@ public class MyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public JSONObject getSrsD()
     {
+		/** This method get the srs stored in chimn database (those entered by administrator) in the dynamic
+		 * extraction page on the website. It allows the user to choose between these formats to make his command.
+		 * It runs thanks to an ajax call GET when the document is ready.
+		 * 
+		 * @return JSONObject j in json media type to the client.
+		 */
+		
 		JSONObject j=new JSONObject();
+		 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
     	
@@ -294,6 +376,24 @@ public class MyResource {
     		@FormParam("heurecmd") String heurecmd,
     		@FormParam("titledata") String titledata)
     {
+    		/** This method save the user command in chimn database. It runs thanks to an ajax call POST on the button
+    		 *"Valider la commande".
+    		 *
+    		 * @param username
+    		 * @param email	
+    		 * @param srs
+    		 * @param format
+    		 * @param point1lat
+    		 * @param point1lng
+    		 * @param point2lat
+    		 * @param point2lng
+    		 * @param datecmd
+    		 * @param heurecmd
+    		 * @param titledata
+    		 * 
+    		 * @return null
+    		 */
+    	
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
     	
@@ -316,8 +416,7 @@ public class MyResource {
     	return null;
    
     }
-    
-    
+
 
     
     @POST
@@ -329,6 +428,18 @@ public class MyResource {
     		@FormParam("pwd") String mdp)
     			     
     {   	
+    		/** This method authentify the admin when this one enter the good ident and password.
+    		 * It runs from an ajax call POST on the button "Valider".
+    		 * 
+    		 * @param login
+    		 * @param mdp
+    		 * 
+    		 * @return successAdmin text/plain media type response to the client
+    		 * @return successUser text/plain media type response to the client
+    		 * @return failure text/plain media type response to the client
+    		 * 
+    		 */
+    	
     	String loginAdmin = "admin";
     	String mdpAdmin = "admin";
     	String loginUser = "user";
@@ -383,7 +494,20 @@ public class MyResource {
     	myShp.setNameformat("dxf");
     	myShp.setActivateformat(Boolean.valueOf(dxfVal));*/
     	
-     	
+     	/** This method get preferences of formats entered by administrator from the website and store them in chimn database.
+     	 * This method is run thanks to an ajax call POST connected to a the button "enregistrer les formats".
+     	 * 
+     	 * @param shpVal
+     	 * @param dxfVal
+     	 * @param gmlVal
+     	 * @param kmlVal
+     	 * @param geotiffVal
+     	 * @param pngVal
+     	 * 
+     	 * @return null
+     	 * 
+     	 */
+    	
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
     	
@@ -436,6 +560,17 @@ public class MyResource {
     		@FormParam("wgs84") String wgsVal
     		){
     	
+    		/** This method get preferences of srs entered by administrator from the website and store them in chimn database.
+    		 * This method is run thanks to an ajax call POST connected to a the button "enregistrer les formats".
+    		 * 
+    		 * @param webMVal
+    		 * @param lambertVal
+    		 * @param wgsUTMVal
+    		 * @param wgsVal
+    		 * 
+    		 * @return null
+    		 * 
+    		 */
     	
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
@@ -481,6 +616,18 @@ public class MyResource {
     		@FormParam("style") String styVal
     		) {
     	
+    	/** This method saves the preferences of services entered by the administrator in chimn database.
+    	 * It calls by an ajax POST method from the client, connected to the button "enregistrer les formats".
+    	 * 
+    	 * @param wfsVal
+    	 * @param wmsVal
+    	 * @param wmtsVal
+    	 * @param styVal
+    	 * 
+    	 * @return null
+    	 * 
+    	 */
+    	
     	ClassPathXmlApplicationContext contexti = new ClassPathXmlApplicationContext(
                 "applicationContext.xml");
     	
@@ -507,7 +654,7 @@ public class MyResource {
     	
     	// gestion du style
     	
-    /*	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+    	/*ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml");*/
     	
     	
@@ -543,6 +690,12 @@ public class MyResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getTeleversement() {
 		
+    	/** This method gets the url of the distant server entered in chimn database by the administrator. 
+    	 * It calls by an ajax GET method from the client when the page is loaded. 
+    	 * The url will serve for the downloading of the data by the user.
+    	 * 
+    	 * @return String tlurl which is text/plain media type returned the client.
+    	 */
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml");/*ouvre la connexion bdd*/
     	
@@ -560,17 +713,26 @@ public class MyResource {
 		return tlurl;
     }
     
+    /** This method saves the criteria entered by the administrator in chimn database.
+	 * It calls by an ajax POST method from the client when the page is loaded.
+	 * 
+	 * @param licenseVal
+	 * @param keywordVal
+	 * @param periodicityVal
+	 *   
+	 * @return null
+	 * 
+	 */
+    
     @POST
     @Path("/critere/")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public String criteresToDB(
-        @FormParam("license") String licenseVal, 
-        @FormParam("keyword") String keywordVal,
-        @FormParam("periodicity") String periodicityVal
-        ) {
-      
-      Criteria myCrit = new Criteria();
+    public String criteresToDB(@FormParam("license") String licenseVal, @FormParam("keyword") String keywordVal, @FormParam("periodicity") int periodicityVal) 
+    
+    {
+    	
+    	Criteria myCrit = new Criteria();
       
       myCrit.setLicense(Boolean.valueOf(licenseVal));
       myCrit.setKeyword(keywordVal);
