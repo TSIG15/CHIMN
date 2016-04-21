@@ -31,6 +31,8 @@ import ensg.tsig.chimn.entities.PreferenceFormat;
 import ensg.tsig.chimn.entities.PreferenceSRS;
 import ensg.tsig.chimn.entities.PreferenceService;
 import ensg.tsig.chimn.utils.MsgLog;
+import net.sargue.mailgun.Configuration;
+import net.sargue.mailgun.MailBuilder;
 
 
 /**
@@ -112,6 +114,7 @@ public class MyResource {
 	@Produces( MediaType.TEXT_PLAIN)
 	public String getRun()
 	    {	
+
 		
 		/** This method initialize attributes for the current instance and test updating metadata in chimn database.
 		 * Then it runs python televersement script and publish OGC services. 
@@ -120,8 +123,8 @@ public class MyResource {
 		 * @return a string message that will be returned as a text/plain media type to the client.
 		 * 		
 		 */
-		
-		try {
+
+		/*try {
 			
 			MsgLog.write("happy run");
 		} catch (IOException e) {
@@ -155,7 +158,8 @@ public class MyResource {
 		    }
 		    
 		   //run python for processing commands
-		   
+		   runPythonScript("C:\\tsig\\Extraction_dynamique\\main_extraction.py");*/
+		sendEmails();
 
 		    return "the end of get run!";
 	    }
@@ -396,8 +400,7 @@ public class MyResource {
     	
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 "applicationContext.xml"); /*ouvre la connexion bdd*/
-    	
-    	
+    		
     	CommandeDao dao = context.getBean(CommandeDao.class);
     	Commande newcmd=new Commande(
     			username,
@@ -413,6 +416,9 @@ public class MyResource {
     			titledata);
     	
     	dao.save(newcmd);
+    	
+    	context.close();
+    	
     	return null;
    
     }
@@ -753,5 +759,43 @@ public class MyResource {
     }
     
 
+   
+    public String sendEmails()
+    {
+      
+      
+    	Configuration configuration = new Configuration()
+			    .domain(".mailgun.org")
+			    .apiKey("key-")
+			    .from("Test account", "postmaster@.mailgun.org");
+		
+	
+      ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml"); /*ouvre la connexion bdd*/
+      
+      CommandeDao dao = context.getBean(CommandeDao.class);/* dao permet transaction CRUD*/
+      List<Commande>lcmd=dao.findByProcessed(true); /*supprime les autres entrées de la table*/
+      String email;
+      for(int i=0;i<lcmd.size();i++)
+      {
+    	  email=lcmd.get(i).getEmail();
+    	  MailBuilder.using(configuration)
+  	    .to("hanane.eljabiri@gmail.com")
+  	    .subject("CHIMN : Votre commande de livraison de données géographiques")
+  	    .text("Bonjour"+lcmd.get(i).getNameuser()
+  	    		+ "Veuillez trouver ci-dessous le lien pour récupérer votre données"+lcmd.get(i).getLien())
+  	    .build()
+  	    .send();
+  		
+    	  dao.delete(lcmd.get(i));
+    	  
+      }
+      
+      
+      context.close(); /*ferme connexion bdd*/
+      
+    return null;
+      
+    }
  }
 

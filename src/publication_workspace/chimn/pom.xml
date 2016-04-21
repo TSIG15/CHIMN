@@ -129,6 +129,11 @@
         	<artifactId>jersey-media-json-jackson</artifactId>
         	<version>2.13</version>
     	</dependency>
+    	<dependency>
+    		<groupId>net.sargue</groupId>
+    		<artifactId>mailgun</artifactId>
+   			<version>1.0.0</version>
+		</dependency>
 
     </dependencies>
     <properties>

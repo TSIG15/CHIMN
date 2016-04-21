@@ -11,8 +11,13 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import ensg.tsig.chimn.controllers.IsogeoController;
 import ensg.tsig.chimn.controllers.PublisherController;
+import net.sargue.mailgun.Configuration;
+import net.sargue.mailgun.MailBuilder;
 
 /**
  * @author hanane
@@ -25,18 +30,18 @@ public class MainTest {
 		 
 		String st = System.getenv("CATALINA_HOME");
 		       System.out.println("Current relative path is: " + st);*/
+		Configuration configuration = new Configuration()
+			    .domain(".mailgun.org")
+			    .apiKey("key-")
+			    .from("Test account", "postmaster@.mailgun.org");
 		
-		String schema,name,title;
-		title="france.communes123";
+		MailBuilder.using(configuration)
+	    .to("@gmail.com")
+	    .subject("This is the subject")
+	    .text("Hello world!")
+	    .build()
+	    .send();
 		
-		schema=title.substring(0,title.indexOf("."));
-		System.out.println(title);
-		System.out.println("schema "+schema);
-		name=title.substring(title.lastIndexOf(".") + 1);
-		System.out.println("name: "+name);
-		Map<String,String> layersName = new HashMap<String,String>();
-		layersName.put(name, schema);
-		System.out.println(layersName.get(name));
 		////Test IsoGeo
     /*IsogeoController isogeo=new IsogeoController("projet-ensg-d2e472b0f92940ee87f9d1ac6e3e90d0","jvdMBbVJXiiOSQshFxHFPdlZCNhfvCdJlSkKrZA3npEHns9zOBY1bQuYqtV3xLTd");
     System.out.println("credential encoded: "+isogeo.getCredentialsEncoded());
