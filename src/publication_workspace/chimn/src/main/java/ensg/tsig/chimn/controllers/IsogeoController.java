@@ -47,7 +47,9 @@ import org.json.simple.parser.ParseException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
-
+/**This class contains methods related to Isogeo API. 
+ * 
+ */
 public  class IsogeoController {
 
     private  final static String  authURL = "https://id.api.isogeo.com/oauth/token";
@@ -63,10 +65,12 @@ public  class IsogeoController {
     private List<String> tags=new ArrayList<String>();
     private Map<String,String> keywords = new HashMap<String,String>();
     
-	/**
+	/**This method create the encoding of header authentification in base64 in credential grants method using
+	 * 
 	 * @param consumerKey
 	 * @param consumerSecret
 	 */
+    
 	public IsogeoController(String consumerKey, String consumerSecret) {
 		super();
 		
@@ -78,6 +82,9 @@ public  class IsogeoController {
   	 
 	}
 
+	/**This method gets the token to access the API Isogeo
+	 * 
+	 */
 	public void getToken()
 	    {
 	    	HttpClient client = new DefaultHttpClient();
@@ -101,7 +108,7 @@ public  class IsogeoController {
 					
 					HttpPost post = new HttpPost(authURL);
 
-			    	// add header
+			    	//add header
 			    	post.setHeader("Authorization", "Basic "+credentialsEncoded);
 			    	//post.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36");
 			    	
@@ -166,7 +173,11 @@ public  class IsogeoController {
 				}
 	    }
 	
-	    //deprecated : should be replaced by a tag as an entity
+	//deprecated : should be replaced by a tag as an entity
+	/**This method initializes tags from "search_metadata_from_isogeo" method.
+	 * 
+	 * @return boolean
+	 */
 	public boolean initializeTags()
 	{
 		
@@ -207,7 +218,11 @@ public  class IsogeoController {
 		
 	}
 	
-	
+	/**This method initializes the keywords from "search_metadata_from_isogeo" method.
+	 * 
+	 * @param keywords
+	 * @return boolean
+	 */
 	public boolean initializeKeyWords(String keywords)
 	{
 		System.out.println("old keywords"+keywords); 
@@ -257,6 +272,19 @@ public  class IsogeoController {
 		
 	}
 	
+	/**This method initializes metadata got with the "search_metadata_from_isogeo" method, to then be passed to "setHistoricalMetaData" method 
+	 * 
+	 * @param query
+	 * @param subResources
+	 * @param bbox
+	 * @param poly
+	 * @param georel
+	 * @param orderedBy
+	 * @param orderDir
+	 * @param pageSize
+	 * @param offset
+	 * @return boolean
+	 */
 	public boolean initializeGrossMetaData(String query,String subResources,String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset)
 	{
 		String name,license,created,modified,idisogeo,geometryType,srs;
@@ -290,7 +318,7 @@ public  class IsogeoController {
     	
     	JSONObject jsonObject=search_metadata_from_isogeo(keywords_criteria, subResources, bbox, poly, georel, orderedBy, orderDir, pageSize, offset);
 		JSONArray jsonResult= (JSONArray) jsonObject.get("results");
-		//getting the srs from metadat => tags
+		//getting the srs from metadata => tags
 		String str_tags = jsonObject.get("tags").toString();
 		JSONObject jsonTags;
 		try {
@@ -382,6 +410,19 @@ public  class IsogeoController {
 	
 	}
 	
+	/**This method search metadata in Isogeo.
+	 * 
+	 * @param query
+	 * @param subResources
+	 * @param bbox
+	 * @param poly
+	 * @param georel
+	 * @param orderedBy
+	 * @param orderDir
+	 * @param pageSize
+	 * @param offset
+	 * @return jsonObject
+	 */
 	public JSONObject search_metadata_from_isogeo(String query,String subResources, String bbox,String poly, String georel, String orderedBy, String orderDir, String pageSize, int offset)
 	    {
 	    	HttpClient client = new DefaultHttpClient();
@@ -444,7 +485,9 @@ public  class IsogeoController {
 						return null;					
 	    }
 	
-	
+	/**This method searchs metadata that verify criteria in Isogeo, then stores them in chimn database.
+	 * @return true
+	 */
 	public boolean setHistoricalMetaData()
     {
     	//0) initiate context for crud operations
@@ -471,7 +514,7 @@ public  class IsogeoController {
     		return false;
     		}
     	
-    	//2)  update the table "metadata": 
+    	//2) update the table "metadata": 
     		//2-1 create metadata if doesn't exist
     			List<MetaData> lm=new ArrayList <MetaData>();
     			for(int i=0;i<gross_metadata.size();i++)
@@ -509,75 +552,147 @@ public  class IsogeoController {
     			context.close();
     			return true;
     }
-	    
+	
+	/**
+	 * 
+	 * @return authURL
+	 */
 	public String getAuthURL() {
 		return authURL;
 	}
-
+	
+	/**
+	 * 
+	 * @return requestURL
+	 */
 	public String getRequestURL() {
 		return requestURL;
 	}
 
+	/**
+	 * 
+	 * @return consumerKey
+	 */
 	public String getConsumerKey() {
 		return consumerKey;
 	}
-
+	
+	/**
+	 * 
+	 * @param consumerKey
+	 */
 	public void setConsumerKey(String consumerKey) {
 		this.consumerKey = consumerKey;
 	}
 
+	/**
+	 * 
+	 * @return consumerSecret
+	 */
 	public String getConsumerSecret() {
 		return consumerSecret;
 	}
 
+	/**
+	 * 
+	 * @param consumerSecret
+	 */
 	public void setConsumerSecret(String consumerSecret) {
 		this.consumerSecret = consumerSecret;
 	}
 
+	/**
+	 * 
+	 * @return credentialsEncoded
+	 */
 	public String getCredentialsEncoded() {
 		return credentialsEncoded;
 	}
 
+	/**
+	 * 
+	 * @param credentialsEncoded
+	 */
 	public void setCredentialsEncoded(String credentialsEncoded) {
 		this.credentialsEncoded = credentialsEncoded;
 	}
-
+	
+	/**
+	 * 
+	 * @return access_token
+	 */
 	public String getAccess_token() {
 		return access_token;
 	}
 
+	/**
+	 * 
+	 * @param access_token
+	 */
 	public void setAccess_token(String access_token) {
 		this.access_token = access_token;
 	}
-
+	
+	/**
+	 * 
+	 * @return token_type
+	 */
 	public String getToken_type() {
 		return token_type;
 	}
 
+	/**
+	 * 
+	 * @param token_type
+	 */
 	public void setToken_type(String token_type) {
 		this.token_type = token_type;
 	}
 
+	/**
+	 * 
+	 * @return gross_metadata
+	 */
 	public List<MetaData> getGross_metadata() {
 		return gross_metadata;
 	}
 
+	/**
+	 * 
+	 * @param gross_metadata
+	 */
 	public void setGross_metadata(List<MetaData> gross_metadata) {
 		this.gross_metadata = gross_metadata;
 	}
 
+	/**
+	 * 
+	 * @return tags
+	 */
 	public List<String> getTags() {
 		return tags;
 	}
 
+	/**
+	 * 
+	 * @param tags
+	 */
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
 
+	/**
+	 * 
+	 * @return keywords
+	 */
 	public Map<String,String> getKeywords() {
 		return keywords;
 	}
 
+	/**
+	 * 
+	 * @param keywords
+	 */
 	public void setKeywords(Map<String,String> keywords) {
 		this.keywords = keywords;
 	}

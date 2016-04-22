@@ -30,8 +30,8 @@ import it.geosolutions.geoserver.rest.encoder.GSResourceEncoder.ProjectionPolicy
 import it.geosolutions.geoserver.rest.encoder.datastore.GSPostGISDatastoreEncoder;
 import it.geosolutions.geoserver.rest.encoder.feature.GSFeatureTypeEncoder;
 
-/**
- * @author hanane
+/**This class contains methods related to publication of web services.
+ *
  *
  */
 public class PublisherController {
@@ -48,7 +48,10 @@ public class PublisherController {
 	private Map<Integer,String> mapLayersUrl = new HashMap<Integer,String>();
 	private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(GeoServerRESTPublisher.class);
 
-   
+   /**This method
+    * 
+    * @return boolean
+    */
 	public boolean initializeParameters()
 	{
 		setParameters(new Parameters());
@@ -90,7 +93,12 @@ public class PublisherController {
     	context.close();
     	return true;
 	}
+	
 	//create workspace and store if don't exist
+	/**This method
+	 * 
+	 * @return boolean
+	 */
 	public boolean setDataSource()
 	{
 		if(manager==null || reader==null || publisher == null)
@@ -197,6 +205,12 @@ public class PublisherController {
 		return true;
 	}
 	
+	/**This method
+	 * 
+	 * @param workspace
+	 * @param datastoreEncoder
+	 * @return boolean
+	 */
     public boolean createPostGISDatastore(String workspace,
             GSPostGISDatastoreEncoder datastoreEncoder) {
     	
@@ -205,6 +219,16 @@ public class PublisherController {
         String result = HTTPUtils.postXml(sUrl, xml, parameters.getGsuser(), parameters.getGspsw());
         return result != null;
     }
+    
+    /**This method
+     * 
+     * @param workspace
+     * @param storename
+     * @param layername
+     * @param srs
+     * @param defaultStyle
+     * @return boolean
+     */
     public boolean publishDBLayer(String workspace, String storename, String layername, String srs,
             String defaultStyle) {
 
@@ -219,6 +243,15 @@ public class PublisherController {
         layerEncoder.setDefaultStyle(defaultStyle);
         return publishDBLayer(workspace, storename, fte, layerEncoder);
     }
+    
+    /**This method
+     * 
+     * @param workspace
+     * @param storename
+     * @param fte
+     * @param layerEncoder
+     * @return boolean 
+     */
     public boolean publishDBLayer(final String workspace, final String storename,
             final GSFeatureTypeEncoder fte, final GSLayerEncoder layerEncoder) {
         /*
@@ -272,6 +305,14 @@ public class PublisherController {
         return published && configured;
     }
     
+    /**This method
+     * 
+     * @param workspace
+     * @param resourceName
+     * @param layer
+     * @return
+     * @throws IllegalArgumentException
+     */
     public boolean configureLayer(final String workspace, final String resourceName,
             final GSLayerEncoder layer) throws IllegalArgumentException {
 
@@ -326,7 +367,9 @@ public class PublisherController {
      * Removes the featuretype and the associated layer.
      * <P>
      * You may also want to {@link #removeDatastore(String, String) remove the datastore}.
-     * 
+     * @param workspace
+     * @param storename
+     * @param layerName
      * @return true if the operation completed successfully.
      */
     public boolean unpublishFeatureType(String workspace, String storename, String layerName) {
@@ -377,12 +420,16 @@ public class PublisherController {
             return false;
         }
     }
+    
+    /**This method publishes.
+     * 
+     */
     public void publish()
     {	//get license from preferences
     	String license="Licence ouverte ETALAB 1.0";
     	//get list of layers to publish
     	//the list is composed of layer's name of metadata.
-    	// a layer to publih is a layer that has : changed=true && asked==true && licence=preference.licence
+    	//a layer to publish is a layer that has : changed=true && asked==true && licence=preference.licence
     
     	//0) initiate context for crud operations
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
@@ -472,17 +519,34 @@ public class PublisherController {
     	context.close();
     	
     }
-    
+    /**
+     * 
+     * @return parameters
+     */
     public Parameters getParameters() {
 		return parameters;
 	}
-
+    
+    /**
+     * 
+     * @param parameters
+     */
 	public void setParameters(Parameters parameters) {
 		this.parameters = parameters;
 	}
+	
+	/**
+	 * 
+	 * @return urls_services
+	 */
 	public List<String> getUrls_services() {
 		return urls_services;
 	}
+	
+	/**
+	 * 
+	 * @param urls_services
+	 */
 	public void setUrls_services(List<String> urls_services) {
 		this.urls_services = urls_services;
 	}

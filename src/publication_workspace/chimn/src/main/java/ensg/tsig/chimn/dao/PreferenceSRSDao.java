@@ -5,7 +5,10 @@ import java.util.List;
 import ensg.tsig.chimn.entities.PreferenceSRS;
 import org.springframework.data.repository.CrudRepository;
 
-
+/**
+ * 
+ *
+ */
 public interface PreferenceSRSDao extends CrudRepository<PreferenceSRS, String> {
 	
 

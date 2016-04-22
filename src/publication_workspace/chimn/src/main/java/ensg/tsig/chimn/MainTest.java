@@ -20,16 +20,17 @@ import net.sargue.mailgun.Configuration;
 import net.sargue.mailgun.MailBuilder;
 
 /**
- * @author hanane
+ *
  *
  */
 public class MainTest {
 	public static void main(String[] args) {
-		/*****testing path for logs
+		/**testing path for logs
 		 
 		 
 		String st = System.getenv("CATALINA_HOME");
 		       System.out.println("Current relative path is: " + st);*/
+		
 		Configuration configuration = new Configuration()
 			    .domain(".mailgun.org")
 			    .apiKey("key-")

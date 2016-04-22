@@ -6,6 +6,10 @@ import ensg.tsig.chimn.entities.PreferenceService;
 
 import org.springframework.data.repository.CrudRepository;
 
+/**
+ * 
+ *
+ */
 public interface PreferenceServiceDao extends CrudRepository<PreferenceService, Long> {
 	
 	public List<PreferenceService> findById(int id);

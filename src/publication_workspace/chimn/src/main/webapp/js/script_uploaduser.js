@@ -74,7 +74,7 @@
 
     if (FormatChoice !=="vide" && srsChoice !=="vide"){
         var result = tlurl + FormatChoice + "/EPSG-" + srsChoice + "/" + titledata + ".zip";
-        alert(result);
+        //alert(result);
         /*url pour le téléversement*/
         window.location.href=result;
     }

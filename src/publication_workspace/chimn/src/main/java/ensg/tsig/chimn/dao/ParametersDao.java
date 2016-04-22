@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import ensg.tsig.chimn.entities.Parameters;
 
 /**
- * @author hanane
+ * 
  *
  */
 public interface ParametersDao extends CrudRepository<Parameters, Long> {

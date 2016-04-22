@@ -15,30 +15,64 @@ public class PreferenceService {
 	private boolean activated;
 	private String style;
 	
+	/**
+	 * 
+	 * @return id
+	 */
 	public Long getId() {
 		return id;
 	}
+	/**
+	 * 
+	 * @param id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+	/**
+	 * 
+	 * @return namesv
+	 */
 	public String getNamesv() {
 		return namesv;
 	}
+	
+	/**
+	 * 
+	 * @param namesv
+	 */
 	public void setNamesv(String namesv) {
 		this.namesv = namesv;
 	}
 	
+	/**
+	 * 
+	 * @return activated
+	 */
 	public boolean isActivated() {
 		return activated;
 	}
+	
+	/**
+	 * 
+	 * @param activated
+	 */
 	public void setActivated(boolean activated) {
 		this.activated = activated;
 	}
 	
+	/**
+	 * 
+	 * @return style
+	 */
 	public String getStyle() {
 		return style;
 	}
+	
+	/**
+	 * 
+	 * @param style
+	 */
 	public void setStyle(String style) {
 		this.style = style;
 	}
